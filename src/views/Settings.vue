@@ -7,9 +7,8 @@
     let savingText = "Saving Data";
 
     const store = globalStore();
-    const {department, departments, internalRank, name, rank, signature, updateState} = store
+    const {internalRank, name, rank, signature, updateState} = store
 
-    const savedDept = ref(department)
     const savedInternalRank = ref(internalRank)
     const savedName = ref(name)
     const savedRank = ref(rank)
@@ -22,7 +21,6 @@
     const updateRank = () => store.rank = savedRank.value;
     const updateSignature = () => store.signature = savedSignature.value;
     const updateDepartment = (elm) => {
-        store.department = savedDept.value
         store.rank = elm.target.selectedOptions[0].label
         store.siteLogo = store.logos[savedDept.value]
     }
@@ -35,12 +33,10 @@
         store.loading = true
         setTimeout(async () => {
             await updateState({
-                department: savedDept.value,
                 internalRank: savedInternalRank.value,
                 name: savedName.value,
                 rank: savedRank.value,
                 signature: savedSignature.value,
-                siteLogo: store.logos[savedDept.value],
             })
             store.loading = false
         }, 500);

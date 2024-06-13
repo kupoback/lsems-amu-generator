@@ -5,7 +5,7 @@
 
 <script>
     export default {
-        name: "DB Paperwork App",
+        name: "LSEMS AMU Paperwork App",
     };
 </script>
 

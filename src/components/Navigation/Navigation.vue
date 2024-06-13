@@ -34,12 +34,24 @@
         <template #default="{isShowMenu}">
             <FwbNavbarCollapse :is-show-menu="isShowMenu" class="flex flex-1 w-full justify-center md:w-auto mx-auto md:mx-2 md:px-2">
                 <li>
-                    <RouterLink v-for="({hideFrontEnd, name, path}) in routes"
-                                v-if="!hideFrontEnd"
+                    <RouterLink v-for="({children, name, path}) in routes"
                                 :key="name"
                                 :to="path"
                                 class="rounded-md p-2 md:px-3 md:py-2 text-sm font-bold dark:text-white">
                         {{name}}
+<!--                        <svg v-if="children" class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">-->
+<!--                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>-->
+<!--                        </svg>-->
+<!--                        <ul v-if="children">-->
+<!--                            <li>-->
+<!--                                <RouterLink v-for="({children, name, path}) in children"-->
+<!--                                            :key="name"-->
+<!--                                            :to="path"-->
+<!--                                            class="rounded-md p-2 md:px-3 md:py-2 text-sm font-bold dark:text-white">-->
+<!--                                    {{name}}-->
+<!--                                </RouterLink>-->
+<!--                            </li>-->
+<!--                        </ul>-->
                     </RouterLink>
                 </li>
             </FwbNavbarCollapse>

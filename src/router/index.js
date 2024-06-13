@@ -1,16 +1,51 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 import Home from "@view/Home.vue";
-import CaseFile from "@view/CaseFile.vue";
-import Modules from "@view/Modules.vue";
+import PatientFile from "@view/PatientFile.vue";
 import Settings from "@view/Settings.vue";
 import NotFound from "@view/NotFound.vue";
+import VisitationReport from "@view/VisitationReport.vue";
+import AppointmentFormat from "@view/AppointmentFormat.vue";
+import Prescription from "@view/Prescription.vue";
+import PilotsLicense from "@view/PilotsLicense.vue";
 
 export const routes = [
     {
         path: "/",
         name: "Home",
         component: Home,
+    },
+    {
+        path: "/patient-file",
+        name: "Patient File",
+        component: PatientFile,
+        // children: [
+        //     {
+        //         path: "/patient-file",
+        //         name: "Patient File",
+        //         component: PatientFile,
+        //     }
+        // ]
+    },
+    {
+        path: "/visitation-report",
+        name: "Visitation Report",
+        component: VisitationReport,
+    },
+    {
+        path: "/appointment-format",
+        name: "Appointment Format",
+        component: AppointmentFormat,
+    },
+    {
+        path: "/prescription",
+        name: "Prescription",
+        component: Prescription,
+    },
+    {
+        path: "/pilots-license",
+        name: "Pilot Examination",
+        component: PilotsLicense,
     },
     // {
     //     path: "/casefile",
@@ -30,7 +65,7 @@ export const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(),
     routes: [
         ...routes,
         {
