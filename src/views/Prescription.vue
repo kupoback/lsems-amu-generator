@@ -62,7 +62,7 @@
                     </p>
                     <div class="flex">
                         <!-- Start Date -->
-                        <fieldset class="my-8 w-6/12 pr-2">
+                        <fieldset class="mt-8 w-6/12 pr-2">
                             <label for="start-date"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
                             <VueTailwindDatepicker
@@ -74,7 +74,7 @@
                                 @focusout="updateState('startDate', startDate)"/>
                         </fieldset>
                         <!-- Expiration Date -->
-                        <fieldset class="my-8 w-6/12 pl-2">
+                        <fieldset class="mt-8 w-6/12 pl-2">
                             <label for="end-date"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
                             <VueTailwindDatepicker

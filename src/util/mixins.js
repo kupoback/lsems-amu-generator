@@ -58,5 +58,5 @@ export const calculateBmi = (height, weight) => {
 }
 
 export const dateToUtc = date => {
-    
+
 }
