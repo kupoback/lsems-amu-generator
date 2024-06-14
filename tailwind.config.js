@@ -11,15 +11,16 @@ module.exports = {
         "./node_modules/vue-tailwind/dist/*.js",
         './node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx}',
         './node_modules/flowbite/**/*.{js,jsx,ts,tsx}',
+        "./node_modules/vue-tailwind-datepicker/**/*.js",
     ],
     theme: {
         colors: {
-            ...colors,
-            'blue': {
-                ...colors.blue,
-                400: dbBlue,
-                800: dbDarkBlue,
-            },
+            // ...colors,
+            // 'blue': {
+            //     ...colors.blue,
+            //     400: dbBlue,
+            //     800: dbDarkBlue,
+            // },
         },
         extend: {
             colors: {

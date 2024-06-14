@@ -16,7 +16,7 @@
     };
     const isDark = computed(() => store.darkMode)
     const logo = computed(() => store.siteLogo)
-    const name = computed(() => store.name || '')
+    const name = computed(() => store.userData.name || '')
 </script>
 
 <template>

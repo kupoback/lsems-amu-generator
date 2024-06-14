@@ -1,21 +1,22 @@
-export const generatePrescription = ({
-    fullName,
-    phoneNumber,
-    diagnosis,
-    prescription,
-    startDate,
-    duration,
-}, {internalRank, name, rank, signature}) => {
+export const generatePrescription = (
+    {
+        fullName,
+        phoneNumber,
+        diagnosis,
+        prescription,
+        startDate,
+        endDate,
+    }, {
+        internalRank,
+        name,
+        rank,
+        signature
+    },
+    destination,
+) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-
-        const createEndDate = () => {
-            // Generate the End Date based on the duration
-
-            return '';
-        }
-
         const template = `[img]https://i.imgur.com/9iRWEvN.png[/img]
 [lsemssubtitle]INFORMATION[/lsemssubtitle]
 [divbox=white][b]Patient's Name:[/b] ${fullName}
@@ -28,7 +29,7 @@ export const generatePrescription = ({
 [hr][/hr]
 [b]Starting on:[/b] ${startDate}
 [hr][/hr]
-[b]Expiring on:[/b] ${createEndDate}
+[b]Expiring on:[/b] ${endDate}
 [hr][/hr]
 [center][color=blue][b]
 
@@ -47,5 +48,6 @@ Los Santos Advanced Medicine Division[/b]
             () => {},
             e => console.error(e),
         )
+        window.open(destination, "_blank")
     }
 }

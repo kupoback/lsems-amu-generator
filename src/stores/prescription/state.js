@@ -6,7 +6,7 @@ const defaultData = {
     diagnosis: '',
     prescription: '',
     startDate: '',
-    duration: '',
+    endDate: '',
 }
 
 export default ({

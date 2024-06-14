@@ -27,7 +27,7 @@ const defaultData = {
     // Pre-Operative Examination
     completeBloodCount: '',
     xRay: '',
-    ECG: '',
+    ecg: '',
     urinalysis: '',
 }
 

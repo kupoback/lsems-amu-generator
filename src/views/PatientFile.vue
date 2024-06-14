@@ -1,13 +1,22 @@
 <script setup>
+    /**
+     * Vue Scripts
+     */
     import {globalStore} from "@/stores/global";
     import {patientFileStore} from "@/stores/patient-file";
-    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
-    import {reactive} from "vue";
+    import {generatePatientFile} from "@/templates/patient-file";
+    import {reactive, ref} from "vue";
     import router from "@/router";
+
+    /**
+     * Vue Components
+     */
+    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
+    import VueTailwindDatepicker from "vue-tailwind-datepicker";
     import InputField from "@component/FormComponents/InputField.vue";
     import FormButton from "@component/FormComponents/FormButton.vue";
 
-    const {internalRank, name, rank, signature} = globalStore();
+    const {links, userData} = globalStore();
     const store = patientFileStore();
     const {
         data,
@@ -40,25 +49,23 @@
         additionalNotes,
         completeBloodCount,
         xRay,
-        ECG,
+        ecg,
         urinalysis,
     } = reactive(data)
 
+    const formatter = ref({
+        date: 'DD/MMM/YYYY',
+        month: "MMM"
+    })
+
     const updateState = (field, value) => store.data[field] = value
-    // const setupContents = () => setupFile({additionalPersons, caseCrimeLogs, ...store.caseData}, {
-    //     name,
-    //     rank,
-    //     signature
-    // })
-    // const copyContents = () => setupContents()
-    // const copyContentsForGov = () => {
-    //     setupContents()
-    //     window.open('https://gov.eclipse-rp.net/posting.php?mode=post&f=3187', "_blank")
-    // }
-    // const reset = () => {
-    //     store.data = defaultData
-    //     router.go('/patient-file')
-    // };
+    const setupContents = () => generatePatientFile(data, userData, links.patientFile)
+    const copyContents = () => setupContents()
+    const copyContentsForGov = () => setupContents()
+    const reset = () => {
+        store.data = defaultData
+        router.go('/patient-file')
+    };
 
     const conversionHelperText = "If an imperial value is entered, this will be converted to metric."
 </script>
@@ -69,13 +76,18 @@
             <div class="mx-auto">
                 <div class="max-w-2xl mx-auto text-center pb-8">
                     <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Patient File</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
+                    <p class="mt-1 leading-6 text-gray-600 dark:text-white">
                         This page is used to create a patient file.
+                    </p>
+                    <p class="mt-1 leading-6 text-gray-600 dark:text-white">
+                        All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be
+                        auto-calculated.
                     </p>
                 </div>
                 <div class="pb-4">
                     <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">General Information</h3>
+                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">General
+                            Information</h3>
                     </div>
                     <!-- Full Name -->
                     <fieldset class="my-8">
@@ -88,12 +100,16 @@
                     </fieldset>
                     <!-- Date of Birth -->
                     <fieldset class="my-8">
-                        <FwbInput v-model="dateOfBirth"
-                                  placeholder="DD/MMM/YYYY"
-                                  label="Starting Date"
-                                  size="md"
-                                  @focusout="updateState('dateOfBirth', dateOfBirth)"
-                        />
+                        <label for="dob"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of
+                            Birth</label>
+                        <VueTailwindDatepicker
+                            v-model="dateOfBirth"
+                            id="dob"
+                            placeholder="DD/MMM/YYYY"
+                            as-single
+                            :formatter="formatter"
+                            @focusout="updateState('dateOfBirth', dateOfBirth)"/>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="placeOfBirth"
@@ -135,7 +151,7 @@
                                   @focusout="updateState('height', height)"
                         />
                         <p class="text-sm mt-1"
-                           v-html="conversionHelperText" />
+                           v-html="`${conversionHelperText} Do not use ft or in.`"/>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="weight"
@@ -145,7 +161,7 @@
                                   @focusout="updateState('weight', weight)"
                         />
                         <p class="text-sm mt-1"
-                           v-html="conversionHelperText" />
+                           v-html="`${conversionHelperText} Use lbs or pounds for Imperial.`"/>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="bloodType"
@@ -167,7 +183,8 @@
 
                 <div class="pb-4">
                     <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular Examination</h3>
+                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular
+                            Examination</h3>
                     </div>
                     <fieldset class="my-8">
                         <FwbTextarea v-model="generalScreening"
@@ -180,6 +197,7 @@
                     <fieldset class="my-8">
                         <FwbInput v-model="ecgBand"
                                   placeholder="55"
+                                  type="number"
                                   label="ECG Band"
                                   size="md"
                                   @focusout="updateState('ecgBand', ecgBand)"
@@ -196,13 +214,14 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="temperature"
-                                  placeholder="37C"
+                                  placeholder="37"
                                   label="Temperature"
+                                  type="number"
                                   size="md"
                                   @focusout="updateState('temperature', temperature)"
                         />
                         <p class="text-sm mt-1"
-                           v-html="conversionHelperText" />
+                           v-html="conversionHelperText"/>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="bloodPressure"
@@ -221,15 +240,6 @@
                                      rows="2"
                                      @focusout="updateState('auscultation', auscultation)"
                         />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput v-model="bmi"
-                                  placeholder="20,1"
-                                  label="BMI"
-                                  size="md"
-                                  @focusout="updateState('bmi', bmi)"
-                        />
-                        <p class="text-sm mt-1">This value will be auto calculated based on age, height, and weight.</p>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea v-model="coverTest"
@@ -267,7 +277,8 @@
 
                 <div class="pb-4">
                     <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular Examination</h3>
+                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular
+                            Examination</h3>
                     </div>
 
                     <fieldset class="my-8">
@@ -289,11 +300,11 @@
                     </fieldset>
 
                     <fieldset class="my-8">
-                        <FwbTextarea v-model="ECG"
+                        <FwbTextarea v-model="ecg"
                                      placeholder="Test results indicate..."
                                      label="ECG Test"
                                      size="md"
-                                     @focusout="updateState('ECG', ECG)"
+                                     @focusout="updateState('ecg', ecg)"
                         />
                     </fieldset>
 
@@ -308,24 +319,24 @@
                 </div>
 
                 <div class="max-w-2xl flex md:block justify-between">
-<!--                    <FwbButton color="default"-->
-<!--                               size="lg"-->
-<!--                               class="md:mr-4"-->
-<!--                               @click="copyContentsForGov">-->
-<!--                        Copy to Gov-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="yellow"-->
-<!--                               size="lg"-->
-<!--                               class="md:mx-4"-->
-<!--                               @click="copyContents">-->
-<!--                        Copy-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="red"-->
-<!--                               size="lg"-->
-<!--                               class="md:ml-4"-->
-<!--                               @click="reset">-->
-<!--                        Clear-->
-<!--                    </FwbButton>-->
+                    <FwbButton color="default"
+                               size="lg"
+                               class="md:mr-4"
+                               @click="copyContentsForGov">
+                        Copy to Gov
+                    </FwbButton>
+                    <FwbButton color="yellow"
+                               size="lg"
+                               class="md:mx-4"
+                               @click="copyContents">
+                        Copy
+                    </FwbButton>
+                    <FwbButton color="red"
+                               size="lg"
+                               class="md:ml-4"
+                               @click="reset">
+                        Clear
+                    </FwbButton>
                 </div>
             </div>
             <div id="output"></div>
@@ -339,8 +350,7 @@
 
     export default {
         computed: {
-            ...mapState(patientFileStore, {
-            })
+            ...mapState(patientFileStore, {})
         }
     }
 </script>

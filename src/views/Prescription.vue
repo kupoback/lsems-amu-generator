@@ -2,13 +2,14 @@
     import {globalStore} from "@/stores/global";
     import {prescriptionStore} from "@/stores/prescription";
     import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
-    import {reactive} from "vue";
+    import {reactive, ref} from "vue";
     import router from "@/router";
     import {generatePrescription} from "@/templates/prescription";
     import InputField from "@component/FormComponents/InputField.vue";
     import FormButton from "@component/FormComponents/FormButton.vue";
+    import VueTailwindDatepicker from "vue-tailwind-datepicker";
 
-    const {internalRank, name, rank, signature} = globalStore();
+    const {userData} = globalStore();
     const store = prescriptionStore();
     const {
         data,
@@ -23,24 +24,24 @@
         diagnosis,
         prescription,
         startDate,
-        duration,
+        endDate,
     } = reactive(data)
 
-    const updateState = (field, value) => store.data[field] = value
-    const setupContents = () => generatePrescription(store.data, {
-        internalRank,
-        name,
-        rank,
-        signature
+    const formatter = ref({
+        date: 'DD/MMM/YYYY HH:ss',
+        month: 'MMM',
     })
+
+    const updateState = (field, value) => store.data[field] = value
+    const setupContents = () => generatePrescription(store.data, userData)
     const copyContents = () => setupContents()
     // const copyContentsForGov = () => {
     //     setupContents()
-    //     window.open('https://gov.eclipse-rp.net/posting.php?mode=post&f=3187', "_blank")
+    //     window.open('https://gov.eclipse-rp.net/viewforum.php?f=1223', "_blank")
     // }
     const reset = () => {
         store.data = defaultData
-        // router.go('/appointment-format')
+        router.go('/prescription')
     };
 
 </script>
@@ -56,6 +57,35 @@
                     </p>
                 </div>
                 <div class="pb-4">
+                    <p class="mt-1 leading-6 text-gray-600 dark:text-white">
+                        The dates will be converted to UTC
+                    </p>
+                    <div class="flex">
+                        <!-- Start Date -->
+                        <fieldset class="my-8 w-6/12 pr-2">
+                            <label for="start-date"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                            <VueTailwindDatepicker
+                                v-model="startDate"
+                                id="start-date"
+                                placeholder="DD/MMM/YYYY HH:ss"
+                                as-single
+                                :formatter="formatter"
+                                @focusout="updateState('startDate', startDate)"/>
+                        </fieldset>
+                        <!-- Expiration Date -->
+                        <fieldset class="my-8 w-6/12 pl-2">
+                            <label for="end-date"
+                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                            <VueTailwindDatepicker
+                                v-model="endDate"
+                                id="end-date"
+                                placeholder="DD/MMM/YYYY HH:ss"
+                                as-single
+                                :formatter="formatter"
+                                @focusout="updateState('endDate', endDate)"/>
+                        </fieldset>
+                    </div>
                     <!-- Full Name -->
                     <fieldset class="my-8">
                         <FwbInput v-model="fullName"
@@ -90,24 +120,6 @@
                                   label="Medication Prescribed"
                                   size="md"
                                   @focusout="updateState('prescription', prescription)"
-                        />
-                    </fieldset>
-                    <!-- Start Date -->
-                    <fieldset class="my-8">
-                        <FwbInput v-model="startDate"
-                                  placeholder="DD/MMM/YYYY XX:XX"
-                                  label="Date of Appointment"
-                                  size="md"
-                                  @focusout="updateState('startDate', startDate)"
-                        />
-                    </fieldset>
-                    <!-- Expiration Date -->
-                    <fieldset class="my-8">
-                        <FwbInput v-model="duration"
-                                  placeholder="12"
-                                  label="Number of Months Prescribed"
-                                  size="md"
-                                  @focusout="updateState('duration', duration)"
                         />
                     </fieldset>
                 </div>
