@@ -1,4 +1,4 @@
-import {calculateBmi, convertHeightToCm, convertWeightToKg, formatTemperature} from "@/util/mixins";
+import {calculateBmi, convertHeightToCm, convertWeightToKg, formatTemperature} from '@/util/mixins'
 
 export const generatePatientFile = (
     {
@@ -29,6 +29,7 @@ export const generatePatientFile = (
     },
     {internalRank, name, rank, signature},
     destination,
+    newPage = false,
 ) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
@@ -64,7 +65,7 @@ ${generalScreening}
 [hr]
 [b]ECG Band:[/b] ${ecgBand}
 [hr]
-[b]Oximeter:[/b] ${oximetry}%
+[b]Oximeter:[/b] ${oximetry && oximetry + '%'}
 [hr]
 [b]Temperature:[/b] ${temperature && formatTemperature(temperature) + 'C'}
 [hr]
@@ -73,6 +74,7 @@ ${generalScreening}
 [b]Auscultation:[/b] ${auscultation}
 [hr]
 [b]BMI:[/b] ${calculateBmi(height, weight)}
+[hr]
 [b]Cover Test:[/b]
 ${coverTest}
 [hr]
@@ -113,6 +115,6 @@ ${urinalysis}
             () => {},
             e => console.error(e),
         )
-        window.open(destination, "_blank")
+        newPage && window.open(destination, '_blank')
     }
 }

@@ -1,10 +1,17 @@
 <script setup>
+    /**
+     * Vue Scripts
+     */
     import {globalStore} from "@/stores/global";
     import {prescriptionStore} from "@/stores/prescription";
-    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
+    import {generatePrescription} from "@/templates/patient/prescription";
     import {reactive, ref} from "vue";
     import router from "@/router";
-    import {generatePrescription} from "@/templates/prescription";
+
+    /**
+     * Vue Components
+     */
+    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
     import InputField from "@component/FormComponents/InputField.vue";
     import FormButton from "@component/FormComponents/FormButton.vue";
     import VueTailwindDatepicker from "vue-tailwind-datepicker";

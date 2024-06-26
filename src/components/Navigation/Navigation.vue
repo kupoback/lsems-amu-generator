@@ -3,7 +3,8 @@
     import {globalStore} from "@/stores/global";
     import {computed} from "vue";
     import {routes} from "@/router";
-    import {FwbNavbar, FwbNavbarCollapse} from "flowbite-vue";
+import { FwbNavbar, FwbNavbarCollapse, FwbDropdown, FwbListGroup, FwbListGroupItem } from "flowbite-vue";
+    import NavItems from "@/components/Navigation/Components/NavItems.vue"
 
     const store = globalStore();
     const docBodyClass = document.body.classList;
@@ -33,27 +34,13 @@
         </template>
         <template #default="{isShowMenu}">
             <FwbNavbarCollapse :is-show-menu="isShowMenu" class="flex flex-1 w-full justify-center md:w-auto mx-auto md:mx-2 md:px-2">
-                <li>
-                    <RouterLink v-for="({children, name, path}) in routes"
+                <NavItems v-for="({children, lowerName, name, path}) in routes"
                                 :key="name"
-                                :to="path"
-                                class="rounded-md p-2 md:px-3 md:py-2 text-sm font-bold dark:text-white">
-                        {{name}}
-<!--                        <svg v-if="children" class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">-->
-<!--                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>-->
-<!--                        </svg>-->
-<!--                        <ul v-if="children">-->
-<!--                            <li>-->
-<!--                                <RouterLink v-for="({children, name, path}) in children"-->
-<!--                                            :key="name"-->
-<!--                                            :to="path"-->
-<!--                                            class="rounded-md p-2 md:px-3 md:py-2 text-sm font-bold dark:text-white">-->
-<!--                                    {{name}}-->
-<!--                                </RouterLink>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-                    </RouterLink>
-                </li>
+                                :children="children"
+                                :lowerName="lowerName"
+                                :name="name"
+                                :path="path"
+                                 />
             </FwbNavbarCollapse>
         </template>
         <template #right-side>

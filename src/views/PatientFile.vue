@@ -4,7 +4,7 @@
      */
     import {globalStore} from "@/stores/global";
     import {patientFileStore} from "@/stores/patient-file";
-    import {generatePatientFile} from "@/templates/patient-file";
+    import {generatePatientFile} from "@/templates/patient/patient-file";
     import {reactive, ref} from "vue";
     import router from "@/router";
 
@@ -59,9 +59,9 @@
     })
 
     const updateState = (field, value) => store.data[field] = value
-    const setupContents = () => generatePatientFile(data, userData, links.patientFile)
+    const setupContents = (newPage = false) => generatePatientFile(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents()
+    const copyContentsForGov = () => setupContents(true)
     const reset = () => {
         store.data = defaultData
         router.go('/patient-file')
@@ -183,8 +183,7 @@
 
                 <div class="pb-4">
                     <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular
-                            Examination</h3>
+                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular Examination</h3>
                     </div>
                     <fieldset class="my-8">
                         <FwbTextarea v-model="generalScreening"
@@ -277,8 +276,7 @@
 
                 <div class="pb-4">
                     <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Regular
-                            Examination</h3>
+                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Pre-Operative Tests</h3>
                     </div>
 
                     <fieldset class="my-8">

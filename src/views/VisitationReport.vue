@@ -1,13 +1,23 @@
 <script setup>
+    /**
+     * Vue Scripts
+     */
     import {globalStore} from "@/stores/global";
     import {visitationStore} from "@/stores/visitation";
-    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
-    import {reactive} from "vue";
+    import {generateVisitationReport} from "@/templates/patient/visitation-report";
+    import {reactive, ref} from "vue";
     import router from "@/router";
+
+
+    /**
+     * Vue components
+     */
+    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
+    import VueTailwindDatepicker from "vue-tailwind-datepicker";
     import InputField from "@component/FormComponents/InputField.vue";
     import FormButton from "@component/FormComponents/FormButton.vue";
 
-    const {internalRank, name, rank, signature} = globalStore();
+    const {links, userData} = globalStore();
     const store = visitationStore();
     const {
         data,
@@ -24,21 +34,19 @@
         visitReport,
     } = reactive(data)
 
+    const formatter = ref({
+        date: 'DD/MMM/YYYY',
+        month: "MMM"
+    })
+
     const updateState = (field, value) => store.data[field] = value
-    // const setupContents = () => setupFile({additionalPersons, caseCrimeLogs, ...store.caseData}, {
-    //     name,
-    //     rank,
-    //     signature
-    // })
-    // const copyContents = () => setupContents()
-    // const copyContentsForGov = () => {
-    //     setupContents()
-    //     window.open('https://gov.eclipse-rp.net/posting.php?mode=post&f=3187', "_blank")
-    // }
-    // const reset = () => {
-    //     store.data = defaultData
-    //     router.go('/visitation-report')
-    // };
+    const setupContents = (newPage = false) => generateVisitationReport(data, userData, links.patientFile, newPage)
+    const copyContents = () => setupContents()
+    const copyContentsForGov = () => setupContents(true)
+    const reset = () => {
+        store.data = defaultData
+        router.go('/visitation-report')
+    };
 
 </script>
 
@@ -53,15 +61,19 @@
                     </p>
                 </div>
                 <div class="pb-4">
-                    <!-- Date of Birth -->
+                    <!-- Date of Visit -->
                     <fieldset class="my-8">
-                        <FwbInput v-model="dateOfVisit"
-                                  placeholder="DD/MMM/YYYY"
-                                  label="Date of Visit"
-                                  size="lg"
-                                  @focusout="updateState('dateOfVisit', dateOfVisit)"
-                        />
+                        <label for="dob"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Visit</label>
+                        <VueTailwindDatepicker
+                            v-model="dateOfVisit"
+                            id="dob"
+                            placeholder="DD/MMM/YYYY"
+                            as-single
+                            :formatter="formatter"
+                            @focusout="updateState('dateOfVisit', dateOfVisit)" />
                     </fieldset>
+                    <!-- Reason for Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea v-model="reasonForVisit"
                                      placeholder="Patient stated that..."
@@ -70,6 +82,7 @@
                                      @focusout="updateState('reasonForVisit', reasonForVisit)"
                         />
                     </fieldset>
+                    <!-- Diagnosis -->
                     <fieldset class="my-8">
                         <FwbTextarea v-model="diagnosis"
                                      placeholder="Patient is diagnosed with..."
@@ -78,14 +91,16 @@
                                      @focusout="updateState('diagnosis', diagnosis)"
                         />
                     </fieldset>
+                    <!-- Personal Present -->
                     <fieldset class="my-8">
                         <FwbInput v-model="personalPresent"
-                                  placeholder="Doctor..."
+                                  placeholder="Doctor Names..."
                                   label="Personal Present"
                                   size="md"
                                   @focusout="updateState('personalPresent', personalPresent)"
                         />
                     </fieldset>
+                    <!-- Visit Report Summary -->
                     <fieldset class="my-8">
                         <FwbTextarea v-model="visitReport"
                                      placeholder="Visit summary..."
@@ -97,24 +112,24 @@
                 </div>
 
                 <div class="max-w-2xl flex md:block justify-between">
-<!--                    <FwbButton color="default"-->
-<!--                               size="lg"-->
-<!--                               class="md:mr-4"-->
-<!--                               @click="copyContentsForGov">-->
-<!--                        Copy to Gov-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="yellow"-->
-<!--                               size="lg"-->
-<!--                               class="md:mx-4"-->
-<!--                               @click="copyContents">-->
-<!--                        Copy-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="red"-->
-<!--                               size="lg"-->
-<!--                               class="md:ml-4"-->
-<!--                               @click="reset">-->
-<!--                        Clear-->
-<!--                    </FwbButton>-->
+                   <FwbButton color="default"
+                              size="lg"
+                              class="md:mr-4"
+                              @click="copyContentsForGov">
+                       Copy to Gov
+                   </FwbButton>
+                   <FwbButton color="yellow"
+                              size="lg"
+                              class="md:mx-4"
+                              @click="copyContents">
+                       Copy
+                   </FwbButton>
+                   <FwbButton color="red"
+                              size="lg"
+                              class="md:ml-4"
+                              @click="reset">
+                       Clear
+                   </FwbButton>
                 </div>
             </div>
             <div id="output"></div>

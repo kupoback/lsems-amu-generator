@@ -1,13 +1,22 @@
 <script setup>
+    /**
+     * Vue Scripts
+     */
     import {globalStore} from "@/stores/global";
     import {pilotsLicenseStore} from "@/stores/pilots-license";
-    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
-    import {reactive} from "vue";
+    import {generateSaaaPilots} from "@/templates/patient/saaa-pilots"
+    import {generateSaaaPilotsCert} from "@/templates/patient/saaa-pilots-cert"
+    import {reactive, ref} from "vue";
     import router from "@/router";
+
+    /**
+     * Vue Components
+     */
+    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
     import InputField from "@component/FormComponents/InputField.vue";
     import FormButton from "@component/FormComponents/FormButton.vue";
 
-    const {internalRank, name, rank, signature} = globalStore();
+    const {links, userData} = globalStore();
     const store = pilotsLicenseStore();
     const {
         data,
@@ -19,9 +28,9 @@
     const {
         fullName,
         phoneNumber,
+        medications,
         height,
         weight,
-        bmi,
         oximetry,
         temperature,
         bloodPressure,
@@ -37,20 +46,14 @@
     } = reactive(data)
 
     const updateState = (field, value) => store.data[field] = value
-    // const setupContents = () => setupFile({additionalPersons, caseCrimeLogs, ...store.caseData}, {
-    //     name,
-    //     rank,
-    //     signature
-    // })
-    // const copyContents = () => setupContents()
-    // const copyContentsForGov = () => {
-    //     setupContents()
-    //     window.open('https://gov.eclipse-rp.net/posting.php?mode=post&f=3187', "_blank")
-    // }
-    // const reset = () => {
-    //     store.data = defaultData
-    //     router.go('/patient-file')
-    // };
+    const setupContents = (newPage = false) => generateAppointmentFormat(data, userData, links.patientFile, newPage)
+    const copyContents = () => setupContents()
+    const copyContentsForGov = () => setupContents(true)
+    const copyContentsForSaaa = () => generateSaaaPilotsCert(data, userData, links.saaaCert, true)
+    const reset = () => {
+        store.data = defaultData
+        router.go('/patient-file')
+    };
 
     const conversionHelperText = "If an imperial value is entered, this will be converted to metric."
 </script>
@@ -63,6 +66,9 @@
                     <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Pilot's Evaluation File</h2>
                     <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
                         This page is used to create a pilot's evaluation file.
+                    </p>
+                    <p class="mt-1 leading-6 text-gray-600 dark:text-white">
+                        All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated.
                     </p>
                 </div>
                 <div class="pb-4">
@@ -86,6 +92,15 @@
                                   @focusout="updateState('phoneNumber', phoneNumber)"
                         />
                     </fieldset>
+
+                    <fieldset class="my-8">
+                        <FwbInput v-model="medications"
+                                  placeholder="Drug listing"
+                                  label="Medications"
+                                  size="md"
+                                  @focusout="updateState('medications', medications)"
+                        />
+                    </fieldset>
                 </div>
 
                 <div class="pb-4">
@@ -100,7 +115,7 @@
                                   @focusout="updateState('height', height)"
                         />
                         <p class="text-sm mt-1"
-                           v-html="conversionHelperText" />
+                           v-html="`${conversionHelperText} Do not use ft or in.`"/>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="weight"
@@ -110,16 +125,7 @@
                                   @focusout="updateState('weight', weight)"
                         />
                         <p class="text-sm mt-1"
-                           v-html="conversionHelperText" />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput v-model="bmi"
-                                  placeholder="20,1"
-                                  label="BMI"
-                                  size="md"
-                                  @focusout="updateState('bmi', bmi)"
-                        />
-                        <p class="text-sm mt-1">This value will be auto calculated based on age, height, and weight.</p>
+                           v-html="`${conversionHelperText} Use lbs or pounds for Imperial.`"/>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="oximetry"
@@ -230,24 +236,30 @@
                 </div>
 
                 <div class="max-w-2xl flex md:block justify-between">
-<!--                    <FwbButton color="default"-->
-<!--                               size="lg"-->
-<!--                               class="md:mr-4"-->
-<!--                               @click="copyContentsForGov">-->
-<!--                        Copy to Gov-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="yellow"-->
-<!--                               size="lg"-->
-<!--                               class="md:mx-4"-->
-<!--                               @click="copyContents">-->
-<!--                        Copy-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="red"-->
-<!--                               size="lg"-->
-<!--                               class="md:ml-4"-->
-<!--                               @click="reset">-->
-<!--                        Clear-->
-<!--                    </FwbButton>-->
+                   <FwbButton color="default"
+                              size="lg"
+                              class="md:mr-4"
+                              @click="copyContentsForGov">
+                       Copy to Gov
+                   </FwbButton>
+                   <FwbButton color="yellow"
+                              size="lg"
+                              class="md:mx-4"
+                              @click="copyContents">
+                       Copy
+                   </FwbButton>
+                   <FwbButton color="green"
+                              size="lg"
+                              class="md:mx-4"
+                              @click="copyContentsForSaaa">
+                       Copy Certificate
+                   </FwbButton>
+                   <FwbButton color="red"
+                              size="lg"
+                              class="md:ml-4"
+                              @click="reset">
+                       Clear
+                   </FwbButton>
                 </div>
             </div>
             <div id="output"></div>

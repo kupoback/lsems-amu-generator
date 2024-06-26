@@ -1,13 +1,13 @@
-import { useStorage } from "@vueuse/core";
+import {useStorage} from '@vueuse/core'
 
 const defaultData = {
     // General Information
     fullName: '',
     phoneNumber: '',
+    medications: '',
     // Physical Examination
     height: '',
     weight: '',
-    bmi: '',
     oximetry: '',
     temperature: '',
     bloodPressure: '',
@@ -23,10 +23,7 @@ const defaultData = {
     historyOfPsychosis: '',
 }
 
-export default ({
-    data: useStorage(
-        'pilotsLicenseData',
-        defaultData
-    ),
+export default {
+    data: useStorage('pilotsLicenseData', defaultData),
     defaultData,
-})
+}

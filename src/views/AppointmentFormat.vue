@@ -1,13 +1,22 @@
 <script setup>
+    /**
+     * Vue Scripts
+     */
     import {globalStore} from "@/stores/global";
     import {appointmentFormatStore} from "@/stores/appointment-format";
-    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
-    import {reactive} from "vue";
+    import {generateAppointmentFormat} from "@/templates/patient/appointment-format";
+    import {reactive, ref} from "vue";
     import router from "@/router";
+
+    /**
+     * Vue Components
+     */
+    import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
+    import VueTailwindDatepicker from "vue-tailwind-datepicker";
     import InputField from "@component/FormComponents/InputField.vue";
     import FormButton from "@component/FormComponents/FormButton.vue";
 
-    const {internalRank, name, rank, signature} = globalStore();
+    const {links, userData} = globalStore();
     const store = appointmentFormatStore();
     const {
         data,
@@ -22,21 +31,19 @@
         timeScheduled,
     } = reactive(data)
 
+    const formatter = ref({
+        date: 'DD/MMM/YYYY',
+        month: "MMM"
+    })
+
     const updateState = (field, value) => store.data[field] = value
-    // const setupContents = () => setupFile({additionalPersons, caseCrimeLogs, ...store.caseData}, {
-    //     name,
-    //     rank,
-    //     signature
-    // })
-    // const copyContents = () => setupContents()
-    // const copyContentsForGov = () => {
-    //     setupContents()
-    //     window.open('https://gov.eclipse-rp.net/posting.php?mode=post&f=3187', "_blank")
-    // }
-    // const reset = () => {
-    //     store.data = defaultData
-    //     router.go('/appointment-format')
-    // };
+    const setupContents = (newPage = false) => generateAppointmentFormat(data, userData, links.patientFile, newPage)
+    const copyContents = () => setupContents()
+    const copyContentsForGov = () => setupContents(true)
+    const reset = () => {
+        store.data = defaultData
+        router.go('/appointment-format')
+    };
 
 </script>
 
@@ -51,6 +58,19 @@
                     </p>
                 </div>
                 <div class="pb-4">
+                    <!-- Date of Appointment -->
+                    <fieldset class="my-8">
+                        <label for="dob"
+                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Appointment</label>
+                        <VueTailwindDatepicker
+                            v-model="dateOfAppointment"
+                            id="dob"
+                            placeholder="DD/MMM/YYYY"
+                            as-single
+                            :formatter="formatter"
+                            @focusout="updateState('dateOfAppointment', dateOfAppointment)" />
+                    </fieldset>
+                    <!-- Reason for the Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea v-model="reasonForVisit"
                                      placeholder="Patient stated that..."
@@ -59,45 +79,39 @@
                                      @focusout="updateState('reasonForVisit', reasonForVisit)"
                         />
                     </fieldset>
-                    <!-- Date of Birth -->
-                    <fieldset class="my-8">
-                        <FwbInput v-model="dateOfAppointment"
-                                  placeholder="DD/MMM/YYYY"
-                                  label="Date of Appointment"
-                                  size="md"
-                                  @focusout="updateState('dateOfAppointment', dateOfAppointment)"
-                        />
-                    </fieldset>
-                    <!-- Date of Birth -->
+                    <!-- Time Scheduled -->
                     <fieldset class="my-8">
                         <FwbInput v-model="timeScheduled"
                                   placeholder="20:00"
                                   label="Time Scheduled"
                                   size="md"
+                                  max="4"
                                   @focusout="updateState('timeScheduled', timeScheduled)"
                         />
+                        <p class="text-sm mt-1"
+                           v-html="`Time should be set in 24 hour format`"/>
                     </fieldset>
                 </div>
 
                 <div class="max-w-2xl flex md:block justify-between">
-<!--                    <FwbButton color="default"-->
-<!--                               size="lg"-->
-<!--                               class="md:mr-4"-->
-<!--                               @click="copyContentsForGov">-->
-<!--                        Copy to Gov-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="yellow"-->
-<!--                               size="lg"-->
-<!--                               class="md:mx-4"-->
-<!--                               @click="copyContents">-->
-<!--                        Copy-->
-<!--                    </FwbButton>-->
-<!--                    <FwbButton color="red"-->
-<!--                               size="lg"-->
-<!--                               class="md:ml-4"-->
-<!--                               @click="reset">-->
-<!--                        Clear-->
-<!--                    </FwbButton>-->
+                   <FwbButton color="default"
+                              size="lg"
+                              class="md:mr-4"
+                              @click="copyContentsForGov">
+                       Copy to Gov
+                   </FwbButton>
+                   <FwbButton color="yellow"
+                              size="lg"
+                              class="md:mx-4"
+                              @click="copyContents">
+                       Copy
+                   </FwbButton>
+                   <FwbButton color="red"
+                              size="lg"
+                              class="md:ml-4"
+                              @click="reset">
+                       Clear
+                   </FwbButton>
                 </div>
             </div>
             <div id="output"></div>
