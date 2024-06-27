@@ -1,12 +1,12 @@
 import {defineStore} from 'pinia'
 
 import globalActions from '@/stores/global/actions'
-import state from '@/stores/patient/patient-file/state'
-import patientFieldActions from '@/stores/patient/patient-file/actions'
+import state from '@/stores/patient/public-request/state'
+import publicRequestFieldActions from '@/stores/patient/public-request/actions'
 
 const defaultValues = state
 
-export const patientFileStore = defineStore('patientFileStore', {
+export const publicRequestStore = defineStore('publicRequestStore', {
     state: () => ({
         ...state,
         defaults: {
@@ -15,6 +15,6 @@ export const patientFileStore = defineStore('patientFileStore', {
     }),
     actions: {
         ...globalActions,
-        ...patientFieldActions,
+        ...publicRequestFieldActions,
     },
 })

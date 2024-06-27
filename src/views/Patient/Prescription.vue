@@ -12,8 +12,6 @@
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
-    import InputField from "@component/FormComponents/InputField.vue";
-    import FormButton from "@component/FormComponents/FormButton.vue";
     import VueTailwindDatepicker from "vue-tailwind-datepicker";
 
     const {userData} = globalStore();

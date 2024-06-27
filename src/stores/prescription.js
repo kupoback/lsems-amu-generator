@@ -1,23 +1,20 @@
-import { defineStore } from "pinia";
+import {defineStore} from 'pinia'
 
-import globalActions from "@/stores/global/actions";
-import state from "@/stores/prescription/state";
-import prescriptionFieldActions from "@/stores/prescription/actions";
+import globalActions from '@/stores/global/actions'
+import state from '@/stores/patient/prescription/state'
+import prescriptionFieldActions from '@/stores/patient/prescription/actions'
 
-const defaultValues = state;
+const defaultValues = state
 
-export const prescriptionStore = defineStore(
-    'prescriptionStore',
-    {
-        state: () => ({
-            ...state,
-            defaults: {
-                ...defaultValues,
-            }
-        }),
-        actions: {
-            ...globalActions,
-            ...prescriptionFieldActions
-        }
-    }
-)
+export const prescriptionStore = defineStore('prescriptionStore', {
+    state: () => ({
+        ...state,
+        defaults: {
+            ...defaultValues,
+        },
+    }),
+    actions: {
+        ...globalActions,
+        ...prescriptionFieldActions,
+    },
+})

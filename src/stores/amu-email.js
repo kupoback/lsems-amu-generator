@@ -1,12 +1,12 @@
 import {defineStore} from 'pinia'
 
 import globalActions from '@/stores/global/actions'
-import state from '@/stores/patient/patient-file/state'
-import patientFieldActions from '@/stores/patient/patient-file/actions'
+import state from '@/stores/email/amu-email/state'
+import amuEmailActions from '@/stores/email/amu-email/actions'
 
 const defaultValues = state
 
-export const patientFileStore = defineStore('patientFileStore', {
+export const amuEmailStore = defineStore('amuEmailStore', {
     state: () => ({
         ...state,
         defaults: {
@@ -15,6 +15,6 @@ export const patientFileStore = defineStore('patientFileStore', {
     }),
     actions: {
         ...globalActions,
-        ...patientFieldActions,
+        ...amuEmailActions,
     },
 })

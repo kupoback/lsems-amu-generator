@@ -1,13 +1,27 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 
+/**
+ * Global Components
+ */
 import Home from '@view/Home.vue'
-import PatientFile from '@view/PatientFile.vue'
 import Settings from '@view/Settings.vue'
 import NotFound from '@view/NotFound.vue'
-import VisitationReport from '@view/VisitationReport.vue'
-import AppointmentFormat from '@view/AppointmentFormat.vue'
-import Prescription from '@view/Prescription.vue'
-import PilotsLicense from '@view/PilotsLicense.vue'
+
+/**
+ * Patient Components
+ */
+import PatientFile from '@view/Patient/PatientFile.vue'
+import VisitationReport from '@view/Patient/VisitationReport.vue'
+import AppointmentFormat from '@view/Patient/AppointmentFormat.vue'
+import Prescription from '@view/Patient/Prescription.vue'
+import PilotsLicense from '@view/Patient/PilotsLicense.vue'
+import PublicRequest from '@view/Patient/PublicRequest.vue'
+
+/**
+ * Email Components
+ */
+import Email from '@view/Email/Email.vue'
+import AmuEmail from '@view/Email/AmuEmail.vue'
 
 export const routes = [
     {
@@ -45,6 +59,28 @@ export const routes = [
                 path: '/pilots-license',
                 name: 'Pilot Examination',
                 component: PilotsLicense,
+            },
+            {
+                path: '/public-request',
+                name: 'Public Request',
+                component: PublicRequest,
+            },
+        ],
+    },
+    {
+        path: '/email',
+        name: 'Email',
+        lowerName: 'email',
+        children: [
+            {
+                path: '/email',
+                name: 'Email',
+                component: Email,
+            },
+            {
+                path: '/amu-email',
+                name: 'Amu Email',
+                component: AmuEmail,
             },
         ],
     },

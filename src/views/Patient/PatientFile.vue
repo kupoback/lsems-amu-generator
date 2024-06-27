@@ -13,8 +13,6 @@
      */
     import {FwbButton, FwbInput, FwbTextarea} from "flowbite-vue";
     import VueTailwindDatepicker from "vue-tailwind-datepicker";
-    import InputField from "@component/FormComponents/InputField.vue";
-    import FormButton from "@component/FormComponents/FormButton.vue";
 
     const {links, userData} = globalStore();
     const store = patientFileStore();

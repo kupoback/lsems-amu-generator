@@ -1,0 +1,31 @@
+export const generatePublicRequest = ({fullName, contactDate, contactMethod, details}, {internalRank, name, rank, signature}, destination, newPage = false) => {
+    if (!internalRank || !name || !rank || !signature) {
+        alert('You need to make sure everything in Settings is filled out')
+    } else {
+        const template = `[img]https://i.imgur.com/Wxpv58D.png[/img]
+[divbox=white]
+[hr]
+[b]Patient Name:[/b] ${fullName}
+[hr]
+[b]Date / Time:[/b] ${contactDate}
+[hr]
+[b]Contact Method:[/b] ${contactMethod}
+[hr]
+[b]Details:[/b] ${details}
+[hr]
+[/divbox]
+[divbox=white]
+
+[img]${signature}[/img]
+[i]${name}[/i]
+[b][i]${internalRank} / ${rank}[/i]
+[b]Los Santos Emergency Medical Services[/b]
+[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
+
+        navigator.clipboard.writeText(template).then(
+            () => {},
+            e => console.error(e),
+        )
+        newPage && window.open(destination, '_blank')
+    }
+}
