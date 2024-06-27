@@ -46,7 +46,7 @@
     } = reactive(data)
 
     const updateState = (field, value) => store.data[field] = value
-    const setupContents = (newPage = false) => generateAppointmentFormat(data, userData, links.patientFile, newPage)
+    const setupContents = (newPage = false) => generateSaaaPilots(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
     const copyContentsForSaaa = () => generateSaaaPilotsCert(data, userData, links.saaaCert, true)
@@ -156,12 +156,11 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput v-model="auscultation"
-                                  placeholder="120/80"
+                                  placeholder="Lungs are... Heart is..."
                                   label="Auscultation"
                                   size="md"
                                   @focusout="updateState('auscultation', auscultation)"
                         />
-                        <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea v-model="coverTest"

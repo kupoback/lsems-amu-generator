@@ -1,19 +1,4 @@
-export const generatePrescription = (
-    {
-        fullName,
-        phoneNumber,
-        diagnosis,
-        prescription,
-        startDate,
-        endDate,
-    }, {
-        internalRank,
-        name,
-        rank,
-        signature
-    },
-    destination,
-) => {
+export const generatePrescription = ({fullName, phoneNumber, diagnosis, prescription, startDate, endDate}, {internalRank, name, rank, signature}, destination) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
@@ -41,13 +26,12 @@ export const generatePrescription = (
 [i]${name}[/i]
 [b][i]${internalRank} / ${rank}[/i]
 Los Santos Advanced Medicine Division[/b]
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]
-        `;
+[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},
             e => console.error(e),
         )
-        window.open(destination, "_blank")
+        window.open(destination, '_blank')
     }
 }

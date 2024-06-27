@@ -21,8 +21,7 @@ was examined by AMU staff on ${date.toUpperCase()} and found medically fit to op
 [i]${name}[/i]
 [b][i]${internalRank} / ${rank}[/i]
 [b]Los Santos Emergency Medical Services[/b]
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]
-        `
+[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

@@ -79,8 +79,7 @@ export const generateSaaaPilots = (
 [i]${name}[/i]
 [b][i]${internalRank} / ${rank}[/i]
 [b]Los Santos Emergency Medical Services[/b]
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]
-        `
+[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},
