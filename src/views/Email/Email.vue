@@ -18,13 +18,15 @@
     const {
         data,
         defaultData,
-    } = store;
+    } = reactive({
+        ...store.$state,
+    });
 
     const {
         subject,
         to,
         body,
-    } = ref(data)
+    } = reactive(data)
 
     const updateState = (field, value) => store.data[field] = value
     const setupContents = () => generateEmail(data, userData)
@@ -54,7 +56,6 @@
                                     placeholder="Subject Line"
                                     label="Subject Line"
                                     size="md"
-                                    @keydown.enter="updateState('subject', subject)"
                                     @focusout="updateState('subject', subject)"
                             />
                         </fieldset>
@@ -64,7 +65,6 @@
                                     placeholder="John Doe"
                                     label="Email To"
                                     size="md"
-                                    @keydown.enter="updateState('to', to)"
                                     @focusout="updateState('to', to)"
                             />
                         </fieldset>
@@ -76,7 +76,6 @@
                                      label="Email Body"
                                      size="lg"
                                      rows="8"
-                                    @keydown.enter="updateState('body', body)"
                                      @focusout="updateState('body', body)"
                         />
                     </fieldset>
