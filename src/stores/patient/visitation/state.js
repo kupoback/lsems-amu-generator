@@ -1,4 +1,4 @@
-import { useStorage } from "@vueuse/core";
+import {useStorage} from '@vueuse/core'
 
 const defaultData = {
     dateOfVisit: '',
@@ -8,10 +8,7 @@ const defaultData = {
     visitReport: '',
 }
 
-export default ({
-    data: useStorage(
-        'visitationData',
-        defaultData
-    ),
+export default () => ({
+    data: useStorage('visitationData', defaultData),
     defaultData,
 })

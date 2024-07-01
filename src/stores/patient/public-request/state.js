@@ -7,7 +7,7 @@ const defaultData = {
     details: '',
 }
 
-export default {
+export default () => ({
     data: useStorage('publicRequestData', defaultData),
     defaultData,
-}
+})

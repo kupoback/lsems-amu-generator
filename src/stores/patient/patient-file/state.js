@@ -1,4 +1,4 @@
-import { useStorage } from "@vueuse/core";
+import {useStorage} from '@vueuse/core'
 
 const defaultData = {
     // General Information
@@ -31,7 +31,7 @@ const defaultData = {
     urinalysis: '',
 }
 
-export default ({
+export default () => ({
     data: useStorage(
         'patientData',
         defaultData

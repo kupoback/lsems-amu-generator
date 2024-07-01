@@ -23,7 +23,7 @@ const defaultData = {
     historyOfPsychosis: '',
 }
 
-export default {
+export default () => ({
     data: useStorage('pilotsLicenseData', defaultData),
     defaultData,
-}
+})

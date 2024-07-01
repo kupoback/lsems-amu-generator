@@ -6,7 +6,7 @@ const defaultData = {
     to: '',
 }
 
-export default {
+export default () => ({
     data: useStorage('emailData', defaultData),
     defaultData,
-}
+})
