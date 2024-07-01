@@ -27,7 +27,12 @@ export const generatePatientFile = (
         ecg,
         urinalysis,
     },
-    {internalRank, name, rank, signature},
+    {
+        internalRank,
+        name,
+        rank,
+        signature
+    },
     destination,
     newPage = false,
 ) => {

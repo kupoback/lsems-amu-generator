@@ -1,4 +1,15 @@
-export const generateAppointmentFormat = ({reasonForVisit, dateOfAppointment, timeScheduled}, {internalRank, name, rank, signature}, destination, newPage = false) => {
+export const generateAppointmentFormat = (
+    {
+        reasonForVisit,
+        dateOfAppointment,
+        timeScheduled
+    },
+    {
+        internalRank,
+        name,
+        rank,
+        signature
+    }, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {

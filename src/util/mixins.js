@@ -1,6 +1,7 @@
 import {toNumber} from 'lodash'
 import convert from 'convert'
 import {parseInt} from 'lodash/string'
+import dayjs from "dayjs"
 
 /**
  * Converts the temperature to Celsius if set in F
@@ -58,5 +59,5 @@ export const calculateBmi = (height, weight) => {
 }
 
 export const dateToUtc = date => {
-
+    return dayjs(date).format('DD/MMM/YYYY').toUpperCase()
 }

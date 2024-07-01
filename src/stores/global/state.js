@@ -4,6 +4,7 @@ export default () => ({
     darkMode: useStorage('darkMode', true),
     loading: false,
     links: {
+        email: 'https://gov.eclipse-rp.net/ucp.php?i=pm&folder=inbox',
         patientFile: 'https://gov.eclipse-rp.net/viewforum.php?f=1223',
         publicRequest: 'https://gov.eclipse-rp.net/viewforum.php?f=3641',
         saaaCert: 'https://gov.eclipse-rp.net/viewforum.php?f=3462',

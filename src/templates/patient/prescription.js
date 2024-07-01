@@ -1,4 +1,20 @@
-export const generatePrescription = ({fullName, phoneNumber, diagnosis, prescription, startDate, endDate}, {internalRank, name, rank, signature}, destination) => {
+export const generatePrescription = (
+    {
+        fullName,
+        phoneNumber,
+        diagnosis,
+        prescription,
+        startDate,
+        endDate
+    },
+    {
+        internalRank,
+        name,
+        rank,
+        signature
+    },
+    destination,
+    newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
@@ -32,6 +48,6 @@ Los Santos Advanced Medicine Division[/b]
             () => {},
             e => console.error(e),
         )
-        window.open(destination, '_blank')
+        newPage && window.open(destination, '_blank')
     }
 }

@@ -1,10 +1,21 @@
-import dayjs from 'dayjs'
+import {dateToUtc} from "@/util/mixins";
 
-export const generateSaaaPilotsCert = ({fullName}, {internalRank, name, rank, signature}, destination, newPage = false) => {
+export const generateSaaaPilotsCert = (
+    {
+        fullName
+    },
+    {
+        internalRank,
+        name,
+        rank,
+        signature
+    },
+    destination,
+    newPage = false
+) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const date = dayjs().format('DD/MMM/YYYY')
         const template = `[img]https://i.imgur.com/hM4TXWD.png[/img]
 [align=center]
 [img]https://i.imgur.com/HNP4ksW.png[/img]
@@ -12,7 +23,7 @@ export const generateSaaaPilotsCert = ({fullName}, {internalRank, name, rank, si
 [fimg=120,120]https://i.imgur.com/QYXPM0p.png[/fimg]
 [center][img]https://i.imgur.com/7x0vy1x.png[/img][/center]
 [center][size=140]${fullName}
-was examined by AMU staff on ${date.toUpperCase()} and found medically fit to operate an aircraft.[/size]
+was examined by AMU staff on ${dateToUtc()} and found medically fit to operate an aircraft.[/size]
 [center][img]https://i.imgur.com/7x0vy1x.png[/img][/center]
 [/align]
 [divbox=white]
