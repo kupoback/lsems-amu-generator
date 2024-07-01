@@ -1,20 +1,13 @@
-import {defineStore} from "pinia";
+import {defineStore} from 'pinia'
 
-import state from "@/stores/modules/state";
-import actions from "@/stores/modules/actions";
-import globalActions from "@/stores/global/actions";
-
-const defaultValues = state.defaults
+import state from '@/stores/modules/state'
+import actions from '@/stores/modules/actions'
+import globalActions from '@/stores/global/actions'
 
 export const modulesStore = defineStore('modulesStore', {
-	state: () => ({
-		defaults: {
-			...defaultValues
-		},
-		...state,
-	}),
-	actions: {
-		...globalActions,
-		...actions,
-	},
+    state,
+    actions: {
+        ...globalActions,
+        ...actions,
+    },
 })

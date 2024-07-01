@@ -4,15 +4,8 @@ import globalActions from '@/stores/global/actions'
 import state from '@/stores/patient/visitation/state'
 import visitationFieldActions from '@/stores/patient/visitation/actions'
 
-const defaultValues = state
-
 export const visitationStore = defineStore('visitationStore', {
-    state: () => ({
-        ...state,
-        defaults: {
-            ...defaultValues,
-        },
-    }),
+    state,
     actions: {
         ...globalActions,
         ...visitationFieldActions,
