@@ -28,8 +28,7 @@ export const generateAmuEmail = (
 [/right][/aligntable]
 [hr]
 [list=none]
-
-[b]${to}[/b],
+${to && `[b]${to}[/b],`}
 
 ${body}
 

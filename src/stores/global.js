@@ -7,4 +7,3 @@ export const globalStore = defineStore('globalStore', {
     state,
     actions,
 })
-

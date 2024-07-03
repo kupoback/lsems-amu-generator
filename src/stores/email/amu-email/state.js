@@ -1,4 +1,4 @@
-import {useStorage} from '@vueuse/core'
+import {useLocalStorage} from '@vueuse/core'
 
 const defaultData = {
     body: '',
@@ -7,6 +7,6 @@ const defaultData = {
 }
 
 export default () => ({
-    data: useStorage('amuEmailData', defaultData),
+    data: useLocalStorage('amuEmailData', defaultData),
     defaultData,
 })

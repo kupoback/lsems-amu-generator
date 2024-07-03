@@ -29,7 +29,7 @@ export const generateEmail = (
 [hr]
 [list=none]
 
-[b]${to}[/b],
+${to && `[b]${to}[/b],`}
 
 ${body}
 
