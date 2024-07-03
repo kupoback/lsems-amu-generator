@@ -5,7 +5,7 @@
     import {globalStore} from '@/stores/global'
     import {emailStore} from '@/stores/email'
     import {generateEmail} from '@/templates/email/email'
-    import {reactive} from 'vue'
+    import {reactive, ref} from 'vue'
     import router from '@/router'
 
     /**
@@ -20,6 +20,10 @@
     })
 
     const {subject, to, body} = reactive(data)
+
+    const savedSubject = ref(subject)
+    const savedTo = ref(to)
+    const savedBody = ref(body)
 
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateEmail(data, userData, links.email, newPage)
@@ -44,33 +48,34 @@
                         <!-- Subject Line -->
                         <fieldset class="w-6/12 pr-2">
                             <FwbInput
-                                v-model="subject"
+                                v-model="savedSubject"
                                 placeholder="Subject Line"
                                 label="Subject Line"
                                 size="md"
-                                @focusout="updateState('subject', subject)"
+                                @keydown.enter="updateState('subject', savedSubject)"
+                                @focusout="updateState('subject', savedSubject)"
                             />
                         </fieldset>
                         <!-- To -->
                         <fieldset class="w-6/12 pl-2">
                             <FwbInput
-                                v-model="to"
+                                v-model="savedTo"
                                 placeholder="John Doe"
                                 label="Email To"
                                 size="md"
-                                @focusout="updateState('to', to)"
+                                @focusout="updateState('to', savedTo)"
                             />
                         </fieldset>
                     </div>
-                    <!-- Reason for the Visit -->
+                    <!-- Body of your email -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="body"
+                            v-model="savedBody"
                             placeholder="Body copy..."
                             label="Email Body"
                             size="lg"
                             rows="8"
-                            @focusout="updateState('body', body)"
+                            @focusout="updateState('body', savedBody)"
                         />
                     </fieldset>
                 </div>

@@ -67,7 +67,7 @@
                             />
                         </fieldset>
                     </div>
-                    <!-- Reason for the Visit -->
+                    <!-- Body of your email -->
                     <fieldset class="my-8">
                         <FwbTextarea
                             v-model="savedBody"
@@ -76,6 +76,10 @@
                             size="lg"
                             rows="8"
                             @focusout="updateState('body', savedBody)"
+                        />
+                        <p
+                            class="text-sm mt-1"
+                            v-html="`You can include BBCode tags in here. Just be sure to close them`"
                         />
                     </fieldset>
                 </div>

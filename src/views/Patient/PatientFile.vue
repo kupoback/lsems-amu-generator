@@ -14,6 +14,8 @@
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
+    const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
+
     const {links, userData} = globalStore()
     const store = patientFileStore()
     const {data, defaultData} = reactive({
@@ -47,11 +49,38 @@
         urinalysis,
     } = reactive(data)
 
+    //region Saved Data
     const formatter = ref({
         date: 'DD/MMM/YYYY',
         month: 'MMM',
     })
+    const savedFullName = ref(fullName)
+    const savedDateOfBirth = ref(dateOfBirth)
+    const savedPlaceOfBirth = ref(placeOfBirth)
+    const savedAddress = ref(address)
+    const savedPhoneNumber = ref(phoneNumber)
+    const savedProfession = ref(profession)
+    const savedHeight = ref(height)
+    const savedWeight = ref(weight)
+    const savedBloodType = ref(bloodType)
+    const savedAllergies = ref(allergies)
+    const savedGeneralScreening = ref(generalScreening)
+    const savedEcgBand = ref(ecgBand)
+    const savedOximetry = ref(oximetry)
+    const savedTemperature = ref(temperature)
+    const savedBloodPressure = ref(bloodPressure)
+    const savedAuscultation = ref(auscultation)
+    const savedCoverTest = ref(coverTest)
+    const savedRefractionTest = ref(refractionTest)
+    const savedAutoMeterTest = ref(audioMeterTest)
+    const savedAdditionalNotes = ref(additionalNotes)
+    const savedCompleteBloodCount = ref(completeBloodCount)
+    const savedXRay = ref(xRay)
+    const savedEcg = ref(ecg)
+    const savedUrinalysis = ref(urinalysis)
+    //endregion
 
+    //region Actions
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generatePatientFile(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
@@ -60,8 +89,7 @@
         store.data = defaultData
         router.go('/patient-file')
     }
-
-    const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
+    //endregion
 </script>
 
 <template>
@@ -80,11 +108,11 @@
                     <!-- Full Name -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="fullName"
+                            v-model="savedFullName"
                             placeholder="FName LName"
                             label="Full Name"
                             size="md"
-                            @focusout="updateState('fullName', fullName)"
+                            @focusout="updateState('fullName', savedFullName)"
                         />
                     </fieldset>
                     <!-- Date of Birth -->
@@ -95,57 +123,57 @@
                             >Date of Birth</label
                         >
                         <VueTailwindDatepicker
-                            v-model="dateOfBirth"
+                            v-model="savedDateOfBirth"
                             id="dob"
                             placeholder="DD/MMM/YYYY"
                             as-single
                             :formatter="formatter"
-                            @focusout="updateState('dateOfBirth', dateOfBirth)"
+                            @focusout="updateState('dateOfBirth', savedDateOfBirth)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="placeOfBirth"
+                            v-model="savedPlaceOfBirth"
                             placeholder="Place of Birth"
                             label="Place of Birth"
                             size="md"
-                            @focusout="updateState('placeOfBirth', placeOfBirth)"
+                            @focusout="updateState('placeOfBirth', savedPlaceOfBirth)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="address"
+                            v-model="savedAddress"
                             placeholder="Address"
                             label="Address"
                             size="md"
-                            @focusout="updateState('address', address)"
+                            @focusout="updateState('address', savedAddress)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="phoneNumber"
+                            v-model="savedPhoneNumber"
                             placeholder="5551234"
                             label="Phone Number"
                             size="md"
-                            @focusout="updateState('phoneNumber', phoneNumber)"
+                            @focusout="updateState('phoneNumber', savedPhoneNumber)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="profession"
+                            v-model="savedProfession"
                             placeholder="EMT"
                             label="Profession"
                             size="md"
-                            @focusout="updateState('profession', profession)"
+                            @focusout="updateState('profession', savedProfession)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="height"
+                            v-model="savedHeight"
                             placeholder="150cm"
                             label="Height"
                             size="md"
-                            @focusout="updateState('height', height)"
+                            @focusout="updateState('height', savedHeight)"
                         />
                         <p
                             class="text-sm mt-1"
@@ -154,33 +182,33 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="weight"
+                            v-model="savedWeight"
                             placeholder="75"
                             label="Weight"
                             size="md"
-                            @focusout="updateState('weight', weight)"
+                            @focusout="updateState('weight', savedWeight)"
                         />
                         <p
                             class="text-sm mt-1"
-                            v-html="`${conversionHelperText} Use lbs or pounds for Imperial.`"
+                            v-html="`${conversionHelperText} Use lbs or pounds for Imperial with a space.`"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="bloodType"
+                            v-model="savedBloodType"
                             placeholder="AB-"
                             label="Blood Type"
                             size="md"
-                            @focusout="updateState('bloodType', bloodType)"
+                            @focusout="updateState('bloodType', savedBloodType)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="allergies"
+                            v-model="savedAllergies"
                             placeholder="List of allergies..."
                             label="Allergies"
                             size="md"
-                            @focusout="updateState('allergies', allergies)"
+                            @focusout="updateState('allergies', savedAllergies)"
                         />
                     </fieldset>
                 </div>
@@ -191,41 +219,41 @@
                     </div>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="generalScreening"
+                            v-model="savedGeneralScreening"
                             placeholder="Enter general screening..."
                             label="General Screening"
                             size="md"
-                            @focusout="updateState('narrative', generalScreening)"
+                            @focusout="updateState('narrative', savedGeneralScreening)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="ecgBand"
+                            v-model="savedEcgBand"
                             placeholder="55"
                             type="number"
                             label="ECG Band"
                             size="md"
-                            @focusout="updateState('ecgBand', ecgBand)"
+                            @focusout="updateState('ecgBand', savedEcgBand)"
                         />
                         <p class="text-sm mt-1">"BMP" will be suffixed when the data is copied.</p>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="oximetry"
+                            v-model="savedOximetry"
                             placeholder="98%"
                             label="Oximetry"
                             size="md"
-                            @focusout="updateState('oximetry', oximetry)"
+                            @focusout="updateState('oximetry', savedOximetry)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="temperature"
+                            v-model="savedTemperature"
                             placeholder="37"
                             label="Temperature"
                             type="number"
                             size="md"
-                            @focusout="updateState('temperature', temperature)"
+                            @focusout="updateState('temperature', savedTemperature)"
                         />
                         <p
                             class="text-sm mt-1"
@@ -234,58 +262,58 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="bloodPressure"
+                            v-model="savedBloodPressure"
                             placeholder="120/80"
                             label="Blood Pressure"
                             size="md"
-                            @focusout="updateState('bloodPressure', bloodPressure)"
+                            @focusout="updateState('bloodPressure', savedBloodPressure)"
                         />
                         <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="additionalNotes"
+                            v-model="savedAuscultation"
                             placeholder="Auscultation notes"
                             label="Auscultation"
                             size="md"
                             rows="2"
-                            @focusout="updateState('auscultation', auscultation)"
+                            @focusout="updateState('auscultation', savedAuscultation)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="coverTest"
+                            v-model="savedCoverTest"
                             placeholder="Exam Results..."
                             label="Eye Exam (Cover Test)"
                             size="md"
-                            @focusout="updateState('coverTest', coverTest)"
+                            @focusout="updateState('coverTest', savedCoverTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="refractionTest"
+                            v-model="savedRefractionTest"
                             placeholder="Refraction results..."
                             label="Refraction Test"
                             size="md"
-                            @focusout="updateState('refractionTest', refractionTest)"
+                            @focusout="updateState('refractionTest', savedRefractionTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="audioMeterTest"
+                            v-model="savedAutoMeterTest"
                             placeholder="Hearing range was..."
                             label="Audio-Meter Test"
                             size="md"
-                            @focusout="updateState('audioMeterTest', audioMeterTest)"
+                            @focusout="updateState('audioMeterTest', savedAutoMeterTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="additionalNotes"
+                            v-model="savedAdditionalNotes"
                             placeholder="Additional information"
                             label="Additional Notes"
                             size="md"
-                            @focusout="updateState('additionalNotes', additionalNotes)"
+                            @focusout="updateState('additionalNotes', savedAdditionalNotes)"
                         />
                     </fieldset>
                 </div>
@@ -297,41 +325,41 @@
 
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="completeBloodCount"
+                            v-model="savedCompleteBloodCount"
                             placeholder="Test results indicate..."
                             label="Complete Blood Count"
                             size="md"
-                            @focusout="updateState('completeBloodCount', completeBloodCount)"
+                            @focusout="updateState('completeBloodCount', savedCompleteBloodCount)"
                         />
                     </fieldset>
 
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="xRay"
+                            v-model="savedXRay"
                             placeholder="Test results indicate..."
                             label="X-Ray Test"
                             size="md"
-                            @focusout="updateState('xRay', xRay)"
+                            @focusout="updateState('xRay', savedXRay)"
                         />
                     </fieldset>
 
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="ecg"
+                            v-model="savedEcg"
                             placeholder="Test results indicate..."
                             label="ECG Test"
                             size="md"
-                            @focusout="updateState('ecg', ecg)"
+                            @focusout="updateState('ecg', savedEcg)"
                         />
                     </fieldset>
 
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="urinalysis"
+                            v-model="savedUrinalysis"
                             placeholder="Test results indicate..."
                             label="Urinalysis Test"
                             size="md"
-                            @focusout="updateState('urinalysis', urinalysis)"
+                            @focusout="updateState('urinalysis', savedUrinalysis)"
                         />
                     </fieldset>
                 </div>

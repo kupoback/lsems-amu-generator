@@ -27,6 +27,13 @@
         month: 'MMM',
     })
 
+    //region savedData
+    const savedReasonForVisit = ref(reasonForVisit)
+    const savedDateOfAppointment = ref(dateOfAppointment)
+    const savedTimeScheduled = ref(timeScheduled)
+    //endregion
+
+    //region Actions
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateAppointmentFormat(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
@@ -35,6 +42,7 @@
         store.data = defaultData
         router.go('/appointment-format')
     }
+    //endregion
 </script>
 
 <template>
@@ -54,37 +62,37 @@
                             >Date of Appointment</label
                         >
                         <VueTailwindDatepicker
-                            v-model="dateOfAppointment"
+                            v-model="savedReasonForVisit"
                             id="dob"
                             placeholder="DD/MMM/YYYY"
                             as-single
                             :formatter="formatter"
-                            @focusout="updateState('dateOfAppointment', dateOfAppointment)"
+                            @focusout="updateState('dateOfAppointment', savedReasonForVisit)"
                         />
                     </fieldset>
                     <!-- Reason for the Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="reasonForVisit"
+                            v-model="savedDateOfAppointment"
                             placeholder="Patient stated that..."
                             label="Reason for the Visit"
                             size="md"
-                            @focusout="updateState('reasonForVisit', reasonForVisit)"
+                            @focusout="updateState('reasonForVisit', savedDateOfAppointment)"
                         />
                     </fieldset>
                     <!-- Time Scheduled -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="timeScheduled"
+                            v-model="savedTimeScheduled"
                             placeholder="20:00"
                             label="Time Scheduled"
                             size="md"
                             max="4"
-                            @focusout="updateState('timeScheduled', timeScheduled)"
+                            @focusout="updateState('timeScheduled', savedTimeScheduled)"
                         />
                         <p
                             class="text-sm mt-1"
-                            v-html="`Time should be set in 24 hour format`"
+                            v-html="`You can include BBCode tags in here. Just be sure to close them`"
                         />
                     </fieldset>
                 </div>
