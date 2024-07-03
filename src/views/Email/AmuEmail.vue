@@ -22,11 +22,12 @@
     const {subject, to, body} = reactive(data)
 
     const savedSubject = ref(subject)
+    const savedTo = ref(to)
+    const savedBody = ref(body)
 
     const updateSubject = () => (store.data.subject = savedSubject.value)
 
-    // const updateState = (field, value) => (store.data[field] = value)
-    const updateState = (field, value) => (alert(value))
+    const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateAmuEmail(data, userData, links.email, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
@@ -60,18 +61,18 @@
                         <!-- To -->
                         <fieldset class="w-6/12 pl-2">
                             <FwbInput
-                                v-model="to"
+                                v-model="savedTo"
                                 placeholder="John Doe"
                                 label="Email To"
                                 size="md"
-                                @focusout="updateState('to', to)"
+                                @focusout="updateState('to', savedTo)"
                             />
                         </fieldset>
                     </div>
                     <!-- Reason for the Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="body"
+                            v-model="savedBody"
                             placeholder="Body copy..."
                             label="Email Body"
                             size="lg"
