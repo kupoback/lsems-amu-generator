@@ -5,7 +5,7 @@
     import {globalStore} from '@/stores/global'
     import {amuEmailStore} from '@/stores/amu-email'
     import {generateAmuEmail} from '@/templates/email/amu-email'
-    import {reactive} from 'vue'
+    import {reactive, ref} from 'vue'
     import router from '@/router'
 
     /**
@@ -20,6 +20,10 @@
     })
 
     const {subject, to, body} = reactive(data)
+
+    const savedSubject = ref(subject)
+
+    const updateSubject = () => (store.data.subject = savedSubject.value)
 
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateAmuEmail(data, userData, links.email, newPage)
@@ -44,11 +48,12 @@
                         <!-- Subject Line -->
                         <fieldset class="w-6/12 pr-2">
                             <FwbInput
-                                v-model="subject"
+                                v-model="savedSubject"
                                 placeholder="Subject Line"
                                 label="Subject Line"
                                 size="md"
-                                @focusout="updateState('subject', subject)"
+                                @keydown.enter="updateSubject"
+                                @focusout="updateSubject"
                             />
                         </fieldset>
                         <!-- To -->
