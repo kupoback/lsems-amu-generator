@@ -25,7 +25,8 @@
 
     const updateSubject = () => (store.data.subject = savedSubject.value)
 
-    const updateState = (field, value) => (store.data[field] = value)
+    // const updateState = (field, value) => (store.data[field] = value)
+    const updateState = (field, value) => (alert(value))
     const setupContents = (newPage = false) => generateAmuEmail(data, userData, links.email, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
