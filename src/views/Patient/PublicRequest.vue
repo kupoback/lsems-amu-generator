@@ -22,11 +22,18 @@
 
     const {fullName, contactDate, contactMethod, details} = reactive(data)
 
+    //region Saved Data
     const formatter = ref({
         date: 'DD/MMM/YYYY HH:ss',
         month: 'MMM',
     })
+    const savedFullName = ref(fullName)
+    const savedContactDate = ref(contactDate)
+    const savedContactMethod = ref(contactMethod)
+    const savedDetails = ref(details)
+    //endregion
 
+    //region Actions
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generatePublicRequest(store.data, userData, links.publicRequest, newPage)
     const copyContents = () => setupContents()
@@ -35,6 +42,7 @@
         store.data = defaultData
         router.go('/public-request')
     }
+    //endregion
 </script>
 
 <template>
@@ -50,11 +58,11 @@
                     <!-- Full Name -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="fullName"
+                            v-model="savedFullName"
                             placeholder="FName LName"
                             label="Patients Name"
                             size="md"
-                            @focusout="updateState('fullName', fullName)"
+                            @focusout="updateState('fullName', savedFullName)"
                         />
                     </fieldset>
                     <!-- Contact Date -->
@@ -65,33 +73,33 @@
                             >Start Date</label
                         >
                         <VueTailwindDatepicker
-                            v-model="contactDate"
+                            v-model="savedContactDate"
                             id="start-date"
                             placeholder="DD/MMM/YYYY HH:ss"
                             as-single
                             :formatter="formatter"
-                            @focusout="updateState('contactDate', contactDate)"
+                            @focusout="updateState('contactDate', savedContactDate)"
                         />
                     </fieldset>
                     <!-- Contact Method -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="contactMethod"
+                            v-model="savedContactMethod"
                             placeholder="Email"
                             label="Contact Type"
                             size="md"
-                            @focusout="updateState('contactMethod', contactMethod)"
+                            @focusout="updateState('contactMethod', savedContactMethod)"
                         />
                     </fieldset>
                     <!-- Details -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="details"
+                            v-model="savedDetails"
                             placeholder="Patient has..."
                             label="Contact Details"
                             size="md"
                             row="4"
-                            @focusout="updateState('details', details)"
+                            @focusout="updateState('details', savedDetails)"
                         />
                     </fieldset>
                 </div>

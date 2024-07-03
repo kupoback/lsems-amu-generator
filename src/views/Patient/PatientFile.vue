@@ -72,7 +72,7 @@
     const savedAuscultation = ref(auscultation)
     const savedCoverTest = ref(coverTest)
     const savedRefractionTest = ref(refractionTest)
-    const savedAutoMeterTest = ref(audioMeterTest)
+    const savedAudioMeterTest = ref(audioMeterTest)
     const savedAdditionalNotes = ref(additionalNotes)
     const savedCompleteBloodCount = ref(completeBloodCount)
     const savedXRay = ref(xRay)
@@ -300,11 +300,11 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="savedAutoMeterTest"
+                            v-model="savedAudioMeterTest"
                             placeholder="Hearing range was..."
                             label="Audio-Meter Test"
                             size="md"
-                            @focusout="updateState('audioMeterTest', savedAutoMeterTest)"
+                            @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">

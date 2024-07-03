@@ -14,6 +14,7 @@
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
 
+    const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
     const {links, userData} = globalStore()
     const store = pilotsLicenseStore()
     const {data, defaultData} = reactive({
@@ -40,6 +41,27 @@
         historyOfPsychosis,
     } = reactive(data)
 
+    //region Saved Data
+    const savedFullName = ref(fullName)
+    const savedPhoneNumber = ref(phoneNumber)
+    const savedMedications = ref(medications)
+    const savedHeight = ref(height)
+    const savedWeight = ref(weight)
+    const savedOximetry = ref(oximetry)
+    const savedTemperature = ref(temperature)
+    const savedBloodPressure = ref(bloodPressure)
+    const savedAuscultation = ref(auscultation)
+    const savedCoverTest = ref(coverTest)
+    const savedAudioMeterTest = ref(audioMeterTest)
+    const savedDrugTest = ref(drugTest)
+    const savedHistoryOfDiabetes = ref(historyOfDiabetes)
+    const savedHistoryOfEpilepsy = ref(historyOfEpilepsy)
+    const savedHistoryOfHeartAttack = ref(historyOfHeartAttack)
+    const savedHistoryOfBlackOuts = ref(historyOfBlackOuts)
+    const savedHistoryOfPsychosis = ref(historyOfPsychosis)
+    //endregion
+
+    //region Actions
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateSaaaPilots(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
@@ -49,8 +71,7 @@
         store.data = defaultData
         router.go('/patient-file')
     }
-
-    const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
+    //endregion
 </script>
 
 <template>
@@ -69,30 +90,30 @@
                     <!-- Full Name -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="fullName"
+                            v-model="savedFullName"
                             placeholder="FName LName"
                             label="Full Name"
                             size="md"
-                            @focusout="updateState('fullName', fullName)"
+                            @focusout="updateState('fullName', savedFullName)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="phoneNumber"
+                            v-model="savedPhoneNumber"
                             placeholder="5551234"
                             label="Phone Number"
                             size="md"
-                            @focusout="updateState('phoneNumber', phoneNumber)"
+                            @focusout="updateState('phoneNumber', savedPhoneNumber)"
                         />
                     </fieldset>
 
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="medications"
+                            v-model="savedMedications"
                             placeholder="Drug listing"
                             label="Medications"
                             size="md"
-                            @focusout="updateState('medications', medications)"
+                            @focusout="updateState('medications', savedMedications)"
                         />
                     </fieldset>
                 </div>
@@ -103,11 +124,11 @@
                     </div>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="height"
+                            v-model="savedHeight"
                             placeholder="150cm"
                             label="Height"
                             size="md"
-                            @focusout="updateState('height', height)"
+                            @focusout="updateState('height', savedHeight)"
                         />
                         <p
                             class="text-sm mt-1"
@@ -116,33 +137,33 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="weight"
+                            v-model="savedWeight"
                             placeholder="75"
                             label="Weight"
                             size="md"
-                            @focusout="updateState('weight', weight)"
+                            @focusout="updateState('weight', savedWeight)"
                         />
                         <p
                             class="text-sm mt-1"
-                            v-html="`${conversionHelperText} Use lbs or pounds for Imperial.`"
+                            v-html="`${conversionHelperText} Use lbs or pounds for Imperial with a space.`"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="oximetry"
+                            v-model="savedOximetry"
                             placeholder="98%"
                             label="Oximetry"
                             size="md"
-                            @focusout="updateState('oximetry', oximetry)"
+                            @focusout="updateState('oximetry', savedOximetry)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="temperature"
+                            v-model="savedTemperature"
                             placeholder="37C"
                             label="Temperature"
                             size="md"
-                            @focusout="updateState('temperature', temperature)"
+                            @focusout="updateState('temperature', savedTemperature)"
                         />
                         <p
                             class="text-sm mt-1"
@@ -151,48 +172,48 @@
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="bloodPressure"
+                            v-model="savedBloodPressure"
                             placeholder="120/80"
                             label="Blood Pressure"
                             size="md"
-                            @focusout="updateState('bloodPressure', bloodPressure)"
+                            @focusout="updateState('bloodPressure', savedBloodPressure)"
                         />
                         <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="auscultation"
+                            v-model="savedAuscultation"
                             placeholder="Lungs are... Heart is..."
                             label="Auscultation"
                             size="md"
-                            @focusout="updateState('auscultation', auscultation)"
+                            @focusout="updateState('auscultation', savedAuscultation)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="coverTest"
+                            v-model="savedCoverTest"
                             placeholder="Exam Results..."
                             label="Eye Exam (Cover Test)"
                             size="md"
-                            @focusout="updateState('coverTest', coverTest)"
+                            @focusout="updateState('coverTest', savedCoverTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="audioMeterTest"
+                            v-model="savedAudioMeterTest"
                             placeholder="Hearing range was..."
                             label="Audio-Meter Test"
                             size="md"
-                            @focusout="updateState('audioMeterTest', audioMeterTest)"
+                            @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="drugTest"
+                            v-model="savedDrugTest"
                             placeholder="Urinalysis results were..."
                             label="Drug Test Results"
                             size="md"
-                            @focusout="updateState('drugTest', drugTest)"
+                            @focusout="updateState('drugTest', savedDrugTest)"
                         />
                     </fieldset>
                 </div>
@@ -203,47 +224,47 @@
                     </div>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="historyOfDiabetes"
+                            v-model="savedHistoryOfDiabetes"
                             placeholder="N/A"
                             label="Have you had a diagnosis or symptoms of diabetes?"
                             size="md"
-                            @focusout="updateState('historyOfDiabetes', historyOfDiabetes)"
+                            @focusout="updateState('historyOfDiabetes', savedHistoryOfDiabetes)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="historyOfEpilepsy"
+                            v-model="savedHistoryOfEpilepsy"
                             placeholder="N/A"
                             label="Have experienced any seizures or had symptoms or diagnosis of epilepsy in the last 12 months?"
                             size="md"
-                            @focusout="updateState('historyOfEpilepsy', historyOfEpilepsy)"
+                            @focusout="updateState('historyOfEpilepsy', savedHistoryOfEpilepsy)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="historyOfHeartAttack"
+                            v-model="savedHistoryOfHeartAttack"
                             placeholder="N/A"
                             label="Have you experienced a heart attack in the last 12 months?"
                             size="md"
-                            @focusout="updateState('historyOfHeartAttack', historyOfHeartAttack)"
+                            @focusout="updateState('historyOfHeartAttack', savedHistoryOfHeartAttack)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="historyOfBlackOuts"
+                            v-model="savedHistoryOfBlackOuts"
                             placeholder="N/A"
                             label="Have you had any disturbance or loss of consciousness in the last 12 months?"
                             size="md"
-                            @focusout="updateState('historyOfBlackOuts', historyOfBlackOuts)"
+                            @focusout="updateState('historyOfBlackOuts', savedHistoryOfBlackOuts)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="historyOfPsychosis"
+                            v-model="savedHistoryOfPsychosis"
                             placeholder="N/A"
                             label="Have you had a diagnosis or symptoms of psychosis, bipolar disorder, or other personality disorders?"
                             size="md"
-                            @focusout="updateState('historyOfPsychosis', historyOfPsychosis)"
+                            @focusout="updateState('historyOfPsychosis', savedHistoryOfPsychosis)"
                         />
                     </fieldset>
                 </div>

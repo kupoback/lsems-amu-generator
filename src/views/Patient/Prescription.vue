@@ -20,11 +20,20 @@
 
     const {fullName, phoneNumber, diagnosis, prescription, startDate, endDate} = reactive(data)
 
+    //region Saved Data
     const formatter = ref({
         date: 'DD/MMM/YYYY HH:ss',
         month: 'MMM',
     })
+    const savedFullName = ref(fullName)
+    const savedPhoneNumber = ref(phoneNumber)
+    const savedDiagnosis = ref(diagnosis)
+    const savedPrescription = ref(prescription)
+    const savedStartDate = ref(startDate)
+    const savedEndDate = ref(endDate)
+    //endregion
 
+    //region Actions
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generatePrescription(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
@@ -33,6 +42,7 @@
         store.data = defaultData
         router.go('/prescription')
     }
+    //endregion
 </script>
 
 <template>
@@ -54,12 +64,12 @@
                                 >Start Date</label
                             >
                             <VueTailwindDatepicker
-                                v-model="startDate"
+                                v-model="savedStartDate"
                                 id="start-date"
                                 placeholder="DD/MMM/YYYY HH:ss"
                                 as-single
                                 :formatter="formatter"
-                                @focusout="updateState('startDate', startDate)"
+                                @focusout="updateState('startDate', savedStartDate)"
                             />
                         </fieldset>
                         <!-- Expiration Date -->
@@ -70,53 +80,53 @@
                                 >End Date</label
                             >
                             <VueTailwindDatepicker
-                                v-model="endDate"
+                                v-model="savedEndDate"
                                 id="end-date"
                                 placeholder="DD/MMM/YYYY HH:ss"
                                 as-single
                                 :formatter="formatter"
-                                @focusout="updateState('endDate', endDate)"
+                                @focusout="updateState('endDate', savedEndDate)"
                             />
                         </fieldset>
                     </div>
                     <!-- Full Name -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="fullName"
+                            v-model="savedFullName"
                             placeholder="FName LName"
                             label="Patients Name"
                             size="md"
-                            @focusout="updateState('fullName', fullName)"
+                            @focusout="updateState('fullName', savedFullName)"
                         />
                     </fieldset>
                     <!-- Phone Number -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="phoneNumber"
+                            v-model="savedPhoneNumber"
                             placeholder="5551234"
                             label="Patients Phone Number"
                             size="md"
-                            @focusout="updateState('phoneNumber', phoneNumber)"
+                            @focusout="updateState('phoneNumber', savedPhoneNumber)"
                         />
                     </fieldset>
                     <!-- Diagnosis -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="diagnosis"
+                            v-model="savedDiagnosis"
                             placeholder="Patient has..."
                             label="Diagnosis for prescription"
                             size="md"
-                            @focusout="updateState('diagnosis', diagnosis)"
+                            @focusout="updateState('diagnosis', savedDiagnosis)"
                         />
                     </fieldset>
                     <!-- Prescription -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="prescription"
+                            v-model="savedPrescription"
                             placeholder="Medication strength"
                             label="Medication Prescribed"
                             size="md"
-                            @focusout="updateState('prescription', prescription)"
+                            @focusout="updateState('prescription', savedPrescription)"
                         />
                     </fieldset>
                 </div>

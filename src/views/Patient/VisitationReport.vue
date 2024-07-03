@@ -22,11 +22,19 @@
 
     const {dateOfVisit, reasonForVisit, diagnosis, personalPresent, visitReport} = reactive(data)
 
+    //region Saved Data
     const formatter = ref({
         date: 'DD/MMM/YYYY',
         month: 'MMM',
     })
+    const savedDateOfVisit = ref(dateOfVisit)
+    const savedReasonForVisit = ref(reasonForVisit)
+    const savedDiagnosis = ref(diagnosis)
+    const savedPersonalPresent = ref(personalPresent)
+    const savedVisitReport = ref(visitReport)
+    //endregion
 
+    //region Actions
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateVisitationReport(data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
@@ -35,6 +43,7 @@
         store.data = defaultData
         router.go('/visitation-report')
     }
+    //endregion
 </script>
 
 <template>
@@ -53,52 +62,52 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >Date of Visit</label>
                         <VueTailwindDatepicker
-                            v-model="dateOfVisit"
+                            v-model="savedDateOfVisit"
                             id="dob"
                             placeholder="DD/MMM/YYYY"
                             as-single
                             :formatter="formatter"
-                            @focusout="updateState('dateOfVisit', dateOfVisit)"
+                            @focusout="updateState('dateOfVisit', savedDateOfVisit)"
                         />
                     </fieldset>
                     <!-- Reason for Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="reasonForVisit"
+                            v-model="savedReasonForVisit"
                             placeholder="Patient stated that..."
                             label="Reason for the Visit"
                             size="md"
-                            @focusout="updateState('reasonForVisit', reasonForVisit)"
+                            @focusout="updateState('reasonForVisit', savedReasonForVisit)"
                         />
                     </fieldset>
                     <!-- Diagnosis -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="diagnosis"
+                            v-model="savedDiagnosis"
                             placeholder="Patient is diagnosed with..."
                             label="Patient Diagnosis"
                             size="md"
-                            @focusout="updateState('diagnosis', diagnosis)"
+                            @focusout="updateState('diagnosis', savedDiagnosis)"
                         />
                     </fieldset>
                     <!-- Personal Present -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="personalPresent"
+                            v-model="savedPersonalPresent"
                             placeholder="Doctor Names..."
                             label="Personal Present"
                             size="md"
-                            @focusout="updateState('personalPresent', personalPresent)"
+                            @focusout="updateState('personalPresent', savedPersonalPresent)"
                         />
                     </fieldset>
                     <!-- Visit Report Summary -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="visitReport"
+                            v-model="savedVisitReport"
                             placeholder="Visit summary..."
                             label="Visit Report"
                             size="md"
-                            @focusout="updateState('visitReport', visitReport)"
+                            @focusout="updateState('visitReport', savedVisitReport)"
                         />
                     </fieldset>
                 </div>
