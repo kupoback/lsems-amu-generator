@@ -25,8 +25,6 @@
     const savedTo = ref(to)
     const savedBody = ref(body)
 
-    const updateSubject = () => (store.data.subject = savedSubject.value)
-
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateAmuEmail(data, userData, links.email, newPage)
     const copyContents = () => setupContents()
@@ -54,8 +52,8 @@
                                 placeholder="Subject Line"
                                 label="Subject Line"
                                 size="md"
-                                @keydown.enter="updateSubject"
-                                @focusout="updateSubject"
+                                @keydown.enter="updateState('subject', savedSubject)"
+                                @focusout="updateState('subject', savedSubject)"
                             />
                         </fieldset>
                         <!-- To -->
@@ -77,7 +75,7 @@
                             label="Email Body"
                             size="lg"
                             rows="8"
-                            @focusout="updateState('body', body)"
+                            @focusout="updateState('body', savedBody)"
                         />
                     </fieldset>
                 </div>
