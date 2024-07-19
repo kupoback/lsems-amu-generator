@@ -36,7 +36,7 @@
 
     //region Actions
     const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateVisitationReport(data, userData, links.patientFile, newPage)
+    const setupContents = (newPage = false) => generateVisitationReport(visitationStore().data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {

@@ -26,7 +26,7 @@
     const savedBody = ref(body)
 
     const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateAmuEmail(data, userData, links.email, newPage)
+    const setupContents = (newPage = false) => generateAmuEmail(amuEmailStore().data, userData, links.email, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {

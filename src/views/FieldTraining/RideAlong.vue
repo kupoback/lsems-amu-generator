@@ -48,7 +48,7 @@ const {
 
     //region Actions
     const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateRideAlong(data, userData, links.email, newPage)
+    const setupContents = (newPage = false) => generateRideAlong(rideAlongFormatStore().data, userData, links.email, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {
@@ -130,7 +130,7 @@ const {
                             @focusout="updateState('to', savedTo)"
                         />
                     </fieldset>
-                    
+
                     <!-- Suspect Notes -->
                     <fieldset class="my-8">
                         <FwbTextarea

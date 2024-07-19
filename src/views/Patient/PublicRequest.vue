@@ -35,7 +35,7 @@
 
     //region Actions
     const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generatePublicRequest(store.data, userData, links.publicRequest, newPage)
+    const setupContents = (newPage = false) => generatePublicRequest(publicRequestStore().data, userData, links.publicRequest, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {
