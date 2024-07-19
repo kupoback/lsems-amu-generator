@@ -23,6 +23,11 @@ import PublicRequest from '@view/Patient/PublicRequest.vue'
 import Email from '@view/Email/Email.vue'
 import AmuEmail from '@view/Email/AmuEmail.vue'
 
+/**
+ * Field Training Components
+ */
+import RideAlong from '@view/FieldTraining/RideAlong.vue'
+
 export const routes = [
     {
         path: '/',
@@ -84,6 +89,18 @@ export const routes = [
             },
         ],
     },
+    // {
+    //     path: '/field-training',
+    //     name: 'Field Trianing',
+    //     lowerName: 'field-training',
+    //     children: [
+    //         {
+    //             path: '/ride-along',
+    //             name: 'Ride Along',
+    //             component: RideAlong,
+    //         },
+    //     ],
+    // },
     {
         path: '/settings',
         name: 'Settings',

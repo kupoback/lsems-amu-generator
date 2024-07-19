@@ -63,10 +63,10 @@
 
     //region Actions
     const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateSaaaPilots(data, userData, links.patientFile, newPage)
+    const setupContents = (newPage = false) => generateSaaaPilots(pilotsLicenseStore().data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
-    const copyContentsForSaaa = () => generateSaaaPilotsCert(data, userData, links.saaaCert, true)
+    const copyContentsForSaaa = () => generateSaaaPilotsCert(pilotsLicenseStore().data, userData, links.saaaCert, true)
     const reset = () => {
         store.data = defaultData
         router.go('/patient-file')
