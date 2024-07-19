@@ -20,16 +20,16 @@
         ...store.$state,
     })
 
-const {
-    rideAlongType,
-    startTime,
-    endTime,
-    feedBackConcerns,
-    departmentCalls,
-    transportSuspect,
-    suspectNotes,
-    rideAlongNotes,
-    additionalMandatoriesNeeded,
+    const {
+        rideAlongType,
+        startTime,
+        endTime,
+        feedBackConcerns,
+        departmentCalls,
+        transportSuspect,
+        suspectNotes,
+        rideAlongNotes,
+        additionalMandatoriesNeeded,
     } = reactive(data)
 
     const formatter = ref({
