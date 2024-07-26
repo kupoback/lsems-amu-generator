@@ -15,6 +15,8 @@
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
 
     const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
+    const conversionHeightHelper = `Example: 6'3"`
+
     const {links, userData} = globalStore()
     const store = pilotsLicenseStore()
     const {data, defaultData} = reactive({
@@ -80,8 +82,9 @@
             <div class="mx-auto">
                 <div class="max-w-2xl mx-auto text-center pb-8">
                     <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Pilot's Evaluation File</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This page is used to create a pilot's evaluation file. </p>
-                    <p class="mt-1 leading-6 text-gray-600 dark:text-white"> All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. </p>
+                    <div class="mt-1 leading-6 text-gray-600 dark:text-white">
+                        <p>This page is used to create a pilot's evaluation file. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg.</p>
+                    </div>
                 </div>
                 <div class="pb-4">
                     <div class="mx-auto">
@@ -125,14 +128,14 @@
                     <fieldset class="my-8">
                         <FwbInput
                             v-model="savedHeight"
-                            placeholder="150cm"
+                            placeholder="150"
                             label="Height"
                             size="md"
                             @focusout="updateState('height', savedHeight)"
                         />
                         <p
                             class="text-sm mt-1"
-                            v-html="`${conversionHelperText} Do not use ft or in.`"
+                            v-html="`${conversionHelperText} Do not use ft or in. ${conversionHeightHelper}`"
                         />
                     </fieldset>
                     <fieldset class="my-8">
@@ -181,11 +184,12 @@
                         <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
                     </fieldset>
                     <fieldset class="my-8">
-                        <FwbInput
+                        <FwbTextarea
                             v-model="savedAuscultation"
                             placeholder="Lungs are... Heart is..."
                             label="Auscultation"
                             size="md"
+                            rows="3"
                             @focusout="updateState('auscultation', savedAuscultation)"
                         />
                     </fieldset>
@@ -195,24 +199,27 @@
                             placeholder="Exam Results..."
                             label="Eye Exam (Cover Test)"
                             size="md"
+                            rows="3"
                             @focusout="updateState('coverTest', savedCoverTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
-                        <FwbInput
+                        <FwbTextarea
                             v-model="savedAudioMeterTest"
                             placeholder="Hearing range was..."
                             label="Audio-Meter Test"
                             size="md"
+                            rows="3"
                             @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
-                        <FwbInput
+                        <FwbTextarea
                             v-model="savedDrugTest"
                             placeholder="Urinalysis results were..."
                             label="Drug Test Results"
                             size="md"
+                            rows="3"
                             @focusout="updateState('drugTest', savedDrugTest)"
                         />
                     </fieldset>

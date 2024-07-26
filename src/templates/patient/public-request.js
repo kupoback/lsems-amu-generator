@@ -1,3 +1,5 @@
+import {dateTimeToUtc} from "@/util/mixins";
+
 export const generatePublicRequest = (
     {
         fullName,
@@ -18,7 +20,7 @@ export const generatePublicRequest = (
 [hr]
 [b]Patient Name:[/b] ${fullName}
 [hr]
-[b]Date / Time:[/b] ${contactDate}
+[b]Date / Time:[/b] ${dateTimeToUtc(contactDate)}
 [hr]
 [b]Contact Method:[/b] ${contactMethod}
 [hr]

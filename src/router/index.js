@@ -30,45 +30,39 @@ import RideAlong from '@view/FieldTraining/RideAlong.vue'
 
 export const routes = [
     {
-        path: '/',
-        name: 'Home',
-        component: Home,
-    },
-    {
         path: '/patient',
-        name: 'Patient Formats',
-        // component: PatientFile,
+        name: 'AMU',
         lowerName: 'patient-file',
         children: [
             {
-                path: '/patient-file',
+                path: '/patient/patient-file',
                 name: 'Patient File',
                 component: PatientFile,
             },
             {
-                path: '/visitation-report',
-                name: 'Visitation Report',
-                component: VisitationReport,
-            },
-            {
-                path: '/appointment-format',
-                name: 'Appointment Format',
-                component: AppointmentFormat,
-            },
-            {
-                path: '/prescription',
-                name: 'Prescription',
-                component: Prescription,
-            },
-            {
-                path: '/pilots-license',
+                path: '/patient/pilots-license',
                 name: 'Pilot Examination',
                 component: PilotsLicense,
             },
             {
-                path: '/public-request',
+                path: '/patient/appointment-format',
+                name: 'Appointments',
+                component: AppointmentFormat,
+            },
+            {
+                path: '/patient/public-request',
                 name: 'Public Request',
                 component: PublicRequest,
+            },
+            {
+                path: '/patient/visitation-report',
+                name: 'Visitation Report',
+                component: VisitationReport,
+            },
+            {
+                path: '/patient/prescription',
+                name: 'Prescription',
+                component: Prescription,
             },
         ],
     },
@@ -78,12 +72,12 @@ export const routes = [
         lowerName: 'email',
         children: [
             {
-                path: '/email',
+                path: '/email/personal-email',
                 name: 'Email',
                 component: Email,
             },
             {
-                path: '/amu-email',
+                path: '/email/amu-email',
                 name: 'Amu Email',
                 component: AmuEmail,
             },
@@ -112,6 +106,11 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         ...routes,
+        {
+            path: '/',
+            name: 'Home',
+            component: Home,
+        },
         {
             path: '/:catchAll(.*)',
             name: 'Not Found',

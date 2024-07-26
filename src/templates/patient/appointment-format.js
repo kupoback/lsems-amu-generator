@@ -1,3 +1,5 @@
+import {dateToUtc, timeToUtc} from "@/util/mixins";
+
 export const generateAppointmentFormat = (
     {
         reasonForVisit,
@@ -20,9 +22,9 @@ export const generateAppointmentFormat = (
 [b]Reason for Appointment:[/b]
 ${reasonForVisit}
 [hr]
-[b]Date of Appointment:[/b] ${dateOfAppointment}
+[b]Date of Appointment:[/b] ${dateToUtc(dateOfAppointment)}
 [hr]
-[b]Time scheduled:[/b] ${timeScheduled}
+[b]Time scheduled:[/b] ${timeToUtc(timeScheduled)}
 
 [center][color=blue][b]
 

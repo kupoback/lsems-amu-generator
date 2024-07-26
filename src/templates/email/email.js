@@ -24,7 +24,7 @@ export const generateEmail = (
 [size=150]Los Santos Emergency Medical Services[/size][/b]
 [size=95]"One Team, One Mission, Saving Lives"[/size][/font]
 [size=115]${subject}[/size]
-[size=95]${dateToUtc()}[/size]
+[size=95]${dateToUtc('now')}[/size]
 [/right][/aligntable]
 [hr]
 [list=none]

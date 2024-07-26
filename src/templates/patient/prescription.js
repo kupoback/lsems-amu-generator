@@ -1,3 +1,5 @@
+import {dateTimeToUtc} from "@/util/mixins";
+
 export const generatePrescription = (
     {
         fullName,
@@ -28,13 +30,15 @@ export const generatePrescription = (
 [hr][/hr]
 [b]What Is Prescribed:[/b] ${prescription}
 [hr][/hr]
-[b]Starting on:[/b] ${startDate}
+[b]Starting on:[/b] ${dateTimeToUtc(startDate)}
 [hr][/hr]
-[b]Expiring on:[/b] ${endDate}
+[b]Expiring on:[/b] ${dateTimeToUtc(endDate)}
 [hr][/hr]
 [center][color=blue][b]
 
-[ooc]Use UTC timezone (/time) to keep it universal[/ooc][/b][/color][/center]
+[ooc]Use UTC timezone (/time) to keep it universal[/ooc]
+
+[/b][/color][/center]
 
 [/divbox]
 [divbox=white]

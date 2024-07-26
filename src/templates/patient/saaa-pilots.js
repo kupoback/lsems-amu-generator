@@ -44,23 +44,25 @@ export const generateSaaaPilots = (
 [/divbox]
 [lsemssubtitle]PHYSICAL EXAMINATION[/lsemssubtitle]
 [divbox=white]
-[b]Height:[/b] ${height && convertHeightToCm(height) + 'cm'}
+[b]Height:[/b] ${height && `${height} cm`}
 [hr]
-[b]Weight:[/b] ${weight && convertWeightToKg(weight) + 'kg'}
+[b]Weight:[/b] ${weight && `${weight} kg`}
 [hr]
-[b]BMI *must be below 35*:[/b] ${calculateBmi(height, weight)}
+[b]BMI *must be below 35*:[/b] ${(height && weight && calculateBmi(height, weight)) || ''}
 [hr]
-[b]Oximeter:[/b] ${oximetry && oximetry + '%'}
+[b]Oximeter:[/b] ${oximetry && `${oximetry} %`}
 [hr]
-[b]Temperature:[/b] ${temperature && formatTemperature(temperature) + 'C'}
+[b]Temperature:[/b] ${temperature && `${formatTemperature(temperature)} C`}
 [hr]
-[b]Blood Pressure:[/b]  ${bloodPressure && bloodPressure + 'mmHg'}
+[b]Blood Pressure:[/b] ${bloodPressure && `${bloodPressure} mmHg`}
 [hr]
 [b]Auscultation:[/b] ${auscultation}
 [hr]
-[b]Cover Test *using corrective lenses if prescribed*:[/b] ${coverTest}
+[b]Cover Test *using corrective lenses if prescribed*:[/b]
+${coverTest}
 [hr]
-[b]Audio-meter Test *using corrective equipment if prescribed*:[/b] ${audioMeterTest}
+[b]Audio-meter Test *using corrective equipment if prescribed*:[/b]
+${audioMeterTest}
 [hr]
 [b]Drug Test:[/b] ${drugTest}
 [hr]

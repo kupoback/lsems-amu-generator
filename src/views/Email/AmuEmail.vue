@@ -63,6 +63,7 @@
                                 placeholder="John Doe"
                                 label="Email To"
                                 size="md"
+                                autocomplete="off"
                                 @focusout="updateState('to', savedTo)"
                             />
                         </fieldset>

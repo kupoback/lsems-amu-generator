@@ -24,7 +24,7 @@ export const generateAmuEmail = (
 [size=150]Los Santos Advanced Medicine Division[/size][/b]
 [size=95]"One Team, One Mission, Saving Lives"[/size]
 [size=115]${subject}[/size]
-[size=95]${dateToUtc()}[/size]
+[size=95]${dateToUtc('now')}[/size]
 [/right][/aligntable]
 [hr]
 [list=none]

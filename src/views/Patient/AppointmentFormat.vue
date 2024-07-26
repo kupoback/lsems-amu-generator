@@ -23,7 +23,7 @@
     const {reasonForVisit, dateOfAppointment, timeScheduled} = reactive(data)
 
     const formatter = ref({
-        date: 'DD/MMM/YYYY',
+        date: 'DD/MMM/YYYY HH:mm',
         month: 'MMM',
     })
 
@@ -54,6 +54,7 @@
                     <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This page is used to create an appointment format. </p>
                 </div>
                 <div class="pb-4">
+                    <p class="mt-1 leading-6 text-gray-600 dark:text-white"> The dates will be converted to UTC. Time is used to convert to UTC and will not be included in the copy. </p>
                     <!-- Date of Appointment -->
                     <fieldset class="my-8">
                         <label
@@ -92,7 +93,7 @@
                         />
                         <p
                             class="text-sm mt-1"
-                            v-html="`You can include BBCode tags in here. Just be sure to close them`"
+                            v-html="`Time will be converted to UTC. Please use 24 hour format`"
                         />
                     </fieldset>
                 </div>

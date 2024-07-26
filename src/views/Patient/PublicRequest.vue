@@ -24,7 +24,7 @@
 
     //region Saved Data
     const formatter = ref({
-        date: 'DD/MMM/YYYY HH:ss',
+        date: 'DD/MMM/YYYY HH:mm',
         month: 'MMM',
     })
     const savedFullName = ref(fullName)
@@ -70,15 +70,21 @@
                         <label
                             for="start-date"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >Start Date</label
                         >
+                            Start Date
+                        </label>
                         <VueTailwindDatepicker
                             v-model="savedContactDate"
                             id="start-date"
-                            placeholder="DD/MMM/YYYY HH:ss"
+                            placeholder="DD/MMM/YYYY HH:mm"
                             as-single
                             :formatter="formatter"
+                            :auto-apply="false"
                             @focusout="updateState('contactDate', savedContactDate)"
+                        />
+                        <p
+                            class="text-sm mt-1"
+                            v-html="`Date and time will be converted to UTC from your local timezone. You can manually edit the time if you wish. Please use 24 hour formats.`"
                         />
                     </fieldset>
                     <!-- Contact Method -->
@@ -103,7 +109,6 @@
                         />
                     </fieldset>
                 </div>
-
                 <div class="max-w-2xl flex md:block justify-between">
                     <FwbButton
                         color="default"

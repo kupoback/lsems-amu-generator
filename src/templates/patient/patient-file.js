@@ -54,9 +54,9 @@ export const generatePatientFile = (
 [hr]
 [b]Profession:[/b] ${profession}
 [hr]
-[b]Height:[/b] ${height && convertHeightToCm(height) + 'cm'}
+[b]Height:[/b] ${height && `${height} cm`}
 [hr]
-[b]Weight:[/b] ${weight && convertWeightToKg(weight) + 'kg'}
+[b]Weight:[/b] ${weight && `${weight} kg`}
 [hr]
 [b]Blood Type:[/b] ${bloodType}
 [hr]
@@ -68,17 +68,18 @@ export const generatePatientFile = (
 [b]General Screening:[/b]
 ${generalScreening}
 [hr]
-[b]ECG Band:[/b] ${ecgBand}
+[b]ECG Band:[/b] ${ecgBand && `${ecgBand} BPM`}
 [hr]
-[b]Oximeter:[/b] ${oximetry && oximetry + '%'}
+[b]Oximeter:[/b] ${oximetry && `${oximetry} %`}
 [hr]
-[b]Temperature:[/b] ${temperature && formatTemperature(temperature) + 'C'}
+[b]Temperature:[/b] ${temperature && `${formatTemperature(temperature)} C`}
 [hr]
-[b]Blood Pressure:[/b] ${bloodPressure && bloodPressure + 'mmHg'}
+[b]Blood Pressure:[/b] ${bloodPressure && `${bloodPressure} mmHg`}
 [hr]
-[b]Auscultation:[/b] ${auscultation}
+[b]Auscultation:[/b]
+${auscultation}
 [hr]
-[b]BMI:[/b] ${calculateBmi(height, weight)}
+[b]BMI:[/b] ${(height && weight && calculateBmi(height, weight)) || ''}
 [hr]
 [b]Cover Test:[/b]
 ${coverTest}
@@ -86,7 +87,8 @@ ${coverTest}
 [b]Refraction Test:[/b]
 ${refractionTest}
 [hr]
-[b]Audio-meter Test:[/b] ${audioMeterTest}
+[b]Audio-meter Test:[/b]
+${audioMeterTest}
 [hr]
 [b]Additional Notes:[/b]
 ${additionalNotes}

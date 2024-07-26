@@ -22,6 +22,15 @@ module.exports = {
             //     800: dbDarkBlue,
             // },
         },
+        // fontSize: {
+        //     sm: '1rem',
+        //     base: '1.25rem',
+        //     xl: '1.5rem',
+        //     '2xl': '1.563rem',
+        //     '3xl': '1.953rem',
+        //     '4xl': '2.441rem',
+        //     '5xl': '3.052rem',
+        // },
         extend: {
             colors: {
                 "vtd-primary": colors.sky, // Light mode Datepicker color

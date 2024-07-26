@@ -23,7 +23,7 @@ export const generateSaaaPilotsCert = (
 [fimg=120,120]https://i.imgur.com/QYXPM0p.png[/fimg]
 [center][img]https://i.imgur.com/7x0vy1x.png[/img][/center]
 [center][size=140]${fullName}
-was examined by AMU staff on ${dateToUtc()} and found medically fit to operate an aircraft.[/size]
+was examined by AMU staff on ${dateToUtc('now')} and found medically fit to operate an aircraft.[/size]
 [center][img]https://i.imgur.com/7x0vy1x.png[/img][/center]
 [/align]
 [divbox=white]

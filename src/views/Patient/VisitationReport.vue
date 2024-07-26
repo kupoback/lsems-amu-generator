@@ -24,7 +24,7 @@
 
     //region Saved Data
     const formatter = ref({
-        date: 'DD/MMM/YYYY',
+        date: 'DD/MMM/YYYY HH:mm',
         month: 'MMM',
     })
     const savedDateOfVisit = ref(dateOfVisit)
@@ -55,6 +55,7 @@
                     <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This page is used to create a visitation report. </p>
                 </div>
                 <div class="pb-4">
+                    <p class="mt-1 leading-6 text-gray-600 dark:text-white"> The dates will be converted to UTC, time will not be added. </p>
                     <!-- Date of Visit -->
                     <fieldset class="my-8">
                         <label

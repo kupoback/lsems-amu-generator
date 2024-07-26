@@ -22,7 +22,7 @@
 
     //region Saved Data
     const formatter = ref({
-        date: 'DD/MMM/YYYY HH:ss',
+        date: 'DD/MMM/YYYY HH:mm',
         month: 'MMM',
     })
     const savedFullName = ref(fullName)
@@ -66,7 +66,7 @@
                             <VueTailwindDatepicker
                                 v-model="savedStartDate"
                                 id="start-date"
-                                placeholder="DD/MMM/YYYY HH:ss"
+                                placeholder="DD/MMM/YYYY HH:mm"
                                 as-single
                                 :formatter="formatter"
                                 @focusout="updateState('startDate', savedStartDate)"
@@ -82,7 +82,7 @@
                             <VueTailwindDatepicker
                                 v-model="savedEndDate"
                                 id="end-date"
-                                placeholder="DD/MMM/YYYY HH:ss"
+                                placeholder="DD/MMM/YYYY HH:mm"
                                 as-single
                                 :formatter="formatter"
                                 @focusout="updateState('endDate', savedEndDate)"

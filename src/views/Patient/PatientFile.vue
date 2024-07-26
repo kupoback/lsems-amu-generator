@@ -13,8 +13,10 @@
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
+    import {convertHeightToCm, convertWeightToKg} from "@/util/mixins";
 
     const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
+    const conversionHeightHelper = `Example: 6'3"`
 
     const {links, userData} = globalStore()
     const store = patientFileStore()
@@ -98,8 +100,9 @@
             <div class="mx-auto">
                 <div class="max-w-2xl mx-auto text-center pb-8">
                     <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Patient File</h2>
-                    <p class="mt-1 leading-6 text-gray-600 dark:text-white"> This page is used to create a patient file. </p>
-                    <p class="mt-1 leading-6 text-gray-600 dark:text-white"> All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. </p>
+                    <div class="mt-1 leading-6 text-gray-600 dark:text-white">
+                        <p>This page is used to create a patient file. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg.</p>
+                    </div>
                 </div>
                 <div class="pb-4">
                     <div class="mx-auto">
@@ -170,14 +173,14 @@
                     <fieldset class="my-8">
                         <FwbInput
                             v-model="savedHeight"
-                            placeholder="150cm"
+                            placeholder="150"
                             label="Height"
                             size="md"
-                            @focusout="updateState('height', savedHeight)"
+                            @focusout="updateState('height', convertHeightToCm(savedHeight))"
                         />
                         <p
                             class="text-sm mt-1"
-                            v-html="`${conversionHelperText} Do not use ft or in.`"
+                            v-html="`${conversionHelperText} Do not use ft or in. ${conversionHeightHelper}`"
                         />
                     </fieldset>
                     <fieldset class="my-8">
@@ -186,7 +189,7 @@
                             placeholder="75"
                             label="Weight"
                             size="md"
-                            @focusout="updateState('weight', savedWeight)"
+                            @focusout="updateState('weight', convertWeightToKg(savedWeight))"
                         />
                         <p
                             class="text-sm mt-1"
@@ -240,7 +243,7 @@
                     <fieldset class="my-8">
                         <FwbInput
                             v-model="savedOximetry"
-                            placeholder="98%"
+                            placeholder="98"
                             label="Oximetry"
                             size="md"
                             @focusout="updateState('oximetry', savedOximetry)"
@@ -286,6 +289,7 @@
                             placeholder="Exam Results..."
                             label="Eye Exam (Cover Test)"
                             size="md"
+                            rows="3"
                             @focusout="updateState('coverTest', savedCoverTest)"
                         />
                     </fieldset>
@@ -295,6 +299,7 @@
                             placeholder="Refraction results..."
                             label="Refraction Test"
                             size="md"
+                            rows="3"
                             @focusout="updateState('refractionTest', savedRefractionTest)"
                         />
                     </fieldset>
@@ -304,6 +309,7 @@
                             placeholder="Hearing range was..."
                             label="Audio-Meter Test"
                             size="md"
+                            rows="3"
                             @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
                         />
                     </fieldset>
@@ -313,6 +319,7 @@
                             placeholder="Additional information"
                             label="Additional Notes"
                             size="md"
+                            rows="3"
                             @focusout="updateState('additionalNotes', savedAdditionalNotes)"
                         />
                     </fieldset>
@@ -356,7 +363,7 @@
                     <fieldset class="my-8">
                         <FwbTextarea
                             v-model="savedUrinalysis"
-                            placeholder="Test results indicate..."
+                            placeholder="Urinalysis test results indicate..."
                             label="Urinalysis Test"
                             size="md"
                             @focusout="updateState('urinalysis', savedUrinalysis)"

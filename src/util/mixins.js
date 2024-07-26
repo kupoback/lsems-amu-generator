@@ -71,3 +71,25 @@ export const dateToUtc = date => dayjs
     .utc(date)
     .format('DD/MMM/YYYY')
     .toUpperCase()
+
+/**
+ * Converts the date and time to UTC
+ *
+ * @param {string} date The date
+ * @returns
+ */
+export const dateTimeToUtc = date => dayjs
+    .utc(date)
+    .format('DD/MMM/YYYY HH:mm')
+    .toUpperCase()
+
+/**
+ * Converts the time to UTC
+ *
+ * @param {string} date The date
+ * @returns
+ */
+export const timeToUtc = date => dayjs
+    .utc(date)
+    .format('HH:mm')
+    .toUpperCase()
