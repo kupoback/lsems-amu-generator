@@ -4,6 +4,7 @@
     import {routes} from '@/router'
     import {FwbNavbar, FwbNavbarCollapse} from 'flowbite-vue'
     import NavItems from '@/components/Navigation/Components/NavItems.vue'
+    import {RouterLink} from "vue-router";
 
     const store = globalStore()
     const docBodyClass = document.body.classList
@@ -22,14 +23,16 @@
 <template>
     <FwbNavbar>
         <template #logo>
-            <p class="flex items-center flex-shrink-0">
+            <RouterLink
+                :to="'/'"
+                class="flex items-center flex-shrink-0">
                 <img
                     :src="logo"
-                    alt="LSPD DB Generator"
+                    alt="AMU Paperwork Generator"
                     class="mr-3 h-6 sm:h-10"
                 />
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"> AMU Paperwork Generator </span>
-            </p>
+            </RouterLink>
         </template>
         <template #default="{isShowMenu}">
             <FwbNavbarCollapse
