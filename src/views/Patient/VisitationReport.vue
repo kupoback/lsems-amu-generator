@@ -13,6 +13,7 @@
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
+    import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
     const {links, userData} = globalStore()
     const store = visitationStore()
@@ -41,7 +42,7 @@
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {
         store.data = defaultData
-        router.go('/visitation-report')
+        router.go('/patient/visitation-report')
     }
     //endregion
 </script>
@@ -50,10 +51,10 @@
     <div class="visitation-report w-full overflow-hidden rounded-lg ring-1 ring-slate-900 dark:ring-slate-100">
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-16 lg:px-8">
             <div class="mx-auto">
-                <div class="max-w-2xl mx-auto text-center pb-8">
-                    <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Visitation Report</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This page is used to create a visitation report. </p>
-                </div>
+                <BodyHeader
+                    title="Create Visitation Report"
+                    body="This page is used to create a visitation report."
+                />
                 <div class="pb-4">
                     <p class="mt-1 leading-6 text-gray-600 dark:text-white"> The dates will be converted to UTC, time will not be added. </p>
                     <!-- Date of Visit -->

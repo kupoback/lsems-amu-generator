@@ -13,9 +13,15 @@ import NotFound from '@view/NotFound.vue'
 import PatientFile from '@view/Patient/PatientFile.vue'
 import VisitationReport from '@view/Patient/VisitationReport.vue'
 import AppointmentFormat from '@view/Patient/AppointmentFormat.vue'
-import Prescription from '@view/Patient/Prescription.vue'
 import PilotsLicense from '@view/Patient/PilotsLicense.vue'
 import PublicRequest from '@view/Patient/PublicRequest.vue'
+
+/**
+ * Prescriptions
+ */
+import Prescription from '@view/Prescriptions/Prescription.vue'
+import Methadone from '@view/Prescriptions/Methadone.vue'
+import EyePrescription from '@view/Prescriptions/EyePrescription.vue'
 
 /**
  * Email Components
@@ -59,10 +65,27 @@ export const routes = [
                 name: 'Visitation Report',
                 component: VisitationReport,
             },
+        ],
+    },
+    {
+        path: '/prescription',
+        name: 'Prescriptions',
+        lowerName: 'prescription',
+        children: [
             {
-                path: '/patient/prescription',
+                path: '/prescription/prescription',
                 name: 'Prescription',
                 component: Prescription,
+            },
+            {
+                path: '/prescription/methadone',
+                name: 'Methadone',
+                component: Methadone,
+            },
+            {
+                path: '/prescription/eye-prescription',
+                name: 'Eye Prescription',
+                component: EyePrescription,
             },
         ],
     },

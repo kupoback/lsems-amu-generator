@@ -4,15 +4,21 @@
      */
     import {globalStore} from '@/stores/global'
     import {prescriptionStore} from '@/stores/prescription'
-    import {generatePrescription} from '@/templates/patient/prescription'
+    import {generatePrescription} from '@/templates/prescriptions/prescription'
     import {reactive, ref} from 'vue'
     import router from '@/router'
+    import {
+        columnWrapper,
+        halfLeftColumn,
+        halfRightColumn,
+    } from "@/util/css-classes"
 
     /**
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
+    import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
     const {links, userData} = globalStore()
     const store = prescriptionStore()
@@ -40,7 +46,7 @@
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {
         store.data = defaultData
-        router.go('/prescription')
+        router.go('/prescription/prescription')
     }
     //endregion
 </script>
@@ -49,15 +55,15 @@
     <div class="prescription w-full overflow-hidden rounded-lg ring-1 ring-slate-900 dark:ring-slate-100">
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-16 lg:px-8">
             <div class="mx-auto">
-                <div class="max-w-2xl mx-auto text-center pb-8">
-                    <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Prescription</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This page is used to create a prescription. </p>
-                </div>
+                <BodyHeader
+                    title="Create Prescription"
+                    body="This page is used to create a prescription."
+                />
                 <div class="pb-4">
                     <p class="mt-1 leading-6 text-gray-600 dark:text-white"> The dates will be converted to UTC </p>
-                    <div class="flex">
+                    <div :class=columnWrapper>
                         <!-- Start Date -->
-                        <fieldset class="mt-8 w-6/12 pr-2">
+                        <fieldset :class=halfLeftColumn>
                             <label
                                 for="start-date"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -73,7 +79,7 @@
                             />
                         </fieldset>
                         <!-- Expiration Date -->
-                        <fieldset class="mt-8 w-6/12 pl-2">
+                        <fieldset :class=halfRightColumn>
                             <label
                                 for="end-date"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -89,26 +95,28 @@
                             />
                         </fieldset>
                     </div>
-                    <!-- Full Name -->
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedFullName"
-                            placeholder="FName LName"
-                            label="Patients Name"
-                            size="md"
-                            @focusout="updateState('fullName', savedFullName)"
-                        />
-                    </fieldset>
-                    <!-- Phone Number -->
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedPhoneNumber"
-                            placeholder="5551234"
-                            label="Patients Phone Number"
-                            size="md"
-                            @focusout="updateState('phoneNumber', savedPhoneNumber)"
-                        />
-                    </fieldset>
+                    <div :class=columnWrapper>
+                        <!-- Full Name -->
+                        <fieldset :class=halfLeftColumn>
+                            <FwbInput
+                                v-model="savedFullName"
+                                placeholder="FName LName"
+                                label="Patients Name"
+                                size="md"
+                                @focusout="updateState('fullName', savedFullName)"
+                            />
+                        </fieldset>
+                        <!-- Phone Number -->
+                        <fieldset :class=halfRightColumn>
+                            <FwbInput
+                                v-model="savedPhoneNumber"
+                                placeholder="5551234"
+                                label="Patients Phone Number"
+                                size="md"
+                                @focusout="updateState('phoneNumber', savedPhoneNumber)"
+                            />
+                        </fieldset>
+                    </div>
                     <!-- Diagnosis -->
                     <fieldset class="my-8">
                         <FwbTextarea
@@ -121,11 +129,12 @@
                     </fieldset>
                     <!-- Prescription -->
                     <fieldset class="my-8">
-                        <FwbInput
+                        <FwbTextarea
                             v-model="savedPrescription"
-                            placeholder="Medication strength"
-                            label="Medication Prescribed"
+                            placeholder="Medication: strength"
+                            label="Medication(s) Prescribed"
                             size="md"
+                            rows="4"
                             @focusout="updateState('prescription', savedPrescription)"
                         />
                     </fieldset>

@@ -46,8 +46,7 @@ Los Santos Advanced Medicine Division[/b]
 [/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 
         navigator.clipboard.writeText(template).then(
-            () => {
-            },
+            () => {},
             e => console.error(e),
         )
         newPage && window.open(destination, '_blank')

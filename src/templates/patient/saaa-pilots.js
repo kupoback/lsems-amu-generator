@@ -1,4 +1,4 @@
-import {calculateBmi, convertHeightToCm, convertWeightToKg, formatTemperature} from '@/util/mixins'
+import {calculateBmi, formatTemperature} from '@/util/mixins'
 
 export const generateSaaaPilots = (
     {
@@ -44,15 +44,15 @@ export const generateSaaaPilots = (
 [/divbox]
 [lsemssubtitle]PHYSICAL EXAMINATION[/lsemssubtitle]
 [divbox=white]
-[b]Height:[/b] ${height && `${height} cm`}
+[b]Height:[/b] ${height && `${height}cm`}
 [hr]
-[b]Weight:[/b] ${weight && `${weight} kg`}
+[b]Weight:[/b] ${weight && `${weight}kg`}
 [hr]
 [b]BMI *must be below 35*:[/b] ${(height && weight && calculateBmi(height, weight)) || ''}
 [hr]
-[b]Oximeter:[/b] ${oximetry && `${oximetry} %`}
+[b]Oximeter:[/b] ${oximetry && `${oximetry}%`}
 [hr]
-[b]Temperature:[/b] ${temperature && `${formatTemperature(temperature)} C`}
+[b]Temperature:[/b] ${temperature && `${formatTemperature(temperature)}C`}
 [hr]
 [b]Blood Pressure:[/b] ${bloodPressure && `${bloodPressure} mmHg`}
 [hr]

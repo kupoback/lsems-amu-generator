@@ -8,14 +8,23 @@
     import {generateSaaaPilotsCert} from '@/templates/patient/saaa-pilots-cert'
     import {reactive, ref} from 'vue'
     import router from '@/router'
+    import {
+        columnWrapper,
+        halfLeftColumn,
+        halfRightColumn,
+        thirdLeftColumn,
+        thirdMiddleColumn,
+        thirdRightColumn
+    } from '@/util/css-classes'
+    import {convertHeightToCm, convertWeightToKg} from '@/util/mixins'
+    import {conversionHelperText, conversionHeightHelper} from "@/util/helper-text"
 
     /**
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
-
-    const conversionHelperText = 'If an imperial value is entered, this will be converted to metric.'
-    const conversionHeightHelper = `Example: 6'3"`
+    import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
+    import SectionTitle from '@component/SectionTitle/SectionTitle.vue'
 
     const {links, userData} = globalStore()
     const store = pilotsLicenseStore()
@@ -71,7 +80,7 @@
     const copyContentsForSaaa = () => generateSaaaPilotsCert(pilotsLicenseStore().data, userData, links.saaaCert, true)
     const reset = () => {
         store.data = defaultData
-        router.go('/patient-file')
+        router.go('/patient/patient-file')
     }
     //endregion
 </script>
@@ -80,109 +89,110 @@
     <div class="pilots-license w-full overflow-hidden rounded-lg ring-1 ring-slate-900 dark:ring-slate-100">
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-16 lg:px-8">
             <div class="mx-auto">
-                <div class="max-w-2xl mx-auto text-center pb-8">
-                    <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create Pilot's Evaluation File</h2>
-                    <div class="mt-1 leading-6 text-gray-600 dark:text-white">
-                        <p>This page is used to create a pilot's evaluation file. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg.</p>
-                    </div>
-                </div>
-                <div class="pb-4">
-                    <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Patient Information</h3>
-                    </div>
-                    <!-- Full Name -->
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedFullName"
-                            placeholder="FName LName"
-                            label="Full Name"
-                            size="md"
-                            @focusout="updateState('fullName', savedFullName)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedPhoneNumber"
-                            placeholder="5551234"
-                            label="Phone Number"
-                            size="md"
-                            @focusout="updateState('phoneNumber', savedPhoneNumber)"
-                        />
-                    </fieldset>
-
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedMedications"
-                            placeholder="Drug listing"
-                            label="Medications"
-                            size="md"
-                            @focusout="updateState('medications', savedMedications)"
-                        />
-                    </fieldset>
-                </div>
+                <BodyHeader
+                    title="Create Pilot's Evaluation File"
+                    body="This page is used to create a pilot's evaluation file. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg."
+                />
 
                 <div class="pb-4">
-                    <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Physical Examination</h3>
+                    <SectionTitle title="Patient Information" />
+                    <div :class="columnWrapper">
+                        <!-- Full Name -->
+                        <fieldset :class="thirdLeftColumn">
+                            <FwbInput
+                                v-model="savedFullName"
+                                placeholder="FName LName"
+                                label="Full Name"
+                                size="md"
+                                @focusout="updateState('fullName', savedFullName)"
+                            />
+                        </fieldset>
+                        <fieldset :class="thirdMiddleColumn">
+                            <FwbInput
+                                v-model="savedPhoneNumber"
+                                placeholder="5551234"
+                                label="Phone Number"
+                                size="md"
+                                @focusout="updateState('phoneNumber', savedPhoneNumber)"
+                            />
+                        </fieldset>
+
+                        <fieldset :class="thirdRightColumn">
+                            <FwbInput
+                                v-model="savedMedications"
+                                placeholder="Drug listing"
+                                label="Medications"
+                                size="md"
+                                @focusout="updateState('medications', savedMedications)"
+                            />
+                        </fieldset>
                     </div>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedHeight"
-                            placeholder="150"
-                            label="Height"
-                            size="md"
-                            @focusout="updateState('height', savedHeight)"
-                        />
-                        <p
-                            class="text-sm mt-1"
-                            v-html="`${conversionHelperText} Do not use ft or in. ${conversionHeightHelper}`"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedWeight"
-                            placeholder="75"
-                            label="Weight"
-                            size="md"
-                            @focusout="updateState('weight', savedWeight)"
-                        />
-                        <p
-                            class="text-sm mt-1"
-                            v-html="`${conversionHelperText} Use lbs or pounds for Imperial with a space.`"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedOximetry"
-                            placeholder="98%"
-                            label="Oximetry"
-                            size="md"
-                            @focusout="updateState('oximetry', savedOximetry)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedTemperature"
-                            placeholder="37C"
-                            label="Temperature"
-                            size="md"
-                            @focusout="updateState('temperature', savedTemperature)"
-                        />
-                        <p
-                            class="text-sm mt-1"
-                            v-html="conversionHelperText"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedBloodPressure"
-                            placeholder="120/80"
-                            label="Blood Pressure"
-                            size="md"
-                            @focusout="updateState('bloodPressure', savedBloodPressure)"
-                        />
-                        <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
-                    </fieldset>
+                </div>
+
+                <div class="pb-4">
+                    <SectionTitle title="Physical Examination" />
+                    <div :class="columnWrapper">
+                        <fieldset :class="halfLeftColumn">
+                            <FwbInput
+                                v-model="savedHeight"
+                                placeholder="150"
+                                label="Height"
+                                size="md"
+                                @focusout="updateState('height', convertHeightToCm(savedHeight))"
+                            />
+                            <p
+                                class="text-sm mt-1"
+                                v-html="`${conversionHelperText} Do not use ft or in. ${conversionHeightHelper}`"
+                            />
+                        </fieldset>
+                        <fieldset :class="halfRightColumn">
+                            <FwbInput
+                                v-model="savedWeight"
+                                placeholder="75"
+                                label="Weight"
+                                size="md"
+                                @focusout="updateState('weight', convertWeightToKg(savedWeight))"
+                            />
+                            <p
+                                class="text-sm mt-1"
+                                v-html="`${conversionHelperText} Use lbs or pounds for Imperial with a space.`"
+                            />
+                        </fieldset>
+                    </div>
+                    <div :class="columnWrapper">
+                        <fieldset :class="thirdLeftColumn">
+                            <FwbInput
+                                v-model="savedOximetry"
+                                placeholder="98%"
+                                label="Oximetry"
+                                size="md"
+                                @focusout="updateState('oximetry', savedOximetry)"
+                            />
+                        </fieldset>
+                        <fieldset :class="thirdMiddleColumn">
+                            <FwbInput
+                                v-model="savedTemperature"
+                                placeholder="37C"
+                                label="Temperature"
+                                size="md"
+                                @focusout="updateState('temperature', savedTemperature)"
+                            />
+                            <p
+                                class="text-sm mt-1"
+                                v-html="conversionHelperText"
+                            />
+                        </fieldset>
+                        <fieldset :class="thirdRightColumn">
+                            <FwbInput
+                                v-model="savedBloodPressure"
+                                placeholder="120/80"
+                                label="Blood Pressure"
+                                size="md"
+                                @focusout="updateState('bloodPressure', savedBloodPressure)"
+                            />
+                            <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
+                        </fieldset>
+                    </div>
                     <fieldset class="my-8">
                         <FwbTextarea
                             v-model="savedAuscultation"
@@ -226,9 +236,7 @@
                 </div>
 
                 <div class="pb-4">
-                    <div class="mx-auto">
-                        <h3 class="text-2xl font-bold leading-7 text-gray-900 dark:text-white underline">Survey</h3>
-                    </div>
+                    <SectionTitle title="Survey" />
                     <fieldset class="my-8">
                         <FwbInput
                             v-model="savedHistoryOfDiabetes"

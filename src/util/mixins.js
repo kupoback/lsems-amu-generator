@@ -86,10 +86,10 @@ export const dateTimeToUtc = date => dayjs
 /**
  * Converts the time to UTC
  *
- * @param {string} date The date
+ * @param {string} time The time
  * @returns
  */
-export const timeToUtc = date => dayjs
-    .utc(date)
-    .format('HH:mm')
+export const timeToUtc = time => dayjs
+    .utc(time, 'HH:m')
+    .format('HH:m')
     .toUpperCase()

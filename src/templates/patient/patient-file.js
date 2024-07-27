@@ -54,9 +54,9 @@ export const generatePatientFile = (
 [hr]
 [b]Profession:[/b] ${profession}
 [hr]
-[b]Height:[/b] ${height && `${height} cm`}
+[b]Height:[/b] ${height && `${height}cm`}
 [hr]
-[b]Weight:[/b] ${weight && `${weight} kg`}
+[b]Weight:[/b] ${weight && `${weight}kg`}
 [hr]
 [b]Blood Type:[/b] ${bloodType}
 [hr]
@@ -70,9 +70,9 @@ ${generalScreening}
 [hr]
 [b]ECG Band:[/b] ${ecgBand && `${ecgBand} BPM`}
 [hr]
-[b]Oximeter:[/b] ${oximetry && `${oximetry} %`}
+[b]Oximeter:[/b] ${oximetry && `${oximetry}%`}
 [hr]
-[b]Temperature:[/b] ${temperature && `${formatTemperature(temperature)} C`}
+[b]Temperature:[/b] ${temperature && `${formatTemperature(temperature)}C`}
 [hr]
 [b]Blood Pressure:[/b] ${bloodPressure && `${bloodPressure} mmHg`}
 [hr]

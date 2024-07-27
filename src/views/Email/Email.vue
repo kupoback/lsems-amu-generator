@@ -7,11 +7,17 @@
     import {generateEmail} from '@/templates/email/email'
     import {reactive, ref} from 'vue'
     import router from '@/router'
+    import {
+        columnWrapper,
+        halfLeftColumn,
+        halfRightColumn,
+    } from "@/util/css-classes"
 
     /**
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
+    import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
     const {links, userData} = globalStore()
     const store = emailStore()
@@ -31,7 +37,7 @@
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {
         store.data = defaultData
-        router.go('/email')
+        router.go('/email/personal-email')
     }
 </script>
 
@@ -39,14 +45,14 @@
     <div class="email w-full overflow-hidden rounded-lg ring-1 ring-slate-900 dark:ring-slate-100">
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-16 lg:px-8">
             <div class="mx-auto">
-                <div class="max-w-2xl mx-auto text-center pb-8">
-                    <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Create An Email</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This page is used to create a formatted email. </p>
-                </div>
+                <BodyHeader
+                    title="Create An Email"
+                    body="This page is used to create a formatted email."
+                />
                 <div class="pb-4">
-                    <div class="flex">
+                    <div :class=columnWrapper>
                         <!-- Subject Line -->
-                        <fieldset class="w-6/12 pr-2">
+                        <fieldset :class=halfLeftColumn>
                             <FwbInput
                                 v-model="savedSubject"
                                 placeholder="Subject Line"
@@ -57,7 +63,7 @@
                             />
                         </fieldset>
                         <!-- To -->
-                        <fieldset class="w-6/12 pl-2">
+                        <fieldset :class=halfRightColumn>
                             <FwbInput
                                 v-model="savedTo"
                                 placeholder="John Doe"

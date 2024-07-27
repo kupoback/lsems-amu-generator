@@ -24,7 +24,7 @@ ${reasonForVisit}
 [hr]
 [b]Date of Appointment:[/b] ${dateToUtc(dateOfAppointment)}
 [hr]
-[b]Time scheduled:[/b] ${timeToUtc(timeScheduled)}
+[b]Time scheduled:[/b] ${timeScheduled}
 
 [center][color=blue][b]
 

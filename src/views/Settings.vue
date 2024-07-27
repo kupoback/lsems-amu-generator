@@ -1,7 +1,20 @@
 <script setup>
     import {globalStore} from '@/stores/global'
     import {computed, reactive, ref} from 'vue'
+    import {
+        columnWrapper,
+        halfLeftColumn,
+        halfRightColumn,
+        thirdLeftColumn,
+        thirdMiddleColumn,
+        thirdRightColumn,
+    } from "@/util/css-classes"
+
+    /**
+     * Vue Components
+     */
     import {FwbButton, FwbInput} from 'flowbite-vue'
+    import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
     let buttonText = 'Save Data'
     let savingText = 'Saving Data'
@@ -47,11 +60,10 @@
     <div class="page-settings w-full overflow-hidden rounded-lg ring-1 ring-slate-900 dark:ring-slate-100">
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-16 lg:px-8">
             <div class="mx-auto">
-                <div class="max-w-2xl mx-auto text-center pb-8">
-                    <h2 class="text-4xl font-bold leading-7 text-gray-900 dark:text-white pb-4">Profile Settings</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white"> This information will be stored to your browsers localStorage. If you clear that, you'll lose your data. </p>
-                </div>
-
+                <BodyHeader
+                    title="Profile Settings"
+                    body="This information will be stored to your browsers localStorage. If you clear that, you'll lose your data."
+                />
                 <div class="sm:mx-auto sm:w-full sm:max-w-sm">
                     <fieldset class="my-8">
                         <FwbInput
@@ -96,14 +108,16 @@
                         />
                         <div
                             v-if="savedSignature"
-                            class="bg-white p-2 mt-4"
+                            class="mt-4"
                         >
-                            <p>Your saves signature</p>
-                            <img
-                                class="mx-auto"
-                                :src="savedSignature"
-                                alt="Signature Image"
-                            />
+                            <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your saved signature</p>
+                            <div class="bg-white w-full p-4">
+                                <img
+                                    class="mx-auto"
+                                    :src="savedSignature"
+                                    alt="Signature Image"
+                                />
+                            </div>
                         </div>
                     </fieldset>
                     <fieldset class="my-8">
