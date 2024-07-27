@@ -79,7 +79,6 @@
                             placeholder="DD/MMM/YYYY HH:mm"
                             as-single
                             :formatter="formatter"
-                            :auto-apply="false"
                             @focusout="updateState('contactDate', savedContactDate)"
                         />
                         <p
