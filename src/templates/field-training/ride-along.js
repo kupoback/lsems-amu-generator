@@ -62,7 +62,7 @@ ${additionalMandatoriesNeeded}
 
 [img]${signature}[/img]
 [i]${name}[/i]
-[b][i]${rank}[/i]
+[b][i]${rank}[/i][/b]
 [/divbox]
 [LSEMSfooter][/LSEMSfooter]`
 

@@ -20,20 +20,10 @@
         ...store.$state,
     })
 
-    const {
-        rideAlongType,
-        startTime,
-        endTime,
-        feedBackConcerns,
-        departmentCalls,
-        transportSuspect,
-        suspectNotes,
-        rideAlongNotes,
-        additionalMandatoriesNeeded,
-    } = reactive(data)
+    const {rideAlongType, startTime, endTime, feedBackConcerns, departmentCalls, transportSuspect, suspectNotes, rideAlongNotes, additionalMandatoriesNeeded} = reactive(data)
 
     const formatter = ref({
-        date: 'DD/MMM/YYYY',
+        date: 'DD/MMM/YYYY HH:mm',
         month: 'MMM',
     })
     const savedRideAlongType = ref(rideAlongType)
@@ -69,11 +59,11 @@
                 <div class="pb-4">
                     <fieldset class="my-8">
                         <FwbSelect
-                            v-model=savedRideAlongType
+                            v-model="savedRideAlongType"
                             :options="rideAlongTypes"
                             label="Optional?"
                             @change="updateState('rideAlongType', savedRideAlongType)"
-                            />
+                        />
                     </fieldset>
                     <div class="flex">
                         <!-- Ride Along Start Time -->
@@ -86,7 +76,7 @@
                             <VueTailwindDatepicker
                                 v-model="savedStartTime"
                                 id="start-time"
-                                placeholder="DD/MMM/YYYY H:i"
+                                placeholder="DD/MMM/YYYY HH:mm"
                                 as-single
                                 :formatter="formatter"
                                 @focusout="updateState('dateOfAppointment', savedStartTime)"
@@ -102,7 +92,7 @@
                             <VueTailwindDatepicker
                                 v-model="savedReasonForVisit"
                                 id="end-time"
-                                placeholder="DD/MMM/YYYY H:i"
+                                placeholder="DD/MMM/YYYY HH:mm"
                                 as-single
                                 :formatter="formatter"
                                 @focusout="updateState('dateOfAppointment', savedReasonForVisit)"

@@ -40,7 +40,7 @@ Kind regards,
 
 [img]${signature}[/img]
 [i]${name}[/i]
-[b][i]${rank}[/i]
+[b]${rank}[/b]
 [b]Los Santos Emergency Medical Services[/b]
 [/divbox]
 [LSEMSfooter][/LSEMSfooter]`

@@ -34,7 +34,7 @@ ${reasonForVisit}
 
 [img]${signature}[/img]
 [i]${name}[/i]
-[b][i]${internalRank} / ${rank}[/i]
+[b]${internalRank} / ${rank}[/b]
 Los Santos Advanced Medicine Division[/b]
 [/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 

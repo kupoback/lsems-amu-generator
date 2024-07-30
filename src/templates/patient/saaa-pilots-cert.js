@@ -30,7 +30,7 @@ was examined by AMU staff on ${dateToUtc()} and found medically fit to operate a
 
 [img]${signature}[/img]
 [i]${name}[/i]
-[b][i]${internalRank} / ${rank}[/i]
+[b]${internalRank} / ${rank}[/b]
 [b]Los Santos Emergency Medical Services[/b]
 [/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 

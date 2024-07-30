@@ -39,7 +39,7 @@ Kind regards,
 
 [img]${signature}[/img]
 [i]${name}[/i]
-[b][i]${internalRank} / ${rank}[/i]
+[b]${internalRank} / ${rank}[/b]
 [b]Los Santos Advanced Medicine Division[/b]
 [/divbox]
 [LSEMSfooter][/LSEMSfooter]`
