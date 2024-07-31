@@ -1,17 +1,6 @@
-import {dateToUtc, timeToUtc} from "@/util/mixins";
+import {dateToUtc, timeToUtc} from '@/util/mixins'
 
-export const generateAppointmentFormat = (
-    {
-        reasonForVisit,
-        dateOfAppointment,
-        timeScheduled
-    },
-    {
-        internalRank,
-        name,
-        rank,
-        signature
-    }, destination, newPage = false) => {
+export const generateAppointmentFormat = ({reasonForVisit, dateOfAppointment, timeScheduled}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
@@ -35,7 +24,7 @@ ${reasonForVisit}
 [img]${signature}[/img]
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
-Los Santos Advanced Medicine Division[/b]
+Los Santos Advanced Medicine Division
 [/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 
         navigator.clipboard.writeText(template).then(

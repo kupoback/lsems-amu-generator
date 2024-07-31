@@ -1,22 +1,6 @@
-import {dateTimeToUtc} from "@/util/mixins";
+import {dateTimeToUtc} from '@/util/mixins'
 
-export const generatePrescription = (
-    {
-        fullName,
-        phoneNumber,
-        diagnosis,
-        prescription,
-        startDate,
-        endDate
-    },
-    {
-        internalRank,
-        name,
-        rank,
-        signature
-    },
-    destination,
-    newPage = false) => {
+export const generatePrescription = ({fullName, phoneNumber, diagnosis, prescription, startDate, endDate}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
@@ -45,7 +29,7 @@ export const generatePrescription = (
 [img]${signature}[/img]
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
-Los Santos Advanced Medicine Division[/b]
+Los Santos Advanced Medicine Division
 [/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
 
         navigator.clipboard.writeText(template).then(

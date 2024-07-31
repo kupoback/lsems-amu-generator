@@ -20,12 +20,7 @@ export const generateSaaaPilots = (
         historyOfBlackOuts,
         historyOfPsychosis,
     },
-    {
-        internalRank,
-        name,
-        rank,
-        signature
-    },
+    {internalRank, name, rank, signature},
     destination,
     newPage = false,
 ) => {
