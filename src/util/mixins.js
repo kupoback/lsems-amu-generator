@@ -67,10 +67,7 @@ export const calculateBmi = (height, weight) => {
  * @param {string} date The date
  * @returns
  */
-export const dateToUtc = date => dayjs
-    .utc(date)
-    .format('DD/MMM/YYYY')
-    .toUpperCase()
+export const dateToUtc = date => dayjs.utc(date).format('DD/MMM/YYYY').toUpperCase()
 
 /**
  * Converts the date and time to UTC
@@ -78,10 +75,7 @@ export const dateToUtc = date => dayjs
  * @param {string} date The date
  * @returns
  */
-export const dateTimeToUtc = date => dayjs
-    .utc(date)
-    .format('DD/MMM/YYYY HH:mm')
-    .toUpperCase()
+export const dateTimeToUtc = date => dayjs.utc(date).format('DD/MMM/YYYY HH:mm').toUpperCase()
 
 /**
  * Converts the time to UTC
@@ -89,7 +83,4 @@ export const dateTimeToUtc = date => dayjs
  * @param {string} time The time
  * @returns
  */
-export const timeToUtc = time => dayjs
-    .utc(time, 'HH:m')
-    .format('HH:m')
-    .toUpperCase()
+export const timeToUtc = time => dayjs.utc(time, 'HH:mm').format('HH:mm').toUpperCase()
