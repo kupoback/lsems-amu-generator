@@ -7,6 +7,7 @@ export default () => ({
         email: 'https://gov.eclipse-rp.net/ucp.php?i=pm&folder=inbox',
         patientFile: 'https://gov.eclipse-rp.net/viewforum.php?f=1223',
         publicRequest: 'https://gov.eclipse-rp.net/viewforum.php?f=3641',
+        prescription: 'https://gov.eclipse-rp.net/viewforum.php?f=2710',
         saaaCert: 'https://gov.eclipse-rp.net/viewforum.php?f=3462',
     },
     siteLogo: 'https://i.imgur.com/9uGiPqF.png',
