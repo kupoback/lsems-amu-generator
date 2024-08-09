@@ -2,13 +2,13 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {patientFileStore} from '@/stores/patient-file'
-    import {generatePatientFile} from '@/templates/patient/patient-file'
-    import {convertHeightToCm, convertWeightToKg} from '@/util/mixins'
+    import {globalStore} from '@stores/global'
+    import {patientFileStore} from '@stores/patient-file'
+    import {generatePatientFile} from '@templates/patient/patient-file'
+    import {convertHeightToCm, convertWeightToKg} from '@util/mixins'
     import {reactive, ref} from 'vue'
     import router from '@/router'
-    import {columnWrapper, halfLeftColumn, halfRightColumn} from '@/util/css-classes'
+    import {columnWrapper, halfLeftColumn, halfRightColumn} from '@util/css-classes'
 
     /**
      * Vue Components

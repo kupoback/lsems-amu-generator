@@ -1,4 +1,4 @@
-import {dateTimeToUtc} from "@/util/mixins";
+import {dateTimeToUtc} from '@util/mixins'
 
 export const generatePublicRequest = (
     {

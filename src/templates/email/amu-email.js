@@ -1,4 +1,4 @@
-import {dateToUtc} from "@/util/mixins";
+import {dateToUtc} from '@util/mixins'
 
 export const generateAmuEmail = (
     {

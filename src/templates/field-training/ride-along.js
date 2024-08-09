@@ -1,5 +1,15 @@
 export const generateRideAlong = (
-    {rideAlongType, startTime, endTime, feedBackConcerns, departmentCalls, transportSuspect, suspectNotes, rideAlongNotes, additionalMandatoriesNeeded},
+    {
+        rideAlongType,
+        startTime,
+        endTime,
+        feedBackConcerns,
+        departmentCalls,
+        transportSuspect,
+        suspectNotes,
+        rideAlongNotes,
+        additionalMandatoriesNeeded
+    },
     {name, rank, signature},
     destination,
     newPage = false,
@@ -67,7 +77,8 @@ ${additionalMandatoriesNeeded}
 [LSEMSfooter][/LSEMSfooter]`
 
         navigator.clipboard.writeText(template).then(
-            () => {},
+            () => {
+            },
             e => console.error(e),
         )
 

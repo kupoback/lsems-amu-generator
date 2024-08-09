@@ -1,11 +1,11 @@
 <script setup>
-    import {RouterView} from "vue-router";
-    import Navigation from "@component/Navigation/Navigation.vue";
+    import {RouterView} from 'vue-router'
+    import Navigation from '@component/Navigation/Navigation.vue';
 </script>
 
 <script>
     export default {
-        name: "LSEMS AMU Paperwork App",
+        name: 'LSEMS AMU Paperwork App',
     };
 </script>
 

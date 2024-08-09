@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {emailStore} from '@/stores/email'
-    import {generateEmail} from '@/templates/email/email'
+    import {globalStore} from '@stores/global'
+    import {emailStore} from '@stores/email'
+    import {generateEmail} from '@templates/email/email'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {

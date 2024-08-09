@@ -1,4 +1,4 @@
-import {calculateBmi, convertHeightToCm, convertWeightToKg, formatTemperature} from '@/util/mixins'
+import {calculateBmi, formatTemperature} from '@util/mixins'
 
 export const generatePatientFile = (
     {

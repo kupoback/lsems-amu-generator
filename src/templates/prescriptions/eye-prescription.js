@@ -1,4 +1,4 @@
-import {dateToUtc, timeToUtc} from "@/util/mixins";
+import {dateToUtc, timeToUtc} from '@util/mixins'
 
 export const generateEyePrescription = (
     {

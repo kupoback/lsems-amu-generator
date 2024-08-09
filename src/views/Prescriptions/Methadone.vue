@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {methadoneStore} from '@/stores/methadone'
-    import {generateMethadone} from '@/templates/prescriptions/methadone'
+    import {globalStore} from '@stores/global'
+    import {methadoneStore} from '@stores/methadone'
+    import {generateMethadone} from '@templates/prescriptions/methadone'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {

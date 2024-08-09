@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {prescriptionStore} from '@/stores/prescription'
-    import {generatePrescription} from '@/templates/prescriptions/prescription'
+    import {globalStore} from '@stores/global'
+    import {prescriptionStore} from '@stores/prescription'
+    import {generatePrescription} from '@templates/prescriptions/prescription'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {

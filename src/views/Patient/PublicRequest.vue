@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {publicRequestStore} from '@/stores/public-request'
-    import {generatePublicRequest} from '@/templates/patient/public-request'
+    import {globalStore} from '@stores/global'
+    import {publicRequestStore} from '@stores/public-request'
+    import {generatePublicRequest} from '@templates/patient/public-request'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {
@@ -12,7 +12,7 @@
         thirdLeftColumn,
         thirdMiddleColumn,
         thirdRightColumn,
-    } from "@/util/css-classes"
+    } from "@util/css-classes"
 
     /**
      * Vue Components

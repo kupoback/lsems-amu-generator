@@ -1,14 +1,6 @@
 <script setup>
-    import {globalStore} from '@/stores/global'
+    import {globalStore} from '@stores/global'
     import {computed, reactive, ref} from 'vue'
-    import {
-        columnWrapper,
-        halfLeftColumn,
-        halfRightColumn,
-        thirdLeftColumn,
-        thirdMiddleColumn,
-        thirdRightColumn,
-    } from "@/util/css-classes"
 
     /**
      * Vue Components

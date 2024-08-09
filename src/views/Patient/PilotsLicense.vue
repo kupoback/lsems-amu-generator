@@ -2,10 +2,10 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {pilotsLicenseStore} from '@/stores/pilots-license'
-    import {generateSaaaPilots} from '@/templates/patient/saaa-pilots'
-    import {generateSaaaPilotsCert} from '@/templates/patient/saaa-pilots-cert'
+    import {globalStore} from '@stores/global'
+    import {pilotsLicenseStore} from '@stores/pilots-license'
+    import {generateSaaaPilots} from '@templates/patient/saaa-pilots'
+    import {generateSaaaPilotsCert} from '@templates/patient/saaa-pilots-cert'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {
@@ -16,8 +16,8 @@
         thirdMiddleColumn,
         thirdRightColumn
     } from '@/util/css-classes'
-    import {convertHeightToCm, convertWeightToKg} from '@/util/mixins'
-    import {conversionHelperText, conversionHeightHelper} from "@/util/helper-text"
+    import {convertHeightToCm, convertWeightToKg} from '@util/mixins'
+    import {conversionHelperText, conversionHeightHelper} from '@util/helper-text'
 
     /**
      * Vue Components

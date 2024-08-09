@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {rideAlongFormatStore} from '@/stores/ride-along'
-    import {generateRideAlong} from '@/templates/field-training/ride-along'
+    import {globalStore} from '@stores/global'
+    import {rideAlongFormatStore} from '@stores/ride-along'
+    import {generateRideAlong} from '@templates/field-training/ride-along'
     import {reactive, ref} from 'vue'
     import router from '@/router'
 

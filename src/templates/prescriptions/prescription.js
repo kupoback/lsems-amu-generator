@@ -1,4 +1,4 @@
-import {dateTimeToUtc} from '@/util/mixins'
+import {dateTimeToUtc} from '@util/mixins'
 
 export const generatePrescription = ({fullName, phoneNumber, diagnosis, prescription, startDate, endDate}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {

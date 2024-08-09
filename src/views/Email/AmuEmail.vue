@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {amuEmailStore} from '@/stores/amu-email'
-    import {generateAmuEmail} from '@/templates/email/amu-email'
+    import {globalStore} from '@stores/global'
+    import {amuEmailStore} from '@stores/amu-email'
+    import {generateAmuEmail} from '@templates/email/amu-email'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {

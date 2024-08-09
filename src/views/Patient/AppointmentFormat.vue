@@ -2,9 +2,9 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {appointmentFormatStore} from '@/stores/appointment-format'
-    import {generateAppointmentFormat} from '@/templates/patient/appointment-format'
+    import {globalStore} from '@stores/global'
+    import {appointmentFormatStore} from '@stores/appointment-format'
+    import {generateAppointmentFormat} from '@templates/patient/appointment-format'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {

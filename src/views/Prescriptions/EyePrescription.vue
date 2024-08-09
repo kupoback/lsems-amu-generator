@@ -2,22 +2,22 @@
     /**
      * Vue Scripts
      */
-    import {globalStore} from '@/stores/global'
-    import {eyePrescriptionStore} from '@/stores/eye-prescription'
-    import {generateEyePrescription} from '@/templates/prescriptions/eye-prescription'
+    import {globalStore} from '@stores/global'
+    import {eyePrescriptionStore} from '@stores/eye-prescription'
+    import {generateEyePrescription} from '@templates/prescriptions/eye-prescription'
     import {reactive, ref} from 'vue'
     import router from '@/router'
     import {
         columnWrapper,
-        halfLeftColumn,
-        halfRightColumn, thirdLeftColumn, thirdMiddleColumn, thirdRightColumn,
-    } from '@/util/css-classes'
+        thirdLeftColumn,
+        thirdMiddleColumn,
+        thirdRightColumn,
+    } from '@util/css-classes'
 
     /**
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
-    import VueTailwindDatepicker from 'vue-tailwind-datepicker'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
     import SectionTitle from '@component/SectionTitle/SectionTitle.vue'
 

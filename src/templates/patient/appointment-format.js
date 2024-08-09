@@ -1,4 +1,4 @@
-import {dateToUtc, timeToUtc} from '@/util/mixins'
+import {dateToUtc} from '@util/mixins'
 
 export const generateAppointmentFormat = ({reasonForVisit, dateOfAppointment, timeScheduled}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
