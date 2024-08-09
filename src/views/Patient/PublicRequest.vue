@@ -9,16 +9,14 @@
     import router from '@/router'
     import {
         columnWrapper,
-        thirdLeftColumn,
-        thirdMiddleColumn,
-        thirdRightColumn,
+        halfLeftColumn,
+        halfRightColumn,
     } from "@util/css-classes"
 
     /**
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
-    import VueTailwindDatepicker from 'vue-tailwind-datepicker'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
     const {links, userData} = globalStore()
@@ -27,15 +25,9 @@
         ...store.$state,
     })
 
-    const {fullName, contactDate, contactMethod, details} = reactive(data)
+    const {fullName, contactMethod, details} = reactive(data)
 
-    //region Saved Data
-    const formatter = ref({
-        date: 'DD/MMM/YYYY HH:mm',
-        month: 'MMM',
-    })
     const savedFullName = ref(fullName)
-    const savedContactDate = ref(contactDate)
     const savedContactMethod = ref(contactMethod)
     const savedDetails = ref(details)
     //endregion
@@ -64,7 +56,7 @@
                     <p class="mt-1 leading-6 text-gray-600 dark:text-white"> Date and time will be converted to UTC from your local timezone. You can manually edit the time if you wish. Please use 24 hour formats. </p>
                     <div :class=columnWrapper>
                         <!-- Full Name -->
-                        <fieldset :class=thirdLeftColumn>
+                        <fieldset :class=halfLeftColumn>
 
                             <FwbInput
                                 v-model="savedFullName"
@@ -74,25 +66,8 @@
                                 @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
-                        <!-- Contact Date -->
-                        <fieldset :class=thirdMiddleColumn>
-                            <label
-                                for="start-date"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                                Start Date
-                            </label>
-                            <VueTailwindDatepicker
-                                v-model="savedContactDate"
-                                id="start-date"
-                                placeholder="DD/MMM/YYYY HH:mm"
-                                as-single
-                                :formatter="formatter"
-                                @focusout="updateState('contactDate', savedContactDate)"
-                            />
-                        </fieldset>
                         <!-- Contact Method -->
-                        <fieldset :class=thirdRightColumn>
+                        <fieldset :class=halfRightColumn>
                             <FwbInput
                                 v-model="savedContactMethod"
                                 placeholder="Email"

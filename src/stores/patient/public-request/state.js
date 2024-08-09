@@ -2,7 +2,6 @@ import {useStorage} from '@vueuse/core'
 
 const defaultData = {
     fullName: '',
-    contactDate: '',
     contactMethod: '',
     details: '',
 }
