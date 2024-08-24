@@ -2,7 +2,6 @@ import {dateTimeToUtc} from '@util/mixins'
 
 export const generateVisitationReport = (
     {
-        dateOfVisit,
         reasonForVisit,
         diagnosis,
         personalPresent,
@@ -15,7 +14,7 @@ export const generateVisitationReport = (
 [lsemssubtitle]REPORT[/lsemssubtitle]
 [divbox=white]
 [hr]
-[b]Date of Visit:[/b] ${dateTimeToUtc(dateOfVisit)}
+[b]Date of Visit:[/b] ${dateTimeToUtc()}
 [hr]
 [b]Reason For Visit:[/b] ${reasonForVisit}
 [hr]

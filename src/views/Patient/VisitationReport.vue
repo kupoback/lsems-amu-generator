@@ -21,14 +21,9 @@
         ...store.$state,
     })
 
-    const {dateOfVisit, reasonForVisit, diagnosis, personalPresent, visitReport} = reactive(data)
+    const {reasonForVisit, diagnosis, personalPresent, visitReport} = reactive(data)
 
     //region Saved Data
-    const formatter = ref({
-        date: 'DD/MMM/YYYY HH:mm',
-        month: 'MMM',
-    })
-    const savedDateOfVisit = ref(dateOfVisit)
     const savedReasonForVisit = ref(reasonForVisit)
     const savedDiagnosis = ref(diagnosis)
     const savedPersonalPresent = ref(personalPresent)
