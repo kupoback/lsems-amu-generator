@@ -9,13 +9,13 @@ export const generateAmuEmail = ({subject, to, body, addDate, addPhone}, {intern
         if (addDate) {
             const unavailable = () => 'Unavailable'
 
-            const mondaySchedule = () => (monday.length ? monday + ' [ooc]UTC[/ooc]' : unavailable())
-            const tuesdaySchedule = () => (tuesday.length ? tuesday + ' [ooc]UTC[/ooc]' : unavailable())
-            const wednesdaySchedule = () => (wednesday.length ? wednesday + ' [ooc]UTC[/ooc]' : unavailable())
-            const thursdaySchedule = () => (thursday.length ? thursday + ' [ooc]UTC[/ooc]' : unavailable())
-            const fridaySchedule = () => (friday.length ? friday + ' [ooc]UTC[/ooc]' : unavailable())
-            const saturdaySchedule = () => (saturday.length ? saturday + ' [ooc]UTC[/ooc]' : unavailable())
-            const sundaySchedule = () => (sunday.length ? sunday + ' [ooc]UTC[/ooc]' : unavailable())
+            const mondaySchedule = () => (monday.length && monday ? monday + ' [ooc]UTC[/ooc]' : unavailable())
+            const tuesdaySchedule = () => (tuesday.length && tuesday ? tuesday + ' [ooc]UTC[/ooc]' : unavailable())
+            const wednesdaySchedule = () => (wednesday.length && wednesday ? wednesday + ' [ooc]UTC[/ooc]' : unavailable())
+            const thursdaySchedule = () => (thursday.length && thursday ? thursday + ' [ooc]UTC[/ooc]' : unavailable())
+            const fridaySchedule = () => (friday.length && friday ? friday + ' [ooc]UTC[/ooc]' : unavailable())
+            const saturdaySchedule = () => (saturday.length && saturday ? saturday + ' [ooc]UTC[/ooc]' : unavailable())
+            const sundaySchedule = () => (sunday.length && sunday ? sunday + ' [ooc]UTC[/ooc]' : unavailable())
 
             bodyTemplate += `
 
