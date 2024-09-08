@@ -4,6 +4,8 @@ const defaultData = {
     body: '',
     subject: '',
     to: '',
+    addDate: false,
+    addPhone: false,
 }
 
 export default () => ({

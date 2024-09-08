@@ -16,5 +16,13 @@ export default () => ({
         name: 'FirstName LastName',
         rank: 'Rank',
         signature: '',
+        monday: '',
+        tuesday: '',
+        wednesday: '',
+        thursday: '',
+        friday: '',
+        saturday: '',
+        sunday: '',
+        phone: '',
     }),
 })

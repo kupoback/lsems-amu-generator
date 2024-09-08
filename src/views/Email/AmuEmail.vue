@@ -16,7 +16,7 @@
     /**
      * Vue Components
      */
-    import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
+    import {FwbButton, FwbCheckbox, FwbInput, FwbTextarea} from 'flowbite-vue'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
     const {links, userData} = globalStore()
@@ -25,11 +25,13 @@
         ...store.$state,
     })
 
-    const {subject, to, body} = reactive(data)
+    const {subject, to, body, addDate, addPhone} = reactive(data)
 
     const savedSubject = ref(subject)
     const savedTo = ref(to)
     const savedBody = ref(body)
+    const savedAppendDate = ref(addDate)
+    const savedAppendPhone = ref(addPhone)
 
     const updateState = (field, value) => (store.data[field] = value)
     const setupContents = (newPage = false) => generateAmuEmail(amuEmailStore().data, userData, links.email, newPage)
@@ -89,6 +91,30 @@
                             v-html="`You can include BBCode tags in here. Just be sure to close them`"
                         />
                     </fieldset>
+
+                    <div :class="columnWrapper">
+                        <h3 class="mb-4 w-full">Adds the follow from Settings to the bottom of your email automatically</h3>
+                        <fieldset :class="halfLeftColumn">
+                        <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Append Date Schedule from Settings
+                            </p>
+                            <FwbCheckbox
+                                v-model="savedAppendDate"
+                                label="Append Your Date Schedule to Email"
+                                @focusout="updateState('addDate', savedAppendDate)"
+                                />
+                        </fieldset>
+                        <fieldset :class="halfRightColumn">
+                        <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Append Phone Number from Settings
+                            </p>
+                            <FwbCheckbox
+                                v-model="savedAppendPhone"
+                                label="Append Your Phone Number to Call/Text"
+                                @focusout="updateState('addPhone', savedAppendPhone)"
+                                />
+                        </fieldset>
+                    </div>
                 </div>
 
                 <div class="max-w-2xl flex md:block justify-between">
