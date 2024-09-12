@@ -34,6 +34,11 @@ import AmuEmail from '@view/Email/AmuEmail.vue'
  */
 import RideAlong from '@view/FieldTraining/RideAlong.vue'
 
+/**
+ * General Components
+ */
+import DutyReport from "@view/General/DutyReport.vue";
+
 export const routes = [
     {
         path: '/patient',
@@ -106,6 +111,18 @@ export const routes = [
             },
         ],
     },
+//    {
+//        path: '/general',
+//        name: 'General',
+//        lowerName: 'general',
+//        children: [
+//            {
+//                path: '/general/duty-report',
+//                name: 'Duty Report',
+//                component: DutyReport,
+//            },
+//        ],
+//    },
     // {
     //     path: '/field-training',
     //     name: 'Field Trianing',
