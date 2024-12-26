@@ -249,6 +249,8 @@
                             <FwbInput
                                 v-model="savedEcgBand"
                                 placeholder="55"
+                                min="0"
+                                step="1"
                                 type="number"
                                 label="ECG Band"
                                 size="md"
@@ -273,6 +275,8 @@
                                 placeholder="37"
                                 label="Temperature"
                                 type="number"
+                                min="0"
+                                step="1"
                                 size="md"
                                 @focusout="updateState('temperature', savedTemperature)"
                             />
@@ -298,7 +302,7 @@
                             placeholder="Auscultation notes"
                             label="Auscultation"
                             size="md"
-                            rows="2"
+                            rows="4"
                             @focusout="updateState('auscultation', savedAuscultation)"
                         />
                     </fieldset>

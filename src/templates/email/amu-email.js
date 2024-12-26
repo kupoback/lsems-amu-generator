@@ -21,7 +21,7 @@ export const generateAmuEmail = ({subject, to, body, addDate, addPhone}, {intern
 
 Below you will find my dates of availability:
 Monday: ${mondaySchedule()}
-Tueday: ${tuesdaySchedule()}
+Tuesday: ${tuesdaySchedule()}
 Wednesday: ${wednesdaySchedule()}
 Thursday: ${thursdaySchedule()}
 Friday: ${fridaySchedule()}
@@ -52,7 +52,7 @@ ${bodyTemplate}
 [/list]
 [hr][/hr]
 
-Kind regards,
+Be well,
 
 [img]${signature}[/img]
 [i]${name}[/i]
