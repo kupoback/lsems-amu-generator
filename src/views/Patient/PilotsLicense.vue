@@ -12,12 +12,7 @@
         columnWrapper,
         halfLeftColumn,
         halfRightColumn,
-        thirdLeftColumn,
-        thirdMiddleColumn,
-        thirdRightColumn
     } from '@/util/css-classes'
-    import {convertHeightToCm, convertWeightToKg} from '@util/mixins'
-    import {conversionHelperText, conversionHeightHelper} from '@util/helper-text'
 
     /**
      * Vue Components
@@ -35,41 +30,19 @@
     const {
         fullName,
         phoneNumber,
-        medications,
-        height,
-        weight,
-        oximetry,
-        temperature,
-        bloodPressure,
         auscultation,
         coverTest,
         audioMeterTest,
         drugTest,
-        historyOfDiabetes,
-        historyOfEpilepsy,
-        historyOfHeartAttack,
-        historyOfBlackOuts,
-        historyOfPsychosis,
     } = reactive(data)
 
     //region Saved Data
     const savedFullName = ref(fullName)
     const savedPhoneNumber = ref(phoneNumber)
-    const savedMedications = ref(medications)
-    const savedHeight = ref(height)
-    const savedWeight = ref(weight)
-    const savedOximetry = ref(oximetry)
-    const savedTemperature = ref(temperature)
-    const savedBloodPressure = ref(bloodPressure)
     const savedAuscultation = ref(auscultation)
     const savedCoverTest = ref(coverTest)
     const savedAudioMeterTest = ref(audioMeterTest)
     const savedDrugTest = ref(drugTest)
-    const savedHistoryOfDiabetes = ref(historyOfDiabetes)
-    const savedHistoryOfEpilepsy = ref(historyOfEpilepsy)
-    const savedHistoryOfHeartAttack = ref(historyOfHeartAttack)
-    const savedHistoryOfBlackOuts = ref(historyOfBlackOuts)
-    const savedHistoryOfPsychosis = ref(historyOfPsychosis)
     //endregion
 
     //region Actions
@@ -91,14 +64,14 @@
             <div class="mx-auto">
                 <BodyHeader
                     title="Create Pilot's Evaluation File"
-                    body="This page is used to create a pilot's evaluation file. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg."
+                    body="This page is used to create a pilot's evaluation file."
                 />
 
                 <div class="pb-4">
                     <SectionTitle title="Patient Information" />
                     <div :class="columnWrapper">
                         <!-- Full Name -->
-                        <fieldset :class="thirdLeftColumn">
+                        <fieldset :class="halfLeftColumn">
                             <FwbInput
                                 v-model="savedFullName"
                                 placeholder="FName LName"
@@ -107,7 +80,7 @@
                                 @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
-                        <fieldset :class="thirdMiddleColumn">
+                        <fieldset :class="halfRightColumn">
                             <FwbInput
                                 v-model="savedPhoneNumber"
                                 placeholder="5551234"
@@ -116,83 +89,11 @@
                                 @focusout="updateState('phoneNumber', savedPhoneNumber)"
                             />
                         </fieldset>
-
-                        <fieldset :class="thirdRightColumn">
-                            <FwbInput
-                                v-model="savedMedications"
-                                placeholder="Drug listing"
-                                label="Medications"
-                                size="md"
-                                @focusout="updateState('medications', savedMedications)"
-                            />
-                        </fieldset>
                     </div>
                 </div>
 
                 <div class="pb-4">
                     <SectionTitle title="Physical Examination" />
-                    <div :class="columnWrapper">
-                        <fieldset :class="halfLeftColumn">
-                            <FwbInput
-                                v-model="savedHeight"
-                                placeholder="150"
-                                label="Height"
-                                size="md"
-                                @focusout="updateState('height', convertHeightToCm(savedHeight))"
-                            />
-                            <p
-                                class="text-sm mt-1"
-                                v-html="`${conversionHelperText} Do not use ft or in. ${conversionHeightHelper}`"
-                            />
-                        </fieldset>
-                        <fieldset :class="halfRightColumn">
-                            <FwbInput
-                                v-model="savedWeight"
-                                placeholder="75"
-                                label="Weight"
-                                size="md"
-                                @focusout="updateState('weight', convertWeightToKg(savedWeight))"
-                            />
-                            <p
-                                class="text-sm mt-1"
-                                v-html="`${conversionHelperText} Use lbs or pounds for Imperial with a space.`"
-                            />
-                        </fieldset>
-                    </div>
-                    <div :class="columnWrapper">
-                        <fieldset :class="thirdLeftColumn">
-                            <FwbInput
-                                v-model="savedOximetry"
-                                placeholder="98%"
-                                label="Oximetry"
-                                size="md"
-                                @focusout="updateState('oximetry', savedOximetry)"
-                            />
-                        </fieldset>
-                        <fieldset :class="thirdMiddleColumn">
-                            <FwbInput
-                                v-model="savedTemperature"
-                                placeholder="37C"
-                                label="Temperature"
-                                size="md"
-                                @focusout="updateState('temperature', savedTemperature)"
-                            />
-                            <p
-                                class="text-sm mt-1"
-                                v-html="conversionHelperText"
-                            />
-                        </fieldset>
-                        <fieldset :class="thirdRightColumn">
-                            <FwbInput
-                                v-model="savedBloodPressure"
-                                placeholder="120/80"
-                                label="Blood Pressure"
-                                size="md"
-                                @focusout="updateState('bloodPressure', savedBloodPressure)"
-                            />
-                            <p class="text-sm mt-1">"mmHg" will be suffixed when the data is copied.</p>
-                        </fieldset>
-                    </div>
                     <fieldset class="my-8">
                         <FwbTextarea
                             v-model="savedAuscultation"
@@ -207,7 +108,7 @@
                         <FwbTextarea
                             v-model="savedCoverTest"
                             placeholder="Exam Results..."
-                            label="Eye Exam (Cover Test)"
+                            label="Eye Exam (Cover Test) - Only if necessary"
                             size="md"
                             rows="3"
                             @focusout="updateState('coverTest', savedCoverTest)"
@@ -217,7 +118,7 @@
                         <FwbTextarea
                             v-model="savedAudioMeterTest"
                             placeholder="Hearing range was..."
-                            label="Audio-Meter Test"
+                            label="Audio-Meter Test - Only if necessary"
                             size="md"
                             rows="3"
                             @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
@@ -227,59 +128,10 @@
                         <FwbTextarea
                             v-model="savedDrugTest"
                             placeholder="Urinalysis results were..."
-                            label="Drug Test Results"
+                            label="Drug Test Results ((/drugTest or Urinalysis))"
                             size="md"
                             rows="3"
                             @focusout="updateState('drugTest', savedDrugTest)"
-                        />
-                    </fieldset>
-                </div>
-
-                <div class="pb-4">
-                    <SectionTitle title="Survey" />
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedHistoryOfDiabetes"
-                            placeholder="N/A"
-                            label="Have you had a diagnosis or symptoms of diabetes?"
-                            size="md"
-                            @focusout="updateState('historyOfDiabetes', savedHistoryOfDiabetes)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedHistoryOfEpilepsy"
-                            placeholder="N/A"
-                            label="Have experienced any seizures or had symptoms or diagnosis of epilepsy in the last 12 months?"
-                            size="md"
-                            @focusout="updateState('historyOfEpilepsy', savedHistoryOfEpilepsy)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedHistoryOfHeartAttack"
-                            placeholder="N/A"
-                            label="Have you experienced a heart attack in the last 12 months?"
-                            size="md"
-                            @focusout="updateState('historyOfHeartAttack', savedHistoryOfHeartAttack)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedHistoryOfBlackOuts"
-                            placeholder="N/A"
-                            label="Have you had any disturbance or loss of consciousness in the last 12 months?"
-                            size="md"
-                            @focusout="updateState('historyOfBlackOuts', savedHistoryOfBlackOuts)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
-                        <FwbInput
-                            v-model="savedHistoryOfPsychosis"
-                            placeholder="N/A"
-                            label="Have you had a diagnosis or symptoms of psychosis, bipolar disorder, or other personality disorders?"
-                            size="md"
-                            @focusout="updateState('historyOfPsychosis', savedHistoryOfPsychosis)"
                         />
                     </fieldset>
                 </div>
