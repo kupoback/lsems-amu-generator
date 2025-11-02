@@ -34,6 +34,7 @@ Sunday: ${sundaySchedule()}`
 
 Please text or call me at: ${phone}`
         }
+        const subjectText = subject ? `[b][size=110]${subject}[/size][/b]` : ''
 
         const template = `[LSEMSfooter][/LSEMSfooter]
 [divbox=white]
