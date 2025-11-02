@@ -4,15 +4,14 @@ export const generateEmail = ({subject, to, body}, {internalRank, name, rank, si
     if (!name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const subjectText = subject ? `[b][size=110]${subject}[/size][/b]` : ''
+        const subjectText = subject ? `${subject} | ` : ''
 
         const template = `[mdheader
-title="${subject}"
+title="${subjectText + dateToUtc()}"
 location="Pillbox Hill Medical Center"
 date=" | Paleto Bay Medical Center"
 department="One Team, One Mission, Saving Lives"][/mdheader]
-[divbox4=eeeeee][float=right]${subjectText.toString()}[b][size=95]${dateToUtc()}[/size][/float][/b]
-
+[divbox4=eeeeee]
 ${to && `[b]${to}[/b],`}
 
 ${body}
