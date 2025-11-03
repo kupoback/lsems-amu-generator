@@ -32,35 +32,30 @@ Sunday: ${sundaySchedule()}`
         if (addPhone) {
             bodyTemplate += `
 
-Please text or call me at: ${phone}`
+My cellphone number: ${phone}`
         }
-        const subjectText = subject ? `[b][size=110]${subject}[/size][/b]` : ''
+        const subjectText = subject ? `${subject} | ` : ''
 
-        const template = `[LSEMSfooter][/LSEMSfooter]
-[divbox=white]
-[fimg=140,140]https://i.imgur.com/QYXPM0p.png[/fimg][aligntable=right,0,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Advanced Medicine Division[/size][/b]
-[size=95]"One Team, One Mission, Saving Lives"[/size]
-[size=115]${subject}[/size]
-[size=95]${dateToUtc()}[/size]
-[/right][/aligntable]
-[hr]
-[list=none]
+        const template = `[mdheader2
+title="${subjectText + dateToUtc()}"
+location="Advanced Medicine Unit"
+date=""
+logo="https://i.imgur.com/QYXPM0p.png"
+department="One Team, One Mission, Saving Lives"][/mdheader2]
+[divbox4=eeeeee]
 ${to && `[b]${to}[/b],`}
 
 ${bodyTemplate}
-
-[/list]
-[hr][/hr]
 
 Be well,
 
 [img]${signature}[/img]
 [i]${name}[/i]
-[b]${internalRank} / ${rank}[/b]
-[b]Los Santos Advanced Medicine Division[/b]
-[/divbox]
-[LSEMSfooter][/LSEMSfooter]`
+[/divbox4]
+[divbox=#8d1717][color=transparent]spacer[/color][/divbox]
+[divbox4=eeeeee]
+[mdsig name="${name}" role="${internalRank} / ${rank}" img="${signature}" height=38]
+[/divbox4]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

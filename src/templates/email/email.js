@@ -1,6 +1,6 @@
 import {dateToUtc} from '@util/mixins'
 
-export const generateEmail = ({subject, to, body}, {internalRank, name, rank, signature}, destination, newPage = false) => {
+export const generateEmail = ({subject, to, body}, {name, rank, signature}, destination, newPage = false) => {
     if (!name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
