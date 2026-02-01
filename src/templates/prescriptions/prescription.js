@@ -4,7 +4,7 @@ export const generatePrescription = ({fullName, phoneNumber, diagnosis, prescrip
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/9iRWEvN.png[/img]
+        const template = `[img]https://i.ibb.co/fYPZNNK0/image.png[/img]
 [lsemssubtitle]INFORMATION[/lsemssubtitle]
 [divbox=white][b]Patient's Name:[/b] ${fullName}
 [hr][/hr]
@@ -30,7 +30,7 @@ export const generatePrescription = ({fullName, phoneNumber, diagnosis, prescrip
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
 Los Santos Advanced Medicine Division
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
+[/divbox][img]https://i.ibb.co/cXJ38RPM/image.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

@@ -1,28 +1,10 @@
 import {dateToUtc, timeToUtc} from '@util/mixins'
 
-export const generateEyePrescription = (
-    {
-        fullName,
-        summary,
-        leftStrength,
-        rightStrength,
-        leftCylinder,
-        rightCylinder,
-        leftAxis,
-        rightAxis,
-    },
-    {
-        internalRank,
-        name,
-        rank,
-        signature
-    },
-    destination,
-    newPage = false) => {
+export const generateEyePrescription = ({fullName, summary, leftStrength, rightStrength, leftCylinder, rightCylinder, leftAxis, rightAxis}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/jWHD8Kd.png[/img]
+        const template = `[img]https://i.ibb.co/9mQjm6q4/image.png[/img]
 
 [lsemssubtitle]GENERAL INFORMATION[/lsemssubtitle]
 [divbox=white]

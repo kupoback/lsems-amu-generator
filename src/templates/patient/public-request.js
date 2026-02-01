@@ -1,20 +1,10 @@
 import {dateTimeToUtc} from '@util/mixins'
 
-export const generatePublicRequest = (
-    {
-        fullName,
-        contactMethod,
-        details
-    }, {
-        internalRank,
-        name,
-        rank,
-        signature
-    }, destination, newPage = false) => {
+export const generatePublicRequest = ({fullName, contactMethod, details}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/Wxpv58D.png[/img]
+        const template = `[img]https://i.ibb.co/k209S3H9/image.png[/img]
 [divbox=white]
 [hr]
 [b]Patient Name:[/b] ${fullName}
@@ -32,7 +22,7 @@ export const generatePublicRequest = (
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
 [b]Los Santos Emergency Medical Services[/b]
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
+[/divbox][img]https://i.ibb.co/cXJ38RPM/image.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

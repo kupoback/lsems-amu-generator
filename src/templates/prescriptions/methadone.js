@@ -1,26 +1,10 @@
 import {dateToUtc, timeToUtc} from '@util/mixins'
 
-export const generateMethadone = (
-    {
-        fullName,
-        phoneNumber,
-        drugsFound,
-        prescription,
-        amountIssued,
-        educated,
-    },
-    {
-        internalRank,
-        name,
-        rank,
-        signature
-    },
-    destination,
-    newPage = false) => {
+export const generateMethadone = ({fullName, phoneNumber, drugsFound, prescription, amountIssued, educated}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/EhBBYPq.png[/img]
+        const template = `[img]https://i.ibb.co/Q7jYr1bq/image.png[/img]
 [lsemssubtitle]GENERAL INFORMATION[/lsemssubtitle]
 [divbox=white]
 [b]Issuing Employee:[/b] [i]${name}[/i]
@@ -35,7 +19,7 @@ export const generateMethadone = (
 [b]Drug found upon testing:[/b] [i]${drugsFound}[/i]
 [b]Prescription issued because:[/b] [i]${prescription}[/i]
 [b]Amount issued*: ${amountIssued}[/b]
-[b]Has the patient been educated on methadone usage and the potential dangers of misuse?[/b] ${educated ? "Yes" : "No"}
+[b]Has the patient been educated on methadone usage and the potential dangers of misuse?[/b] ${educated ? 'Yes' : 'No'}
 
 [i][size=85]*one box/pack of methadone contains 10 (ten) pills[/size][/i]
 [/divbox]

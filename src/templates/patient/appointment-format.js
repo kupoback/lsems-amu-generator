@@ -4,7 +4,7 @@ export const generateAppointmentFormat = ({reasonForVisit, dateOfAppointment, ti
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/oKrEeDx.png[/img]
+        const template = `[img]https://i.ibb.co/G3sftYHN/image.png[/img]
 [lsemssubtitle]SCHEDULING APPOINTMENT[/lsemssubtitle]
 [divbox=white]
 [hr]
@@ -25,7 +25,7 @@ ${reasonForVisit}
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
 Los Santos Advanced Medicine Division
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
+[/divbox][img]https://i.ibb.co/cXJ38RPM/image.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

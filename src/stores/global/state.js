@@ -11,7 +11,7 @@ export default () => ({
         prescription: 'https://gov.eclipse-rp.net/viewforum.php?f=2710',
         saaaCert: 'https://gov.eclipse-rp.net/viewforum.php?f=3462',
     },
-    siteLogo: 'https://i.imgur.com/9uGiPqF.png',
+    siteLogo: 'https://i.ibb.co/YFLh0d2v/LSEMS-Default.png',
     userData: useStorage('userdata', {
         internalRank: '',
         name: 'FirstName LastName',

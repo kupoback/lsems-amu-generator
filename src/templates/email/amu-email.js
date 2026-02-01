@@ -40,7 +40,7 @@ My cellphone number: ${phone}`
 title="${subjectText + dateToUtc()}"
 location="Advanced Medicine Unit"
 date=""
-logo="https://i.imgur.com/QYXPM0p.png"
+logo="https://i.ibb.co/qMTNbNL6/image.png"
 department="One Team, One Mission, Saving Lives"][/mdheader2]
 [divbox4=eeeeee]
 ${to && `[b]${to}[/b],`}

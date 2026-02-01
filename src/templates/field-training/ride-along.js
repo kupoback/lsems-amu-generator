@@ -1,15 +1,5 @@
 export const generateRideAlong = (
-    {
-        rideAlongType,
-        startTime,
-        endTime,
-        feedBackConcerns,
-        departmentCalls,
-        transportSuspect,
-        suspectNotes,
-        rideAlongNotes,
-        additionalMandatoriesNeeded
-    },
+    {rideAlongType, startTime, endTime, feedBackConcerns, departmentCalls, transportSuspect, suspectNotes, rideAlongNotes, additionalMandatoriesNeeded},
     {name, rank, signature},
     destination,
     newPage = false,
@@ -17,7 +7,7 @@ export const generateRideAlong = (
     if (!name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/fV26BWG.png[/img]
+        const template = `[img]https://i.ibb.co/ycBP5RRp/image.png[/img]
 [lsemssubtitle]SESSION DETAILS:[/lsemssubtitle]
 [divbox=white]
 
@@ -77,8 +67,7 @@ ${additionalMandatoriesNeeded}
 [LSEMSfooter][/LSEMSfooter]`
 
         navigator.clipboard.writeText(template).then(
-            () => {
-            },
+            () => {},
             e => console.error(e),
         )
 

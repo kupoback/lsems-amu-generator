@@ -4,13 +4,13 @@ export const generateSaaaPilotsCert = ({fullName}, {internalRank, name, rank, si
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/M7FTbHm.png[/img]
+        const template = `[img]https://i.ibb.co/HLP64PKy/image.png[/img]
 
 [divbox=white]
 [color=transparent]spacer[/color]
-[center][fimg=130,130]https://i.imgur.com/QYXPM0p.png[/fimg]
+[center][fimg=130,130]https://i.ibb.co/qMTNbNL6/image.png[/fimg]
 [color=transparent]spacer[/color]
-[img]https://i.imgur.com/7x0vy1x.png[/img][/center]
+[img]https://i.ibb.co/wNMp63j1/image.png[/img][/center]
 [color=transparent]spacer[/color]
 [center][size=140]${fullName}[/size]
 [color=transparent]spacer[/color]
@@ -20,7 +20,7 @@ and found medically fit to be educated on and practice as:
 [ ] A Jumpmaster.[/size]
 
 
-[center][img]https://i.imgur.com/7x0vy1x.png[/img][/center]
+[center][img]https://i.ibb.co/wNMp63j1/image.png[/img][/center]
 
 [hr][/hr]
 

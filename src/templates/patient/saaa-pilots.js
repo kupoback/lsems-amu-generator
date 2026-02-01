@@ -2,7 +2,7 @@ export const generateSaaaPilots = ({fullName, phoneNumber, auscultation, coverTe
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/yrVPI6t.png[/img]
+        const template = `[img]https://i.ibb.co/dCktySW/image.png[/img]
 [lsemssubtitle]PATIENT INFORMATION[/lsemssubtitle]
 [divbox=white]
 [b]Full name:[/b] ${fullName}
@@ -29,7 +29,7 @@ ${audioMeterTest || 'N/A'}
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
 [b]Los Santos Emergency Medical Services[/b]
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
+[/divbox][img]https://i.ibb.co/cXJ38RPM/image.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

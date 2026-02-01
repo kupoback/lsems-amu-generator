@@ -1,22 +1,11 @@
-import {dateTimeToUtc} from "@util/mixins";
+import {dateTimeToUtc} from '@util/mixins'
 
-export const generateDutyReport = (
-    {
-        startDateTime,
-        endDateTime,
-        fieldTreated,
-        hospitalized,
-        notes,
-    },
-    {name, rank, signature},
-    destination,
-    newPage = false,
-) => {
+export const generateDutyReport = ({startDateTime, endDateTime, fieldTreated, hospitalized, notes}, {name, rank, signature}, destination, newPage = false) => {
     if (!name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/fV26BWG.png[/img]
-[img]https://i.imgur.com/NrEHG5w.png[/img]
+        const template = `[img]https://i.ibb.co/ycBP5RRp/image.png[/img]
+[img]https://i.ibb.co/LXxs5MVY/image.png[/img]
 [divbox=white]
 [b]Date:[/b] 01/JAN/2020
 [b]Hours on Duty:[/b] HH:MM

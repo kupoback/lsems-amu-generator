@@ -1,16 +1,10 @@
 import {dateTimeToUtc} from '@util/mixins'
 
-export const generateVisitationReport = (
-    {
-        reasonForVisit,
-        diagnosis,
-        personalPresent,
-        visitReport
-    }, {internalRank, name, rank, signature}, destination, newPage = false) => {
+export const generateVisitationReport = ({reasonForVisit, diagnosis, personalPresent, visitReport}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
-        const template = `[img]https://i.imgur.com/XDND6bf.png[/img]
+        const template = `[img]https://i.ibb.co/XrVbNM8m/image.png[/img]
 [lsemssubtitle]REPORT[/lsemssubtitle]
 [divbox=white]
 [hr]
@@ -33,7 +27,7 @@ ${visitReport}
 [i]${name}[/i]
 [b]${internalRank} / ${rank}[/b]
 Los Santos Advanced Medicine Division
-[/divbox][img]https://i.imgur.com/HNP4ksW.png[/img]`
+[/divbox][img]https://i.ibb.co/cXJ38RPM/image.png[/img]`
 
         navigator.clipboard.writeText(template).then(
             () => {},

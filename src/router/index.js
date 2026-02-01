@@ -11,6 +11,7 @@ import NotFound from '@view/NotFound.vue'
  * Patient Components
  */
 import PatientFile from '@view/Patient/PatientFile.vue'
+import LeoFile from '@view/Patient/LeoFile.vue'
 import VisitationReport from '@view/Patient/VisitationReport.vue'
 import AppointmentFormat from '@view/Patient/AppointmentFormat.vue'
 import PilotsLicense from '@view/Patient/PilotsLicense.vue'
@@ -37,7 +38,7 @@ import RideAlong from '@view/FieldTraining/RideAlong.vue'
 /**
  * General Components
  */
-import DutyReport from "@view/General/DutyReport.vue";
+import DutyReport from '@view/General/DutyReport.vue'
 
 export const routes = [
     {
@@ -49,6 +50,11 @@ export const routes = [
                 path: '/patient/patient-file',
                 name: 'Patient File',
                 component: PatientFile,
+            },
+            {
+                path: '/patient/leo-patient-file',
+                name: 'LEO Examination',
+                component: LeoFile,
             },
             {
                 path: '/patient/pilots-license',
@@ -111,18 +117,18 @@ export const routes = [
             },
         ],
     },
-//    {
-//        path: '/general',
-//        name: 'General',
-//        lowerName: 'general',
-//        children: [
-//            {
-//                path: '/general/duty-report',
-//                name: 'Duty Report',
-//                component: DutyReport,
-//            },
-//        ],
-//    },
+    //    {
+    //        path: '/general',
+    //        name: 'General',
+    //        lowerName: 'general',
+    //        children: [
+    //            {
+    //                path: '/general/duty-report',
+    //                name: 'Duty Report',
+    //                component: DutyReport,
+    //            },
+    //        ],
+    //    },
     // {
     //     path: '/field-training',
     //     name: 'Field Trianing',

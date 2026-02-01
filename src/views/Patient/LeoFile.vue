@@ -3,18 +3,17 @@
      * Vue Scripts
      */
     import {globalStore} from '@stores/global'
-    import {patientFileStore} from '@stores/patient-file'
-    import {generatePatientFile} from '@templates/patient/patient-file'
+    import {leoPatientFileStore} from '@stores/leo-patient-file'
+    import {generatePatientFile} from '@templates/patient/leo-patient'
     import {convertHeightToCm, convertWeightToKg} from '@util/mixins'
     import {reactive, ref} from 'vue'
     import router from '@/router'
-    import {columnWrapper, halfLeftColumn, halfRightColumn} from '@util/css-classes'
+    import {columnWrapper, halfLeftColumn, halfRightColumn, thirdLeftColumn, thirdMiddleColumn, thirdRightColumn} from '@util/css-classes'
 
     /**
      * Vue Components
      */
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
-    import VueTailwindDatepicker from 'vue-tailwind-datepicker'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
     import SectionTitle from '@component/SectionTitle/SectionTitle.vue'
 
@@ -22,34 +21,26 @@
     const conversionHeightHelper = `Example: 6'3"`
 
     const {links, userData} = globalStore()
-    const store = patientFileStore()
+    const store = leoPatientFileStore()
     const {data, defaultData} = reactive({
         ...store.$state,
     })
 
     const {
         fullName,
-        dateOfBirth,
-        placeOfBirth,
-        address,
         phoneNumber,
         profession,
         height,
         weight,
         bloodType,
         allergies,
-        generalScreening,
         ecgBand,
         oximetry,
         temperature,
         bloodPressure,
         auscultation,
         coverTest,
-        refractionTest,
         audioMeterTest,
-        additionalNotes,
-        completeBloodCount,
-        xRay,
         ecg,
         urinalysis,
     } = reactive(data)
@@ -60,39 +51,31 @@
         month: 'MMM',
     })
     const savedFullName = ref(fullName)
-    const savedDateOfBirth = ref(dateOfBirth)
-    const savedPlaceOfBirth = ref(placeOfBirth)
-    const savedAddress = ref(address)
     const savedPhoneNumber = ref(phoneNumber)
     const savedProfession = ref(profession)
     const savedHeight = ref(height)
     const savedWeight = ref(weight)
     const savedBloodType = ref(bloodType)
     const savedAllergies = ref(allergies)
-    const savedGeneralScreening = ref(generalScreening)
     const savedEcgBand = ref(ecgBand)
     const savedOximetry = ref(oximetry)
     const savedTemperature = ref(temperature)
     const savedBloodPressure = ref(bloodPressure)
     const savedAuscultation = ref(auscultation)
-    const savedCoverTest = ref(coverTest)
-    const savedRefractionTest = ref(refractionTest)
     const savedAudioMeterTest = ref(audioMeterTest)
-    const savedAdditionalNotes = ref(additionalNotes)
-    const savedCompleteBloodCount = ref(completeBloodCount)
-    const savedXRay = ref(xRay)
+    const savedCoverTest = ref(coverTest)
     const savedEcg = ref(ecg)
     const savedUrinalysis = ref(urinalysis)
     //endregion
 
     //region Actions
     const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generatePatientFile(patientFileStore().data, userData, links.patientFile, newPage)
+    const setupContents = (newPage = false) => generatePatientFile(leoPatientFileStore().data, userData, links.patientFile, newPage)
     const copyContents = () => setupContents()
     const copyContentsForGov = () => setupContents(true)
     const reset = () => {
         store.data = defaultData
-        router.go('/patient/patient-file')
+        router.go('/patient/leo-patient-file')
     }
     //endregion
 </script>
@@ -102,14 +85,14 @@
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-16 lg:px-8">
             <div class="mx-auto">
                 <BodyHeader
-                    title="Create Patient File"
-                    body="This page is used to create a patient file. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg."
+                    title="LEO Examination File"
+                    body="This page is used to for Law Enforcement Examinations. All values will be given their appropriate suffix where applicable. The <b>BMI</b> will be auto-calculated. Do not add any metric types to fields like cm, kg, or mmHg."
                 />
                 <div class="pb-4">
                     <SectionTitle title="General Information" />
                     <div :class="columnWrapper">
                         <!-- Full Name -->
-                        <fieldset :class="halfLeftColumn">
+                        <fieldset :class="thirdLeftColumn">
                             <FwbInput
                                 v-model="savedFullName"
                                 placeholder="FName LName"
@@ -118,48 +101,8 @@
                                 @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
-                        <!-- Date of Birth -->
-                        <fieldset :class="halfRightColumn">
-                            <label
-                                for="dob"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >Date of Birth</label
-                            >
-                            <VueTailwindDatepicker
-                                v-model="savedDateOfBirth"
-                                id="dob"
-                                placeholder="DD/MMM/YYYY"
-                                as-single
-                                :formatter="formatter"
-                                @focusout="updateState('dateOfBirth', savedDateOfBirth)"
-                            />
-                        </fieldset>
-                    </div>
-                    <div :class="columnWrapper">
-                        <!-- Place of Birth -->
-                        <fieldset :class="halfLeftColumn">
-                            <FwbInput
-                                v-model="savedPlaceOfBirth"
-                                placeholder="Place of Birth"
-                                label="Place of Birth"
-                                size="md"
-                                @focusout="updateState('placeOfBirth', savedPlaceOfBirth)"
-                            />
-                        </fieldset>
-                        <!-- Address -->
-                        <fieldset :class="halfRightColumn">
-                            <FwbInput
-                                v-model="savedAddress"
-                                placeholder="Address"
-                                label="Address"
-                                size="md"
-                                @focusout="updateState('address', savedAddress)"
-                            />
-                        </fieldset>
-                    </div>
-                    <div :class="columnWrapper">
                         <!-- Phone Number -->
-                        <fieldset :class="halfLeftColumn">
+                        <fieldset :class="thirdMiddleColumn">
                             <FwbInput
                                 v-model="savedPhoneNumber"
                                 placeholder="5551234"
@@ -169,7 +112,7 @@
                             />
                         </fieldset>
                         <!-- Profession -->
-                        <fieldset :class="halfRightColumn">
+                        <fieldset :class="thirdRightColumn">
                             <FwbInput
                                 v-model="savedProfession"
                                 placeholder="EMT"
@@ -234,16 +177,7 @@
                 </div>
 
                 <div class="pb-4">
-                    <SectionTitle title="Regular Examination" />
-                    <fieldset class="my-8">
-                        <FwbTextarea
-                            v-model="savedGeneralScreening"
-                            placeholder="Enter general screening..."
-                            label="General Screening"
-                            size="md"
-                            @focusout="updateState('narrative', savedGeneralScreening)"
-                        />
-                    </fieldset>
+                    <SectionTitle title="Physical Examination" />
                     <div :class="columnWrapper">
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
@@ -317,16 +251,6 @@
                         />
                     </fieldset>
                     <fieldset class="my-8">
-                        <FwbTextarea
-                            v-model="savedRefractionTest"
-                            placeholder="Refraction results..."
-                            label="Refraction Test"
-                            size="md"
-                            rows="3"
-                            @focusout="updateState('refractionTest', savedRefractionTest)"
-                        />
-                    </fieldset>
-                    <fieldset class="my-8">
                         <FwbInput
                             v-model="savedAudioMeterTest"
                             placeholder="Hearing range was..."
@@ -336,40 +260,6 @@
                             @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
                         />
                     </fieldset>
-                    <fieldset class="my-8">
-                        <FwbTextarea
-                            v-model="savedAdditionalNotes"
-                            placeholder="Additional information"
-                            label="Additional Notes"
-                            size="md"
-                            rows="3"
-                            @focusout="updateState('additionalNotes', savedAdditionalNotes)"
-                        />
-                    </fieldset>
-                </div>
-
-                <div class="pb-4">
-                    <SectionTitle title="Pre-Operative Tests" />
-                    <fieldset class="my-8">
-                        <FwbTextarea
-                            v-model="savedCompleteBloodCount"
-                            placeholder="Test results indicate..."
-                            label="Complete Blood Count"
-                            size="md"
-                            @focusout="updateState('completeBloodCount', savedCompleteBloodCount)"
-                        />
-                    </fieldset>
-
-                    <fieldset class="my-8">
-                        <FwbTextarea
-                            v-model="savedXRay"
-                            placeholder="Test results indicate..."
-                            label="X-Ray Test"
-                            size="md"
-                            @focusout="updateState('xRay', savedXRay)"
-                        />
-                    </fieldset>
-
                     <fieldset class="my-8">
                         <FwbTextarea
                             v-model="savedEcg"
@@ -389,6 +279,7 @@
                             @focusout="updateState('urinalysis', savedUrinalysis)"
                         />
                     </fieldset>
+
                 </div>
 
                 <div class="max-w-2xl flex md:block justify-between">
