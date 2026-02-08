@@ -16,10 +16,7 @@ ${to && `[b]${to}[/b],`}
 
 ${body}
 
-Be well,
-
-[img]${signature}[/img]
-[i]${name}[/i]
+Be well
 [/divbox4]
 [divbox=#8d1717][color=transparent]spacer[/color][/divbox]
 [divbox4=eeeeee]
