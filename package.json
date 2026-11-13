@@ -9,29 +9,29 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
     },
     "dependencies": {
-        "dayjs": "^1.11",
-        "pinia": "^2.0",
-        "vite": "^4.2",
-        "vue": "^3.4.31",
-        "vue-router": "^4.1"
+        "dayjs": "^1.11.23",
+        "pinia": "^2.3.1",
+        "vite": "^6.4.6",
+        "vue": "^3.5.45",
+        "vue-router": "^4.6.5"
     },
     "devDependencies": {
-        "@rushstack/eslint-patch": "^1.1",
-        "@tailwindcss/forms": "^0.5",
-        "@vitejs/plugin-vue": "^4.4",
+        "@rushstack/eslint-patch": "^1.16.1",
+        "@tailwindcss/forms": "^0.5.11",
+        "@vitejs/plugin-vue": "^5.2.4",
         "@vue/eslint-config-prettier": "^7.0",
         "@vueuse/core": "^9.13",
-        "autoprefixer": "^10.4",
-        "eslint": "^8.22",
-        "eslint-plugin-vue": "^9.3",
-        "flowbite": "^2.0.0",
+        "autoprefixer": "^10.6.2",
+        "eslint": "^8.57.1",
+        "eslint-plugin-vue": "^9.33.0",
+        "flowbite": "^2.5.2",
         "flowbite-vue": "^0.1.0",
-        "postcss": "^8.4",
-        "postcss-import": "^15.0",
+        "postcss": "^8.5.32",
+        "postcss-import": "^15.1.0",
         "prettier": "^2.7",
-        "sass": "^1.57",
-        "tailwindcss": "^3.2",
-        "vue-tailwind-datepicker": "^1.7"
+        "sass": "^1.108.2",
+        "tailwindcss": "^3.4.19",
+        "vue-tailwind-datepicker": "^1.7.4"
     },
     "eslintConfig": {
         "root": true,
@@ -52,5 +52,8 @@
             "window": true,
             "module": true
         }
+    },
+    "resolutions": {
+        "flowbite-vue/nanoid": "^5.1.16"
     }
 }

@@ -8,7 +8,7 @@ module.exports = {
     content: [
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
-        './node_modules/flowbite-vue/dist/flowbite-vue.mjs',
+        './node_modules/flowbite-vue/dist/flowbite-vue.js',
         './node_modules/vue-tailwind-datepicker/dist/*.js',
     ],
     theme: {
