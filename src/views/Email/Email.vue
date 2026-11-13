@@ -5,8 +5,7 @@
     import {globalStore} from '@stores/global'
     import {emailStore} from '@stores/email'
     import {generateEmail} from '@templates/email/email'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -19,26 +18,9 @@
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = emailStore()
-    const {data, defaultData} = reactive({
-        ...store.$state,
-    })
-
-    const {subject, to, body} = reactive(data)
-
-    const savedSubject = ref(subject)
-    const savedTo = ref(to)
-    const savedBody = ref(body)
-
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateEmail(emailStore().data, userData, links.email, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/email/personal-email')
-    }
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generateEmail, links.email)
 </script>
 
 <template>
@@ -54,34 +36,30 @@
                         <!-- Subject Line -->
                         <fieldset :class=halfLeftColumn>
                             <FwbInput
-                                v-model="savedSubject"
+                                v-model="data.subject"
                                 placeholder="Subject Line"
                                 label="Subject Line"
                                 size="md"
-                                @keydown.enter="updateState('subject', savedSubject)"
-                                @focusout="updateState('subject', savedSubject)"
                             />
                         </fieldset>
                         <!-- To -->
                         <fieldset :class=halfRightColumn>
                             <FwbInput
-                                v-model="savedTo"
+                                v-model="data.to"
                                 placeholder="John Doe"
                                 label="Email To"
                                 size="md"
-                                @focusout="updateState('to', savedTo)"
                             />
                         </fieldset>
                     </div>
                     <!-- Body of your email -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedBody"
+                            v-model="data.body"
                             placeholder="Body copy..."
                             label="Email Body"
                             size="lg"
                             rows="8"
-                            @focusout="updateState('body', savedBody)"
                         />
                     </fieldset>
                 </div>
@@ -117,7 +95,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

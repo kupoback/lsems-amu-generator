@@ -6,8 +6,7 @@
     import {pilotsLicenseStore} from '@stores/pilots-license'
     import {generateSaaaPilots} from '@templates/patient/saaa-pilots'
     import {generateSaaaPilotsCert} from '@templates/patient/saaa-pilots-cert'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -21,40 +20,12 @@
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
     import SectionTitle from '@component/SectionTitle/SectionTitle.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = pilotsLicenseStore()
-    const {data, defaultData} = reactive({
-        ...store.$state,
-    })
-
-    const {
-        fullName,
-        phoneNumber,
-        auscultation,
-        coverTest,
-        audioMeterTest,
-        drugTest,
-    } = reactive(data)
-
-    //region Saved Data
-    const savedFullName = ref(fullName)
-    const savedPhoneNumber = ref(phoneNumber)
-    const savedAuscultation = ref(auscultation)
-    const savedCoverTest = ref(coverTest)
-    const savedAudioMeterTest = ref(audioMeterTest)
-    const savedDrugTest = ref(drugTest)
-    //endregion
+    const {data, copyContents, copyContentsForGov, reset, copyWith} = useFormPage(store, generateSaaaPilots, links.patientFile)
 
     //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateSaaaPilots(pilotsLicenseStore().data, userData, links.patientFile, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const copyContentsForSaaa = () => generateSaaaPilotsCert(pilotsLicenseStore().data, userData, links.saaaCert, true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/patient/patient-file')
-    }
+    const copyContentsForSaaa = () => copyWith(generateSaaaPilotsCert, links.saaaCert, true)
     //endregion
 </script>
 
@@ -73,20 +44,18 @@
                         <!-- Full Name -->
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
-                                v-model="savedFullName"
+                                v-model="data.fullName"
                                 placeholder="FName LName"
                                 label="Full Name"
                                 size="md"
-                                @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
                         <fieldset :class="halfRightColumn">
                             <FwbInput
-                                v-model="savedPhoneNumber"
+                                v-model="data.phoneNumber"
                                 placeholder="5551234"
                                 label="Phone Number"
                                 size="md"
-                                @focusout="updateState('phoneNumber', savedPhoneNumber)"
                             />
                         </fieldset>
                     </div>
@@ -96,42 +65,38 @@
                     <SectionTitle title="Physical Examination" />
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedAuscultation"
+                            v-model="data.auscultation"
                             placeholder="Lungs are... Heart is..."
                             label="Auscultation"
                             size="md"
                             rows="3"
-                            @focusout="updateState('auscultation', savedAuscultation)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedCoverTest"
+                            v-model="data.coverTest"
                             placeholder="Exam Results..."
                             label="Eye Exam (Cover Test) - Only if necessary"
                             size="md"
                             rows="3"
-                            @focusout="updateState('coverTest', savedCoverTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedAudioMeterTest"
+                            v-model="data.audioMeterTest"
                             placeholder="Hearing range was..."
                             label="Audio-Meter Test - Only if necessary"
                             size="md"
                             rows="3"
-                            @focusout="updateState('audioMeterTest', savedAudioMeterTest)"
                         />
                     </fieldset>
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedDrugTest"
+                            v-model="data.drugTest"
                             placeholder="Urinalysis results were..."
                             label="Drug Test Results ((/drugTest or Urinalysis))"
                             size="md"
                             rows="3"
-                            @focusout="updateState('drugTest', savedDrugTest)"
                         />
                     </fieldset>
                 </div>
@@ -175,7 +140,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

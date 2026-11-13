@@ -1,44 +1,8 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 
-/**
- * Global Components
- */
+// Home is the landing page, so it ships in the main bundle; every other page
+// is lazy-loaded into its own chunk the first time it is visited.
 import Home from '@view/Home.vue'
-import Settings from '@view/Settings.vue'
-import NotFound from '@view/NotFound.vue'
-
-/**
- * Patient Components
- */
-import PatientFile from '@view/Patient/PatientFile.vue'
-import LeoFile from '@view/Patient/LeoFile.vue'
-import VisitationReport from '@view/Patient/VisitationReport.vue'
-import AppointmentFormat from '@view/Patient/AppointmentFormat.vue'
-import PilotsLicense from '@view/Patient/PilotsLicense.vue'
-import PublicRequest from '@view/Patient/PublicRequest.vue'
-
-/**
- * Prescriptions
- */
-import Prescription from '@view/Prescriptions/Prescription.vue'
-import Methadone from '@view/Prescriptions/Methadone.vue'
-import EyePrescription from '@view/Prescriptions/EyePrescription.vue'
-
-/**
- * Email Components
- */
-import Email from '@view/Email/Email.vue'
-import AmuEmail from '@view/Email/AmuEmail.vue'
-
-/**
- * Field Training Components
- */
-import RideAlong from '@view/FieldTraining/RideAlong.vue'
-
-/**
- * General Components
- */
-import DutyReport from '@view/General/DutyReport.vue'
 
 export const routes = [
     {
@@ -49,32 +13,32 @@ export const routes = [
             {
                 path: '/patient/patient-file',
                 name: 'Patient File',
-                component: PatientFile,
+                component: () => import('@view/Patient/PatientFile.vue'),
             },
             {
                 path: '/patient/leo-patient-file',
                 name: 'LEO Examination',
-                component: LeoFile,
+                component: () => import('@view/Patient/LeoFile.vue'),
             },
             {
                 path: '/patient/pilots-license',
                 name: 'Pilot Examination',
-                component: PilotsLicense,
+                component: () => import('@view/Patient/PilotsLicense.vue'),
             },
             {
                 path: '/patient/appointment-format',
                 name: 'Appointments',
-                component: AppointmentFormat,
+                component: () => import('@view/Patient/AppointmentFormat.vue'),
             },
             {
                 path: '/patient/public-request',
                 name: 'Public Request',
-                component: PublicRequest,
+                component: () => import('@view/Patient/PublicRequest.vue'),
             },
             {
                 path: '/patient/visitation-report',
                 name: 'Visitation Report',
-                component: VisitationReport,
+                component: () => import('@view/Patient/VisitationReport.vue'),
             },
         ],
     },
@@ -86,17 +50,17 @@ export const routes = [
             {
                 path: '/prescription/prescription',
                 name: 'Prescription',
-                component: Prescription,
+                component: () => import('@view/Prescriptions/Prescription.vue'),
             },
             {
                 path: '/prescription/methadone',
                 name: 'Methadone',
-                component: Methadone,
+                component: () => import('@view/Prescriptions/Methadone.vue'),
             },
             {
                 path: '/prescription/eye-prescription',
                 name: 'Eye Prescription',
-                component: EyePrescription,
+                component: () => import('@view/Prescriptions/EyePrescription.vue'),
             },
         ],
     },
@@ -108,12 +72,12 @@ export const routes = [
             {
                 path: '/email/personal-email',
                 name: 'Email',
-                component: Email,
+                component: () => import('@view/Email/Email.vue'),
             },
             {
                 path: '/email/amu-email',
                 name: 'Amu Email',
-                component: AmuEmail,
+                component: () => import('@view/Email/AmuEmail.vue'),
             },
         ],
     },
@@ -125,7 +89,7 @@ export const routes = [
     //            {
     //                path: '/general/duty-report',
     //                name: 'Duty Report',
-    //                component: DutyReport,
+    //                component: () => import('@view/General/DutyReport.vue'),
     //            },
     //        ],
     //    },
@@ -137,19 +101,20 @@ export const routes = [
     //         {
     //             path: '/ride-along',
     //             name: 'Ride Along',
-    //             component: RideAlong,
+    //             component: () => import('@view/FieldTraining/RideAlong.vue'),
     //         },
     //     ],
     // },
     {
         path: '/settings',
         name: 'Settings',
-        component: Settings,
+        component: () => import('@view/Settings.vue'),
     },
 ]
 
 const router = createRouter({
     history: createWebHashHistory(),
+    scrollBehavior: () => ({top: 0}),
     routes: [
         ...routes,
         {
@@ -160,7 +125,7 @@ const router = createRouter({
         {
             path: '/:catchAll(.*)',
             name: 'Not Found',
-            component: NotFound,
+            component: () => import('@view/NotFound.vue'),
         },
     ],
 })

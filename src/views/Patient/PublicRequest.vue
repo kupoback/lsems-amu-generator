@@ -5,8 +5,7 @@
     import {globalStore} from '@stores/global'
     import {publicRequestStore} from '@stores/public-request'
     import {generatePublicRequest} from '@templates/patient/public-request'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -19,28 +18,10 @@
     import {FwbButton, FwbInput, FwbTextarea} from 'flowbite-vue'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = publicRequestStore()
-    const {data, defaultData} = reactive({
-        ...store.$state,
-    })
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generatePublicRequest, links.publicRequest)
 
-    const {fullName, contactMethod, details} = reactive(data)
-
-    const savedFullName = ref(fullName)
-    const savedContactMethod = ref(contactMethod)
-    const savedDetails = ref(details)
-    //endregion
-
-    //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generatePublicRequest(publicRequestStore().data, userData, links.publicRequest, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/patient/public-request')
-    }
     //endregion
 </script>
 
@@ -59,33 +40,30 @@
                         <fieldset :class=halfLeftColumn>
 
                             <FwbInput
-                                v-model="savedFullName"
+                                v-model="data.fullName"
                                 placeholder="FName LName"
                                 label="Patients Name"
                                 size="md"
-                                @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
                         <!-- Contact Method -->
                         <fieldset :class=halfRightColumn>
                             <FwbInput
-                                v-model="savedContactMethod"
+                                v-model="data.contactMethod"
                                 placeholder="Email"
                                 label="Contact Type"
                                 size="md"
-                                @focusout="updateState('contactMethod', savedContactMethod)"
                             />
                         </fieldset>
                     </div>
                     <!-- Details -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedDetails"
+                            v-model="data.details"
                             placeholder="Patient has..."
                             label="Contact Details"
                             size="md"
                             row="4"
-                            @focusout="updateState('details', savedDetails)"
                         />
                     </fieldset>
                 </div>
@@ -120,7 +98,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

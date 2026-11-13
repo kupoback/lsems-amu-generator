@@ -5,8 +5,8 @@
     import {globalStore} from '@stores/global'
     import {visitationStore} from '@stores/visitation'
     import {generateVisitationReport} from '@templates/patient/visitation-report'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
+    import {dateFormat} from '@util/date-formats'
 
     /**
      * Vue components
@@ -15,31 +15,9 @@
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = visitationStore()
-    const {data, defaultData} = reactive({
-        ...store.$state,
-    })
-
-    const {reasonForVisit, diagnosis, personalPresent, visitReport} = reactive(data)
-
-    //region Saved Data
-    const savedReasonForVisit = ref(reasonForVisit)
-    const savedDiagnosis = ref(diagnosis)
-    const savedPersonalPresent = ref(personalPresent)
-    const savedVisitReport = ref(visitReport)
-    //endregion
-
-    //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateVisitationReport(visitationStore().data, userData, links.patientFile, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/patient/visitation-report')
-    }
-    //endregion
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generateVisitationReport, links.patientFile)
 </script>
 
 <template>
@@ -59,52 +37,47 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >Date of Visit</label>
                         <VueTailwindDatepicker
-                            v-model="savedDateOfVisit"
+                            v-model="data.dateOfVisit"
                             id="dob"
                             placeholder="DD/MMM/YYYY"
                             as-single
-                            :formatter="formatter"
-                            @focusout="updateState('dateOfVisit', savedDateOfVisit)"
+                            :formatter="dateFormat"
                         />
                     </fieldset>
                     <!-- Reason for Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedReasonForVisit"
+                            v-model="data.reasonForVisit"
                             placeholder="Patient stated that..."
                             label="Reason for the Visit"
                             size="md"
-                            @focusout="updateState('reasonForVisit', savedReasonForVisit)"
                         />
                     </fieldset>
                     <!-- Diagnosis -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedDiagnosis"
+                            v-model="data.diagnosis"
                             placeholder="Patient is diagnosed with..."
                             label="Patient Diagnosis"
                             size="md"
-                            @focusout="updateState('diagnosis', savedDiagnosis)"
                         />
                     </fieldset>
                     <!-- Personal Present -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="savedPersonalPresent"
+                            v-model="data.personalPresent"
                             placeholder="Doctor Names..."
                             label="Personal Present"
                             size="md"
-                            @focusout="updateState('personalPresent', savedPersonalPresent)"
                         />
                     </fieldset>
                     <!-- Visit Report Summary -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedVisitReport"
+                            v-model="data.visitReport"
                             placeholder="Visit summary..."
                             label="Visit Report"
                             size="md"
-                            @focusout="updateState('visitReport', savedVisitReport)"
                         />
                     </fieldset>
                 </div>
@@ -140,7 +113,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

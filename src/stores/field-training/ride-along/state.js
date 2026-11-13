@@ -1,4 +1,4 @@
-import {useStorage} from '@vueuse/core'
+import {persisted} from '@/stores/persisted'
 
 const defaultData = {
     rideAlongType: 'Mandatory',
@@ -13,7 +13,7 @@ const defaultData = {
 }
 
 export default () => ({
-    data: useStorage('rideAlongData', defaultData),
+    data: persisted('rideAlongData', defaultData),
     defaultData,
     rideAlongTypes: [
         {

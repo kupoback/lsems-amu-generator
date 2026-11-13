@@ -5,8 +5,8 @@
     import {globalStore} from '@stores/global'
     import {appointmentFormatStore} from '@stores/appointment-format'
     import {generateAppointmentFormat} from '@templates/patient/appointment-format'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
+    import {dateTimeFormat} from '@util/date-formats'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -20,35 +20,9 @@
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = appointmentFormatStore()
-    const {data, defaultData} = reactive({
-        ...store.$state,
-    })
-
-    const {reasonForVisit, dateOfAppointment, timeScheduled} = reactive(data)
-
-    const formatter = ref({
-        date: 'DD/MMM/YYYY HH:mm',
-        month: 'MMM',
-    })
-
-    //region savedData
-    const savedReasonForVisit = ref(reasonForVisit)
-    const savedDateOfAppointment = ref(dateOfAppointment)
-    const savedTimeScheduled = ref(timeScheduled)
-    //endregion
-
-    //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateAppointmentFormat(appointmentFormatStore().data, userData, links.patientFile, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/patient/appointment-format')
-    }
-    //endregion
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generateAppointmentFormat, links.patientFile)
 </script>
 
 <template>
@@ -70,23 +44,21 @@
                                 >Date of Appointment</label
                             >
                             <VueTailwindDatepicker
-                                v-model="savedDateOfAppointment"
+                                v-model="data.dateOfAppointment"
                                 id="dob"
                                 placeholder="DD/MMM/YYYY"
                                 as-single
-                                :formatter="formatter"
-                                @focusout="updateState('dateOfAppointment', savedDateOfAppointment)"
+                                :formatter="dateTimeFormat"
                             />
                         </fieldset>
                         <!-- Time Scheduled -->
                         <fieldset :class=halfRightColumn>
                             <FwbInput
-                                v-model="savedTimeScheduled"
+                                v-model="data.timeScheduled"
                                 placeholder="20:00"
                                 label="Time Scheduled"
                                 size="md"
                                 max="4"
-                                @focusout="updateState('timeScheduled', savedTimeScheduled)"
                             />
                             <p
                                 class="text-sm mt-1"
@@ -98,11 +70,10 @@
                     <!-- Reason for the Visit -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedReasonForVisit"
+                            v-model="data.reasonForVisit"
                             placeholder="Patient stated that..."
                             label="Reason for the Visit"
                             size="md"
-                            @focusout="updateState('reasonForVisit', savedReasonForVisit)"
                         />
                     </fieldset>
 
@@ -139,5 +110,3 @@
         </div>
     </div>
 </template>
-
-<style scoped lang="scss"></style>

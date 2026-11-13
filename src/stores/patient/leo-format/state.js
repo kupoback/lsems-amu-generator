@@ -1,4 +1,4 @@
-import {useStorage} from '@vueuse/core'
+import {persisted} from '@/stores/persisted'
 
 const defaultData = {
     fullName: '',
@@ -16,10 +16,11 @@ const defaultData = {
     coverTest: '',
     audioMeterTest: '',
     additionalNotes: '',
+    ecg: '',
     urinalysis: '',
 }
 
 export default () => ({
-    data: useStorage('leoPatientData', defaultData),
+    data: persisted('leoPatientData', defaultData),
     defaultData,
 })

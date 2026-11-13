@@ -1,4 +1,4 @@
-import {useStorage} from '@vueuse/core'
+import {persisted} from '@/stores/persisted'
 
 const defaultData = {
     body: '',
@@ -9,6 +9,6 @@ const defaultData = {
 }
 
 export default () => ({
-    data: useStorage('amuEmailData', defaultData),
+    data: persisted('amuEmailData', defaultData),
     defaultData,
 })

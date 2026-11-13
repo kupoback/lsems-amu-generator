@@ -1,10 +1,10 @@
-import {toNumber} from 'lodash'
-import convert from 'convert'
-import {parseInt} from 'lodash/string'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
 dayjs.extend(utc)
+
+const CM_PER_INCH = 2.54
+const KG_PER_POUND = 0.45359237
 
 /**
  * Converts the temperature to Celsius if set in F
@@ -14,38 +14,38 @@ dayjs.extend(utc)
  */
 export const formatTemperature = temperature => {
     if (temperature >= 50) {
-        return convert(temperature, 'F').to('C').toFixed(1)
+        return (((temperature - 32) * 5) / 9).toFixed(1)
     }
     return temperature
 }
 
 /**
- * Converts a height value to cm if it's Imperial units
+ * Converts a height value to cm if it's Imperial units (e.g. 6'3")
  *
  * @param {String} height The height value
- * @returns {string}
+ * @returns {string} Whole centimetres, or the input untouched if it isn't a number
  */
 export const convertHeightToCm = height => {
-    const regx = /^(\d+)'(\d+)(?:''|")$/
-    const match = regx.exec(height)
+    const value = String(height ?? '').trim()
+    const match = /^(\d+)'(\d+)(?:''|")$/.exec(value)
     if (match) {
-        const inches = parseInt(match[1], 10) * 12 + parseInt(match[2], 10)
-        return convert(inches, 'inches').to('cm').toFixed(0)
+        const inches = Number(match[1]) * 12 + Number(match[2])
+        return (inches * CM_PER_INCH).toFixed(0)
     }
 
-    return toNumber(height).toFixed(0)
+    return value !== '' && Number.isFinite(Number(value)) ? Number(value).toFixed(0) : value
 }
 
 /**
- * Converts the weight into kg if it's in Imperial units
+ * Converts the weight into kg if it's in Imperial units (e.g. "180 lbs")
+ *
  * @param {String} weight The weight value
  * @returns {*|string}
  */
 export const convertWeightToKg = weight => {
-    const regx = /^(\d+)?\s(lbs?|pounds?)$/
-    const match = regx.exec(weight)
-    if (match && match[2] !== 'kg') {
-        return convert(parseInt(match[1], 10), 'pounds').to('kg').toFixed(0)
+    const match = /^(\d+(?:\.\d+)?)\s*(lbs?|pounds?)$/i.exec(String(weight ?? '').trim())
+    if (match) {
+        return (Number(match[1]) * KG_PER_POUND).toFixed(0)
     }
 
     return weight

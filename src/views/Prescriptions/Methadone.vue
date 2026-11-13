@@ -5,8 +5,7 @@
     import {globalStore} from '@stores/global'
     import {methadoneStore} from '@stores/methadone'
     import {generateMethadone} from '@templates/prescriptions/methadone'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -22,31 +21,9 @@
     import {FwbButton, FwbCheckbox, FwbInput, FwbTextarea} from 'flowbite-vue'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = methadoneStore()
-    const {data, defaultData} = reactive({...store.$state})
-
-    const {fullName, phoneNumber, drugsFound, prescription, amountIssued, educated} = reactive(data)
-
-    //region Saved Data
-    const savedFullName = ref(fullName)
-    const savedPhoneNumber = ref(phoneNumber)
-    const savedDrugsFound = ref(drugsFound)
-    const savedPrescription = ref(prescription)
-    const savedAmountIssued = ref(amountIssued)
-    const savedEducated = ref(educated)
-    //endregion
-
-    //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateMethadone(methadoneStore().data, userData, links.prescription, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/prescription/methadone')
-    }
-    //endregion
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generateMethadone, links.prescription)
 </script>
 
 <template>
@@ -63,54 +40,49 @@
                         <!-- Full Name -->
                         <fieldset :class=halfLeftColumn>
                             <FwbInput
-                                v-model="savedFullName"
+                                v-model="data.fullName"
                                 placeholder="FName LName"
                                 label="Patients Name"
                                 size="md"
-                                @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
                         <!-- Phone Number -->
                         <fieldset :class=halfRightColumn>
                             <FwbInput
-                                v-model="savedPhoneNumber"
+                                v-model="data.phoneNumber"
                                 placeholder="5551234"
                                 label="Patients Phone Number"
                                 size="md"
-                                @focusout="updateState('phoneNumber', savedPhoneNumber)"
                             />
                         </fieldset>
                     </div>
                     <!-- Drugs Found -->
                     <fieldset class="my-2 md:my-8">
                         <FwbTextarea
-                            v-model="savedDrugsFound"
+                            v-model="data.drugsFound"
                             placeholder="Patient tested positive for..."
                             label="Drugs Found"
                             size="md"
                             rows="2"
-                            @focusout="updateState('drugsFound', savedDrugsFound)"
                         />
                     </fieldset>
                     <div :class=columnWrapper>
                         <!-- Prescription -->
                         <fieldset :class=thirdLeftColumn>
                             <FwbInput
-                                v-model="savedPrescription"
+                                v-model="data.prescription"
                                 placeholder="Methadone"
                                 label="Prescription"
                                 size="md"
-                                @focusout="updateState('prescription', savedPrescription)"
                             />
                         </fieldset>
                         <!-- Amount Prescribed -->
                         <fieldset :class=thirdMiddleColumn>
                             <FwbInput
-                                v-model="savedAmountIssued"
+                                v-model="data.amountIssued"
                                 placeholder="10"
                                 label="Amount Prescribed"
                                 size="md"
-                                @focusout="updateState('amountIssued', savedAmountIssued)"
                             />
                         </fieldset>
                         <fieldset :class=thirdRightColumn>
@@ -118,9 +90,8 @@
                                 Was the patient educated?
                             </p>
                             <FwbCheckbox
-                                v-model="savedEducated"
+                                v-model="data.educated"
                                 label="Patient Educated"
-                                @focusout="updateState('educated', savedEducated)"
                                 />
                         </fieldset>
                     </div>
@@ -157,7 +128,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

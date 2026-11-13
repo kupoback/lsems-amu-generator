@@ -5,8 +5,8 @@
     import {globalStore} from '@stores/global'
     import {prescriptionStore} from '@stores/prescription'
     import {generatePrescription} from '@templates/prescriptions/prescription'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
+    import {dateTimeFormat} from '@util/date-formats'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -20,35 +20,9 @@
     import VueTailwindDatepicker from 'vue-tailwind-datepicker'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = prescriptionStore()
-    const {data, defaultData} = reactive({...store.$state})
-
-    const {fullName, phoneNumber, diagnosis, prescription, startDate, endDate} = reactive(data)
-
-    //region Saved Data
-    const formatter = ref({
-        date: 'DD/MMM/YYYY HH:mm',
-        month: 'MMM',
-    })
-    const savedFullName = ref(fullName)
-    const savedPhoneNumber = ref(phoneNumber)
-    const savedDiagnosis = ref(diagnosis)
-    const savedPrescription = ref(prescription)
-    const savedStartDate = ref(startDate)
-    const savedEndDate = ref(endDate)
-    //endregion
-
-    //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generatePrescription(prescriptionStore().data, userData, links.prescription, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/prescription/prescription')
-    }
-    //endregion
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generatePrescription, links.prescription)
 </script>
 
 <template>
@@ -70,12 +44,11 @@
                                 >Start Date</label
                             >
                             <VueTailwindDatepicker
-                                v-model="savedStartDate"
+                                v-model="data.startDate"
                                 id="start-date"
                                 placeholder="DD/MMM/YYYY HH:mm"
                                 as-single
-                                :formatter="formatter"
-                                @focusout="updateState('startDate', savedStartDate)"
+                                :formatter="dateTimeFormat"
                             />
                         </fieldset>
                         <!-- Expiration Date -->
@@ -86,12 +59,11 @@
                                 >End Date</label
                             >
                             <VueTailwindDatepicker
-                                v-model="savedEndDate"
+                                v-model="data.endDate"
                                 id="end-date"
                                 placeholder="DD/MMM/YYYY HH:mm"
                                 as-single
-                                :formatter="formatter"
-                                @focusout="updateState('endDate', savedEndDate)"
+                                :formatter="dateTimeFormat"
                             />
                         </fieldset>
                     </div>
@@ -99,43 +71,39 @@
                         <!-- Full Name -->
                         <fieldset :class=halfLeftColumn>
                             <FwbInput
-                                v-model="savedFullName"
+                                v-model="data.fullName"
                                 placeholder="FName LName"
                                 label="Patients Name"
                                 size="md"
-                                @focusout="updateState('fullName', savedFullName)"
                             />
                         </fieldset>
                         <!-- Phone Number -->
                         <fieldset :class=halfRightColumn>
                             <FwbInput
-                                v-model="savedPhoneNumber"
+                                v-model="data.phoneNumber"
                                 placeholder="5551234"
                                 label="Patients Phone Number"
                                 size="md"
-                                @focusout="updateState('phoneNumber', savedPhoneNumber)"
                             />
                         </fieldset>
                     </div>
                     <!-- Diagnosis -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedDiagnosis"
+                            v-model="data.diagnosis"
                             placeholder="Patient has..."
                             label="Diagnosis for prescription"
                             size="md"
-                            @focusout="updateState('diagnosis', savedDiagnosis)"
                         />
                     </fieldset>
                     <!-- Prescription -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedPrescription"
+                            v-model="data.prescription"
                             placeholder="Medication: strength"
                             label="Medication(s) Prescribed"
                             size="md"
                             rows="4"
-                            @focusout="updateState('prescription', savedPrescription)"
                         />
                     </fieldset>
                 </div>
@@ -171,7 +139,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

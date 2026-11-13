@@ -1,12 +1,6 @@
 <script setup>
     import {RouterView} from 'vue-router'
-    import Navigation from '@component/Navigation/Navigation.vue';
-</script>
-
-<script>
-    export default {
-        name: 'LSEMS AMU Paperwork App',
-    };
+    import Navigation from '@component/Navigation/Navigation.vue'
 </script>
 
 <template>
@@ -20,5 +14,3 @@
         </main>
     </div>
 </template>
-
-<style lang="scss" scoped></style>

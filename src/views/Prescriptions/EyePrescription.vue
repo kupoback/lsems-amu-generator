@@ -5,8 +5,7 @@
     import {globalStore} from '@stores/global'
     import {eyePrescriptionStore} from '@stores/eye-prescription'
     import {generateEyePrescription} from '@templates/prescriptions/eye-prescription'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
     import {
         columnWrapper,
         thirdLeftColumn,
@@ -21,46 +20,9 @@
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
     import SectionTitle from '@component/SectionTitle/SectionTitle.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = eyePrescriptionStore()
-    const {data, defaultData} = reactive({...store.$state})
-
-    const {
-        fullName,
-        summary,
-        leftStrength,
-        rightStrength,
-        leftCylinder,
-        rightCylinder,
-        leftAxis,
-        rightAxis,
-    } = reactive(data)
-
-    //region Saved Data
-    const formatter = ref({
-        date: 'DD/MMM/YYYY HH:mm',
-        month: 'MMM',
-    })
-    const savedFullName = ref(fullName)
-    const savedSummary = ref(summary)
-    const savedLeftStrength = ref(leftStrength)
-    const savedRightStrength = ref(rightStrength)
-    const savedLeftCylinder = ref(leftCylinder)
-    const savedRightCylinder = ref(rightCylinder)
-    const savedLeftAxis = ref(leftAxis)
-    const savedRightAxis = ref(rightAxis)
-    //endregion
-
-    //region Actions
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateEyePrescription(eyePrescriptionStore().data, userData, links.prescription, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/prescription/eye-prescription')
-    }
-    //endregion
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generateEyePrescription, links.prescription)
 </script>
 
 <template>
@@ -75,21 +37,19 @@
                     <!-- Full Name -->
                     <fieldset class="my-8">
                         <FwbInput
-                            v-model="savedFullName"
+                            v-model="data.fullName"
                             placeholder="FName LName"
                             label="Patients Name"
                             size="md"
-                            @focusout="updateState('fullName', savedFullName)"
                         />
                     </fieldset>
                     <!-- Summary -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedSummary"
+                            v-model="data.summary"
                             placeholder="Reason for the visit"
                             label="Prescription Summary"
                             size="md"
-                            @focusout="updateState('summary', savedSummary)"
                         />
                     </fieldset>
                     <SectionTitle title="Left Eye" />
@@ -97,31 +57,28 @@
                         <!-- Left Strength -->
                         <fieldset :class=thirdLeftColumn>
                             <FwbInput
-                                v-model="savedLeftStrength"
+                                v-model="data.leftStrength"
                                 placeholder="-3.50"
                                 label="Left Strength"
                                 size="md"
-                                @focusout="updateState('leftStrength', savedLeftStrength)"
                             />
                         </fieldset>
                         <!-- Left Cylinder -->
                         <fieldset :class=thirdMiddleColumn>
                             <FwbInput
-                                v-model="savedLeftCylinder"
+                                v-model="data.leftCylinder"
                                 placeholder="0"
                                 label="Left Cylinder"
                                 size="md"
-                                @focusout="updateState('leftCylinder', savedLeftCylinder)"
                             />
                         </fieldset>
                         <!-- Left Axis -->
                         <fieldset :class=thirdRightColumn>
                             <FwbInput
-                                v-model="savedLeftAxis"
+                                v-model="data.leftAxis"
                                 placeholder="0"
                                 label="Left Axis"
                                 size="md"
-                                @focusout="updateState('leftAxis', savedLeftAxis)"
                             />
                         </fieldset>
                     </div>
@@ -130,31 +87,28 @@
                         <!-- Right Strength -->
                         <fieldset :class=thirdLeftColumn>
                             <FwbInput
-                                v-model="savedRightStrength"
+                                v-model="data.rightStrength"
                                 placeholder="-3.50"
                                 label="Left Strength"
                                 size="md"
-                                @focusout="updateState('rightStrength', savedRightStrength)"
                             />
                         </fieldset>
                         <!-- Right Cylinder -->
                         <fieldset :class=thirdMiddleColumn>
                             <FwbInput
-                                v-model="savedRightCylinder"
+                                v-model="data.rightCylinder"
                                 placeholder="0"
                                 label="Right Cylinder"
                                 size="md"
-                                @focusout="updateState('rightCylinder', savedRightCylinder)"
                             />
                         </fieldset>
                         <!-- Right Axis -->
                         <fieldset :class=thirdRightColumn>
                             <FwbInput
-                                v-model="savedRightAxis"
+                                v-model="data.rightAxis"
                                 placeholder="0"
                                 label="Right Axis"
                                 size="md"
-                                @focusout="updateState('rightAxis', savedRightAxis)"
                             />
                         </fieldset>
                     </div>
@@ -191,7 +145,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

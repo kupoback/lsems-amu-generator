@@ -1,4 +1,4 @@
-import {useStorage} from '@vueuse/core'
+import {persisted} from '@/stores/persisted'
 
 const defaultData = {
     fullName: '',
@@ -12,6 +12,6 @@ const defaultData = {
 }
 
 export default () => ({
-    data: useStorage('eyePrescriptionData', defaultData),
+    data: persisted('eyePrescriptionData', defaultData),
     defaultData,
 })

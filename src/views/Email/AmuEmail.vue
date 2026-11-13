@@ -5,8 +5,7 @@
     import {globalStore} from '@stores/global'
     import {amuEmailStore} from '@stores/amu-email'
     import {generateAmuEmail} from '@templates/email/amu-email'
-    import {reactive, ref} from 'vue'
-    import router from '@/router'
+    import {useFormPage} from '@/composables/useFormPage'
     import {
         columnWrapper,
         halfLeftColumn,
@@ -19,28 +18,9 @@
     import {FwbButton, FwbCheckbox, FwbInput, FwbTextarea} from 'flowbite-vue'
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
 
-    const {links, userData} = globalStore()
+    const {links} = globalStore()
     const store = amuEmailStore()
-    const {data, defaultData} = reactive({
-        ...store.$state,
-    })
-
-    const {subject, to, body, addDate, addPhone} = reactive(data)
-
-    const savedSubject = ref(subject)
-    const savedTo = ref(to)
-    const savedBody = ref(body)
-    const savedAppendDate = ref(addDate)
-    const savedAppendPhone = ref(addPhone)
-
-    const updateState = (field, value) => (store.data[field] = value)
-    const setupContents = (newPage = false) => generateAmuEmail(amuEmailStore().data, userData, links.email, newPage)
-    const copyContents = () => setupContents()
-    const copyContentsForGov = () => setupContents(true)
-    const reset = () => {
-        store.data = defaultData
-        router.go('/email/amu-email')
-    }
+    const {data, copyContents, copyContentsForGov, reset} = useFormPage(store, generateAmuEmail, links.email)
 </script>
 
 <template>
@@ -56,35 +36,31 @@
                         <!-- Subject Line -->
                         <fieldset :class=halfLeftColumn>
                             <FwbInput
-                                v-model="savedSubject"
+                                v-model="data.subject"
                                 placeholder="Subject Line"
                                 label="Subject Line"
                                 size="md"
-                                @keydown.enter="updateState('subject', savedSubject)"
-                                @focusout="updateState('subject', savedSubject)"
                             />
                         </fieldset>
                         <!-- To -->
                         <fieldset :class=halfRightColumn>
                             <FwbInput
-                                v-model="savedTo"
+                                v-model="data.to"
                                 placeholder="John Doe"
                                 label="Email To"
                                 size="md"
                                 autocomplete="off"
-                                @focusout="updateState('to', savedTo)"
                             />
                         </fieldset>
                     </div>
                     <!-- Body of your email -->
                     <fieldset class="my-8">
                         <FwbTextarea
-                            v-model="savedBody"
+                            v-model="data.body"
                             placeholder="Body copy..."
                             label="Email Body"
                             size="lg"
                             rows="8"
-                            @focusout="updateState('body', savedBody)"
                         />
                         <p
                             class="text-sm mt-1"
@@ -99,9 +75,8 @@
                                 Append Date Schedule from Settings
                             </p>
                             <FwbCheckbox
-                                v-model="savedAppendDate"
+                                v-model="data.addDate"
                                 label="Append Your Date Schedule to Email"
-                                @focusout="updateState('addDate', savedAppendDate)"
                                 />
                         </fieldset>
                         <fieldset :class="halfRightColumn">
@@ -109,9 +84,8 @@
                                 Append Phone Number from Settings
                             </p>
                             <FwbCheckbox
-                                v-model="savedAppendPhone"
+                                v-model="data.addPhone"
                                 label="Append Your Phone Number to Call/Text"
-                                @focusout="updateState('addPhone', savedAppendPhone)"
                                 />
                         </fieldset>
                     </div>
@@ -148,7 +122,3 @@
         </div>
     </div>
 </template>
-
-<script></script>
-
-<style scoped lang="scss"></style>

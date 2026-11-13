@@ -1,4 +1,5 @@
 import {useStorage} from '@vueuse/core'
+import {persisted} from '@/stores/persisted'
 
 export default () => ({
     darkMode: useStorage('darkMode', true),
@@ -11,8 +12,7 @@ export default () => ({
         prescription: 'https://gov.eclipse-rp.net/viewforum.php?f=2710',
         saaaCert: 'https://gov.eclipse-rp.net/viewforum.php?f=3462',
     },
-    siteLogo: 'https://i.ibb.co/YFLh0d2v/LSEMS-Default.png',
-    userData: useStorage('userdata', {
+    userData: persisted('userdata', {
         internalRank: '',
         name: 'FirstName LastName',
         rank: 'Rank',

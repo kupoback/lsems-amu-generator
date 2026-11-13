@@ -1,6 +1,6 @@
 import {dateTimeToUtc} from '@util/mixins'
 
-export const generateVisitationReport = ({reasonForVisit, diagnosis, personalPresent, visitReport}, {internalRank, name, rank, signature}, destination, newPage = false) => {
+export const generateVisitationReport = ({dateOfVisit, reasonForVisit, diagnosis, personalPresent, visitReport}, {internalRank, name, rank, signature}, destination, newPage = false) => {
     if (!internalRank || !name || !rank || !signature) {
         alert('You need to make sure everything in Settings is filled out')
     } else {
@@ -8,7 +8,7 @@ export const generateVisitationReport = ({reasonForVisit, diagnosis, personalPre
 [lsemssubtitle]REPORT[/lsemssubtitle]
 [divbox=white]
 [hr]
-[b]Date of Visit:[/b] ${dateTimeToUtc()}
+[b]Date of Visit:[/b] ${dateOfVisit ? dateOfVisit.toUpperCase() : dateTimeToUtc()}
 [hr]
 [b]Reason For Visit:[/b] ${reasonForVisit}
 [hr]

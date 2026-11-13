@@ -1,6 +1,6 @@
 <script setup>
+    import {computed, toRef} from 'vue'
     import {globalStore} from '@stores/global'
-    import {computed, reactive, ref} from 'vue'
 
     /**
      * Vue Components
@@ -9,81 +9,18 @@
     import BodyHeader from '@component/BodyHeader/BodyHeader.vue'
     import {columnWrapper, halfLeftColumn, halfRightColumn, thirdLeftColumn, thirdMiddleColumn, thirdRightColumn} from '@util/css-classes'
 
-    let buttonText = 'Save Data'
-    let savingText = 'Saving Data'
-
     const store = globalStore()
-    const {userData, updateState} = store
 
-    const {
-        internalRank,
-        name,
-        rank,
-        signature,
-        monday,
-        tuesday,
-        wednesday,
-        thursday,
-        friday,
-        saturday,
-        sunday,
-        phone,
-    } = reactive(userData)
-
-    const savedInternalRank = ref(internalRank)
-    const savedName = ref(name)
-    const savedRank = ref(rank)
-    const savedSignature = ref(signature)
-    const savedMonday = ref(monday)
-    const savedTuesday = ref(tuesday)
-    const savedWednesday = ref(wednesday)
-    const savedThursday = ref(thursday)
-    const savedFriday = ref(friday)
-    const savedSaturday = ref(saturday)
-    const savedSunday = ref(sunday)
-    const savedPhone = ref(phone)
-
-    const isLoading = computed(() => globalStore().loading)
-
-    const updateInternalRank = () => (store.userData.internalRank = savedInternalRank.value)
-    const updateName = () => (store.userData.name = savedName.value)
-    const updateRank = () => (store.userData.rank = savedRank.value)
-    const updateSignature = () => (store.userData.signature = savedSignature.value)
-    const updateMonday = () => (store.userData.monday = savedMonday.value)
-    const updateTuesday = () => (store.userData.tuesday = savedTuesday.value)
-    const updateWednesday = () => (store.userData.wednesday = savedWednesday.value)
-    const updateThursday = () => (store.userData.thursday = savedThursday.value)
-    const updateFriday = () => (store.userData.friday = savedFriday.value)
-    const updateSaturday = () => (store.userData.saturday = savedSaturday.value)
-    const updateSunday = () => (store.userData.sunday = savedSunday.value)
-    const updatePhone = () => (store.userData.phone = savedPhone.value)
-
+    // Inputs write straight into the persisted profile, so every change is saved as you type.
+    const userData = toRef(store, 'userData')
+    const isLoading = computed(() => store.loading)
 
     /**
-     * Just disables the save button while the store state is completed
-     * @returns {Promise<void>}
+     * Data is already saved; this just gives the button some visual feedback.
      */
     const saveFields = () => {
         store.loading = true
-        setTimeout(async () => {
-            updateState({
-                userData: {
-                    internalRank: savedInternalRank.value,
-                    name: savedName.value,
-                    rank: savedRank.value,
-                    signature: savedSignature.value,
-                    monday: savedMonday.value,
-                    tuesday: savedTuesday.value,
-                    wednesday: savedWednesday.value,
-                    thursday: savedThursday.value,
-                    friday: savedFriday.value,
-                    saturday: savedSaturday.value,
-                    sunday: savedSunday.value,
-                    phone: savedPhone.value,
-                },
-            })
-            store.loading = false
-        }, 500)
+        setTimeout(() => (store.loading = false), 500)
     }
 </script>
 
@@ -99,32 +36,26 @@
                     <div :class="columnWrapper">
                         <fieldset :class="thirdLeftColumn">
                             <FwbInput
-                                v-model="savedName"
+                                v-model="userData.name"
                                 placeholder="FName LName"
                                 label="Your name"
                                 size="md"
-                                @keydown.enter="updateName"
-                                @focusout="updateName"
                             />
                         </fieldset>
                         <fieldset :class="thirdMiddleColumn">
                             <FwbInput
-                                v-model="savedRank"
+                                v-model="userData.rank"
                                 placeholder="Department Rank"
                                 label="Your Rank"
                                 size="md"
-                                @keydown.enter="updateRank"
-                                @focusout="updateRank"
                             />
                         </fieldset>
                         <fieldset :class="thirdRightColumn">
                             <FwbInput
-                                v-model="savedInternalRank"
+                                v-model="userData.internalRank"
                                 placeholder="Doctor"
                                 label="AMU Rank"
                                 size="md"
-                                @keydown.enter="updateInternalRank"
-                                @focusout="updateInternalRank"
                             />
                         </fieldset>
                     </div>
@@ -132,22 +63,20 @@
                     <div :class="columnWrapper">
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
-                                v-model="savedSignature"
+                                v-model="userData.signature"
                                 label="Signature Url"
                                 size="md"
-                                @keydown.enter="updateSignature"
-                                @focusout="updateSignature"
                             />
                         </fieldset>
                         <fieldset
-                             v-if="savedSignature"
+                             v-if="userData.signature"
                             :class="halfRightColumn"
                         >
                             <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your saved signature</p>
                             <div class="bg-white w-full p-4">
                                 <img
                                     class="mx-auto"
-                                    :src="savedSignature"
+                                    :src="userData.signature"
                                     alt="Signature Image"
                                 />
                             </div>
@@ -158,118 +87,99 @@
                         <h3 class="mb-4 w-full">Leave empty for no availability</h3>
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
-                                v-model="savedMonday"
+                                v-model="userData.monday"
                                 placeholder="01:00 - 22:00"
                                 label="Monday"
                                 size="md"
-                                @keydown.enter="updateMonday"
-                                @focusout="updateMonday"
                             />
                         </fieldset>
 
                         <fieldset :class="halfRightColumn">
                             <FwbInput
-                                v-model="savedTuesday"
+                                v-model="userData.tuesday"
                                 placeholder="01:00 - 22:00"
                                 label="Tuesday"
                                 size="md"
-                                @keydown.enter="updateTuesday"
-                                @focusout="updateTuesday"
                             />
                         </fieldset>
 
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
-                                v-model="savedWednesday"
+                                v-model="userData.wednesday"
                                 placeholder="01:00 - 22:00"
                                 label="Wednesday"
                                 size="md"
-                                @keydown.enter="updateWednesday"
-                                @focusout="updateWednesday"
                             />
 
                         </fieldset>
 
                         <fieldset :class="halfRightColumn">
                             <FwbInput
-                                v-model="savedThursday"
+                                v-model="userData.thursday"
                                 placeholder="01:00 - 22:00"
                                 label="Thursday"
                                 size="md"
-                                @keydown.enter="updateThursday"
-                                @focusout="updateThursday"
                             />
                         </fieldset>
 
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
-                                v-model="savedFriday"
+                                v-model="userData.friday"
                                 placeholder="01:00 - 22:00"
                                 label="Friday"
                                 size="md"
-                                @keydown.enter="updateFriday"
-                                @focusout="updateFriday"
                             />
                         </fieldset>
 
                         <fieldset :class="halfRightColumn">
                             <FwbInput
-                                v-model="savedSaturday"
+                                v-model="userData.saturday"
                                 placeholder="01:00 - 22:00"
                                 label="Saturday"
                                 size="md"
-                                @keydown.enter="updateSaturday"
-                                @focusout="updateSaturday"
                             />
                         </fieldset>
 
                         <fieldset :class="halfLeftColumn">
                             <FwbInput
-                                v-model="savedSunday"
+                                v-model="userData.sunday"
                                 placeholder="01:00 - 22:00"
                                 label="Sunday"
                                 size="md"
-                                @keydown.enter="updateSunday"
-                                @focusout="updateSunday"
                             />
                         </fieldset>
 
                         <fieldset :class="halfRightColumn">
                             <FwbInput
-                                v-model="savedPhone"
+                                v-model="userData.phone"
                                 placeholder="5555555"
                                 label="Phone Number"
                                 size="md"
-                                @keydown.enter="updatePhone"
-                                @focusout="updatePhone"
                             />
                         </fieldset>
                     </div>
                 </div>
 
-
                 <div class="sm:mx-auto sm:w-full sm:max-w-sm">
                     <fieldset class="my-8">
-                        <fwb-button
+                        <FwbButton
                             v-if="isLoading"
                             disabled
                             color="alternative"
                             size="lg"
                         >
-                            {{ savingText }}
-                        </fwb-button>
-                        <fwb-button
+                            Saving Data
+                        </FwbButton>
+                        <FwbButton
                             v-else
                             size="lg"
                             @click="saveFields"
                         >
-                            {{ buttonText }}
-                        </fwb-button>
+                            Save Data
+                        </FwbButton>
                     </fieldset>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
-<style scoped lang="scss"></style>
