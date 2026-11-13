@@ -1,6 +1,6 @@
 <script setup>
     import logoWebp from '@asset/images/amu-logo.webp'
-    import logoPng from '@asset/images/amu-logo.png'
+    import logoPng from '@asset/images/amu-logo-300.png'
 </script>
 
 <template>
