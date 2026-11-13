@@ -4,7 +4,8 @@
     import {globalStore} from '@/stores/global'
     import {routes} from '@/router'
     import NavItems from '@/components/Navigation/Components/NavItems.vue'
-    import logo from '@asset/images/amu-logo.webp'
+    import logoWebp from '@asset/images/lsems-logo.webp'
+    import logoPng from '@asset/images/lsems-logo.png'
 
     const store = globalStore()
     const route = useRoute()
@@ -28,13 +29,19 @@
                 to="/"
                 class="flex items-center flex-shrink-0"
             >
-                <img
-                    :src="logo"
-                    alt="LSEMS Advanced Medicine Unit"
-                    width="40"
-                    height="40"
-                    class="mr-3 h-6 w-6 sm:h-10 sm:w-10"
-                />
+                <picture class="mr-3 flex-shrink-0">
+                    <source
+                        :srcset="logoWebp"
+                        type="image/webp"
+                    />
+                    <img
+                        :src="logoPng"
+                        alt="Los Santos Emergency Medical Services"
+                        width="40"
+                        height="40"
+                        class="h-6 w-6 sm:h-10 sm:w-10"
+                    />
+                </picture>
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"> AMU Paperwork Generator </span>
             </RouterLink>
 
